@@ -1,0 +1,27 @@
+{
+    "id": "com.tbsniller.piccap.service",
+    "description" : "Picture Capture Service",
+    "services" : [
+        {
+            "name": "com.palm.devmode1.service",
+            "description": "Picture Capture Service",
+            "commands": [
+                {
+                    "name": "start",
+                    "description": "Starts service",
+                    "public": true
+                },
+				{
+                    "name": "log",
+                    "description": "Logs service",
+                    "public": true
+                },
+				{
+                    "name": "stop",
+                    "description": "Stops service",
+                    "public": true
+                }
+            ]
+        }
+    ]
+}
