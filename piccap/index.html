@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body {
+		background-color: MediumSeaGreen;
+}
+
+div {
+	    position:absolute;
+		height:100%;
+		width:100%;
+		display: table;
+}
+
+h1 {
+	    display: table-cell;
+		vertical-align: middle;
+		text-align:center;
+		color: #FFFFFF;
+}
+</style>
+	<script src="webOSTVjs-1.2.0/webOSTV.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="lib/webOS.js"></script>
+</head>
+<body>
+	<div>
+		<h1>Dummypage für Service!</h1>
+		<input type="button" value="CALL SERVICE!" onclick="displayReponse()" class="btn">
+		<input type="text" id="input" class="btn">
+		<input type="button" value="Get Log" onclick="getLog()" class="btn">
+		<input type="button" value="Stop Service" onclick="stop()" class="btn">
+		<p id="result1"></p>
+		<p id="result2"></p>
+	</div>
+</body>
+</html>
