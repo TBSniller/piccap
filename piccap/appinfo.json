@@ -1,0 +1,10 @@
+{
+  "id": "com.tbsniller.piccap",
+  "version": "0.0.5",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "Picture Capture",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png"
+}
