@@ -1,4 +1,4 @@
-function displayReponse()
+function start()
 {
     var tmp = document.getElementById("input").value;
     var request = webOS.service.request("luna://com.tbsniller.piccap.service/", {
