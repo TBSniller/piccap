@@ -5,6 +5,8 @@
 //  Open:
 //    http://TV:4444
 //    http://TV:4444/?format=JPEG&width=256&height=144
+//  Initial: JohnPaul (https://github.com/Informatic) // https://gist.github.com/Informatic/184f4d113996fce6961fc5a5ba9b09b6
+// /?format=JPEG&width=240&height=135&method=SCREEN - smallest call
 
 var Service = require("webos-service");
 var http = require("http");
@@ -15,10 +17,7 @@ var logvar = "Starting log! \n";
 var svc = new Service("com.tbsniller.piccap.service");
 
 
-function capture(res, method, w, h, format, stats) {
-  if (!stats) {
-    stats = { cnt: 0, start: Date.now() };
-  }
+function capture(res, method, w, h, format) {
   var path = "/tmp/capture_" + Date.now() + ".jpg";
   svc.call(
     "luna://com.webos.service.capture/executeOneShot",
@@ -30,7 +29,7 @@ function capture(res, method, w, h, format, stats) {
       height: h,
     },
     function (result) {
-		logvar += JSON.stringify(result.payload) + "\n";
+		logvar = JSON.stringify(result.payload) + "\n";
         fs.readFile(path, function (err, data) {
         if (err) {
           res.end();
@@ -43,16 +42,7 @@ function capture(res, method, w, h, format, stats) {
             res.write("\r\n");
             res.write(data, "binary");
             res.write("\r\n");
-            stats.cnt += 1;
-            if (stats.cnt == 60) {
-              console.info(
-                "Framerate:",
-                stats.cnt / ((Date.now() - stats.start) / 1000.0)
-              );
-              stats.cnt = 0;
-              stats.start = Date.now();
-            }
-            capture(res, method, w, h, format, stats);
+            capture(res, method, w, h, format);
           }
         }
       });
@@ -71,7 +61,6 @@ var server = http.createServer(function (req, res) {
     res.end();
   });
   var parsed = url.parse(req.url, true);
-  console.info(parsed);
   capture(
     res,
     parsed.query.method || "GRAPHIC",
@@ -88,7 +77,6 @@ svc.register("start", function(message) {
 	message.respond({
 		data: "Listening on :4444"
 	});
-	logvar += "Starting bruh! \n";
 	svc.activityManager.create("keepAlive", function(activity) {
 		keepAlive = activity; 
 	});
