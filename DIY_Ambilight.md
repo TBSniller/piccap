@@ -10,13 +10,14 @@
 - Datacable (I recommend these, if you have a long way from TV to Pi, because they are shieded: https://www.amazon.de/Busleitung-Datenleitung-Datenkabel-Installationsbusleitung-Telekommunikationskabel/dp/B071W5TQPY/ otherwise use the next one cables)
 - Power cables (LED | Like: https://www.amazon.de/WITTKOWARE-Sortiment-Schaltdr%C3%A4hte-5mm-10m/dp/B075V79HGF/)
 
-##Hardware##
 
-####TV preparing####
+##Hardware
+
+TV preparing
 
 1. Measure up each side of your TV and cut the stripe at the edges.
 2. There are arrows under the sticky tape. Make sure all of them are looking in the same direction: -> -> not -><-. Data and clock cannot flow if they do not go in one direction.
-![IMG_20210518_183139](https://user-images.githubusercontent.com/51515147/118692431-5b8bbb80-b80a-11eb-9ab2-ab001b5cee96.jpg)
+![IMG_20210518_183139](https://user-images.githubusercontent.com/51515147/118692431-5b8bbb80-b80a-11eb-9ab2-ab001b5cee96.jpg  | width=100)
 
 3. Tape them on your TV. You have two options. Begin your input stripe in one of the corners, or let it begin anywhere. You can set it later in the settings of hyperion.
 ![IMG_20210518_183340](https://user-images.githubusercontent.com/51515147/118692535-79592080-b80a-11eb-926d-e5fd76c859a3.jpg)
