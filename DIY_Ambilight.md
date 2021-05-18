@@ -1,4 +1,4 @@
-## Requirements (Maybe differs for your country)##
+## Requirements (Maybe differs for your country)
 
 - Raspberrry Pi 3 or 4 + Stuff (MicroSD, Power, maybe a Case,..)
 - 5V 8A Power Source (I am using this: https://www.amazon.de/borui-uk-Netzteil-MeanWell-LPV-60-5-Schaltnetzteil/dp/B017U7JGGY)
