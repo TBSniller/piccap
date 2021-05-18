@@ -8,7 +8,8 @@
 - Few Wagos (Like: https://www.amazon.de/Wago-Verbindungsklemme-221-413-50-St%C3%BCck/dp/B00JB3U9CG)
 - Soldering iron and solder
 - Datacable (I recommend these, if you have a long way from TV to Pi, because they are shieded: https://www.amazon.de/Busleitung-Datenleitung-Datenkabel-Installationsbusleitung-Telekommunikationskabel/dp/B071W5TQPY/ otherwise use the next one cables)
-- Power cables (LED | Like: https://www.amazon.de/WITTKOWARE-Sortiment-Schaltdr%C3%A4hte-5mm-10m/dp/B075V79HGF/)
+- Power cables (LED | Like: https://www.amazon.de/WITTKOWARE-Sortiment-Schaltdr%C3%A4hte-5mm-10m/dp/B075V79HGF/) -
+
 
 ##Hardware
 
