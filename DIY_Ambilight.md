@@ -13,13 +13,16 @@
 ##Hardware
 
 ####TV preparing
+
 1. Measure up each side of your TV and cut the stripe at the edges.
 2. There are arrows under the sticky tape. Make sure all of them are looking in the same direction: -> -> not -><-. Data and clock cannot flow if they do not go in one direction.
 3. Tape them on your TV. You have two options. Begin your input stripe in one of the corners, or let it begin anywhere. You can set it later in the settings of hyperion.
 4. Use your soldering iron and powercables to connect the corners. You also have to connect (!!ONLY!!) GND and V+ with the end and the beginning of your stripe, to prevent powerloss over a long ledstripe.
 You can also use some edge connectors (like: https://www.amazon.de/dp/B08C2M18XF), but in this case they are a way to small and you have to cut them a bit (Trust me you would not do this.. took me 4 hours to get this sh\*\* working).
+5. Get your datacable or another powercables ready. Connect them to CLK(CK) and SI(DI) on your input stripe. They have to be as long, as your way to your Pi is. After that you can use the jumpercables to solder one end with the ledstripe cable and use the other end as GPIO connector.
 
 ####Power source preparing
+
 --MAKE SURE YOU KNOW WHAT YOU ARE DOING! IF NOT ASK AN ELECTRICAN! THIS EXAMPLE IS FOR GERMANY!! --
 
 1. Get your power source, the Wagos, a old powercode and connect it together:
@@ -32,3 +35,6 @@ You can also use some edge connectors (like: https://www.amazon.de/dp/B08C2M18XF
 3. Connect CLK(CK) of your input stripe with Pin 23
 4. Connect SI(DI) of your input stripe with Pin 19
 Here is a very nice picture, how to look after all: https://digitalewelt.at/wp-content/uploads/2018/02/Ambilight-Projekt-Verkabelung-LED-Netzteil.jpg
+
+##Software
+Installation and usage guide: https://docs.hyperion-project.org/en/user/Installation.html#requirements
