@@ -1,7 +1,7 @@
 # PicCap - Hyperion Sender App
 
 ### Hyperion?
-Hyperion is basicly a server service which is running on for example a Raspberry Pi connecting to LED stripes to get an ambilight like Philipps TVs have. Here is a simple HowTo-Build tutorial: https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md
+Hyperion is basicly a server service which is running on for example a Raspberry Pi connecting to LED stripes to get an ambilight like Philipps TVs have. The main page of this project: https://github.com/hyperion-project/hyperion.ng Here is a simple HowTo-Build tutorial: https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md
 
 ### What is this? 
 The main idea of this is, to have a simple frontend app with autostart feature for the hyperion-webos executable firstly developed by mariotaku here: https://github.com/webosbrew/hyperion-webos and also ported to newer TVs here: https://github.com/TBSniller/hyperion-webos  
