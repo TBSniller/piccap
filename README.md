@@ -6,6 +6,7 @@ Hyperion is basicly a server service which is running on for example a Raspberry
 ### What is this? 
 The main idea of this is, to have a simple frontend app with autostart feature for the hyperion-webos executable firstly developed by mariotaku here: https://github.com/webosbrew/hyperion-webos and also ported to newer TVs here: https://github.com/TBSniller/hyperion-webos  
 
+I'm not a real programmer and all this stuff is really new to me. The only reason this exists, is because I just badly wanted it for any cost. Feel free to create an issue or pull request if you can make things better.  
 This app is still in very early untested development.  
 
 I think a picture describes what's working and not the best:
