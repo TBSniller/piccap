@@ -1,6 +1,6 @@
 #!/bin/bash
 
-hypersion_libvt=$(pidof hyperion-webos_libvt)
+hyperion_libvt=$(pidof hyperion-webos_libvt)
 hyperion_libvtcapture=$(pidof hyperion-webos_libvtcapture)
 
 if [[ "$hyperion_libvtcapture" != "" ]]; then
