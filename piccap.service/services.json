@@ -1,27 +1,58 @@
 {
-    "id": "com.tbsniller.piccap.service",
+    "id": "org.webosbrew.piccap.service",
     "description" : "Picture Capture Service",
     "services" : [
         {
-            "name": "com.palm.devmode1.service",
+            "name": "org.webosbrew.piccap.service",
             "description": "Picture Capture Service",
             "commands": [
+				{
+                    "name": "save",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "setSettings",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "getSettings",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "isStarted",
+                    "description": "ele stuff",
+                    "public": true
+                },
                 {
                     "name": "start",
-                    "description": "Starts service",
+                    "description": "ele stuff",
                     "public": true
                 },
-				{
-                    "name": "log",
-                    "description": "Logs service",
-                    "public": true
-                },
-				{
+                {
                     "name": "stop",
-                    "description": "Stops service",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "resetSettings",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "isRoot",
+                    "description": "ele stuff",
+                    "public": true
+                },
+                {
+                    "name": "setCapturePerms",
+                    "description": "ele stuff",
                     "public": true
                 }
             ]
         }
-    ]
+    ],
+    "version": "0.0.7"
 }

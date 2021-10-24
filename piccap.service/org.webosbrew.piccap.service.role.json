@@ -1,0 +1,27 @@
+{
+    "exeName":"/media/developer/apps/usr/palm/services/org.webosbrew.piccap.service/hyperion-webos_libvtcapture",
+    "type":"regular",
+    "allowedNames":["com.webos.service.capture*", "com.webos.service.capture.client*", "com.webos.rm.client*", "com.webos.service.capturepermission", "*"],
+    "permissions": [
+        {
+            "service":"com.webos.service.capture*",
+            "outbound":["*"]
+        },
+        {
+            "service":"com.webos.service.capture.client*",
+            "outbound":["*"]
+        },
+        {
+            "service":"com.webos.rm.client*",
+            "outbound":["com.webos.service.capturepermission"]
+        },
+        {
+            "service":"com.webos.service.capturepermission*",
+            "outbound":["*"]
+        },
+        {
+            "service":"*",
+            "outbound":["*"]
+        }
+        ]
+}
