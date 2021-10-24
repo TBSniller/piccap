@@ -84,4 +84,5 @@ Love to JohnPaul https://github.com/Informatic
 Love to OpenLG-Discord https://discord.gg/9sqAgHVRhP  
 All this wouldn't be possible without them!
 
-Design easily created with https://nicepage.com/html-website-builder
+Obvously WebOS SDK from LG https://webostv.developer.lge.com/sdk/installation/download-installer/
+Application design easily created with https://nicepage.com/html-website-builder
