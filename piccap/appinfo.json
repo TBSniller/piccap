@@ -1,10 +1,15 @@
 {
   "id": "org.webosbrew.piccap",
   "version": "0.0.7",
-  "vendor": "My Company",
+  "vendor": "Homebrew",
   "type": "web",
   "main": "index.html",
-  "title": "PicCap - Hyperion Sender App",
-  "icon": "icon.png",
-  "largeIcon": "largeIcon.png"
+  "title": "PicCap",
+  "appDescription": "Hyperion Sender App - Ambilight for WebOS",
+  "icon": "logo_small.png",
+  "largeIcon": "logo_big.png",
+  "splashBackground": "splash_1080p.png",
+  "bgImage": "splash_1080p.png",
+  "iconColor": "black",
+  "supportGIP": true
 }
