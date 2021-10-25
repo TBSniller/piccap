@@ -375,6 +375,13 @@ async function hyperionstart(){
   var execparameter = " -a " + ip + " -p " + port + " -x " + width + " -y " + height;
   var hbcapturestartcmd = libvtpath + execparameter;
 
+  if (videocapture == "0"){
+    execparameter = execparameter + " -V";
+  }
+  if (graphiccapture == "0"){
+    execparameter = execparameter + " -G";
+  }
+
   if (lib == "new") {
     hbcapturestartcmd = libvtcapturepath + execparameter;
   }
