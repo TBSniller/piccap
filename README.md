@@ -1,4 +1,4 @@
-# PicCap - Hyperion Sender App
+# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs
 
 ### Hyperion?
 Hyperion is basicly a server service which is running on for example a Raspberry Pi connecting to LED stripes to get an ambilight like Philipps TVs have. The main page of this project: https://github.com/hyperion-project/hyperion.ng Here is a simple HowTo-Build tutorial: https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md
