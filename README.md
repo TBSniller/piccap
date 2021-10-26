@@ -63,6 +63,9 @@ Then using ares:
 Or manually:  
 Copy to TV:  
 `scp /home/USER/downloads/org.webosbrew.piccap_0.0.7_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.0.7_all.ipk`  
+or download:  
+`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.0.7_all.ipk` 
+  
 And installing on TV using:   
 ` luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.p
 iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.0.7_all.ipk","subscribe":true}'`  
