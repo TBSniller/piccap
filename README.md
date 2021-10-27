@@ -52,7 +52,8 @@ You can also find some information about these librarys here: https://github.com
 Simply fill in your parameters and press save. The configuration files will then be saved to `/var/luna/preferences/` and reloaded to the application.  
 Simply press start after the application ended loading (~30 secounds after start).   
 
-The start delay timer is needed on newer TVs, because the executeable acutally doesn't check for a running video. Hyperion-WebOS for newer TVs can only run, if there is a video playing. So the steps would be: Set it to 30 secounds, click start and go to an app which is playing a video (eg. YouTube/Twitch or TV). If you don't play a video in this 30 secounds, Hyperion-WebOS will fail to start.  
+~~The start delay timer is needed on newer TVs, because the executeable acutally doesn't check for a running video. Hyperion-WebOS for newer TVs can only run, if there is a video playing. So the steps would be: Set it to 30 secounds, click start and go to an app which is playing a video (eg. YouTube/Twitch or TV). If you don't play a video in this 30 secounds, Hyperion-WebOS will fail to start.~~  
+This shouldn't be needed anymore. Just set the delay to 1 secound until I will remove it..  
 
 ### How to install
 Download the ipk from releases or build it all yourself.  
