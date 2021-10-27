@@ -75,8 +75,8 @@ iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.0.8_all.ipk","subscribe":true}'`
 
 ### How to build
 Put both compiled versions of hyperion-webos versions in service folder.  
-libvt (https://github.com/webosbrew/hyperion-webos): `piccap.service/hyperion-webos_libvt`  
-libvtcapture (https://github.com/TBSniller/hyperion-webos): `piccap.service/hyperion-webos_libvtcapture`  
+libvt (https://github.com/webosbrew/hyperion-webos): `service/piccap.service/hyperion-webos_libvt`  
+libvtcapture (https://github.com/TBSniller/hyperion-webos): `service/piccap.service/hyperion-webos_libvtcapture`  
 `mkdir build`  
 `cd service`  
 `npm install`  
