@@ -98,6 +98,11 @@ async function startup(){
       console.log("HBChannel exec returns: " + message.payload.stdoutString);
       running = true;
     });
+    console.log("Also assuming first start. Copy autostart script to HBChannel-init.d...");
+    service.call("luna://org.webosbrew.hbchannel.service/exec", {"command":"mkdir -p /var/lib/webosbrew/init.d; cp /media/developer/apps/usr/palm/services/org.webosbrew.piccap.service/piccap_autostart.sh /var/lib/webosbrew/init.d/piccap_autostart.sh; chmod +x /var/lib/webosbrew/init.d/piccap_autostart.sh"}, function(message) {
+      console.log("HBChannel exec returns: " + message.payload.stdoutString);
+      running = true;
+    });
   }else{
     console.log("Service is running as root!");
   }
