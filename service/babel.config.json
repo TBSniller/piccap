@@ -1,0 +1,17 @@
+{
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ],
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "0.10"
+                },
+                "useBuiltIns": "entry",
+                "corejs": "3.0"
+            }
+        ]
+    ]
+}

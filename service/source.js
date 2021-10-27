@@ -29,15 +29,14 @@ const pkgInfo = require('./package.json');
 const Service = require('webos-service');
 const service = new Service(pkgInfo.name);
 
+const regeneratorRuntime = require("regenerator-runtime");
 const fsSync = require('fs');
-const {promisify} = require("util");
+const {Promise} = require('bluebird');
 
-const fs = {
-  readFile: promisify(fsSync.readFile),
-  writeFile: promisify(fsSync.writeFile),
-  unlinkFile: promisify(fsSync.unlink),
-  accessFile: promisify(fsSync.access)
-};
+const readFile = Promise.promisify(fsSync.readFile);
+const writeFile = Promise.promisify(fsSync.writeFile);
+const unlinkFile = Promise.promisify(fsSync.unlink);
+const accessFile = Promise.promisify(fsSync.access);
 
 //Default settings
 let dip = "192.168.178.2";
@@ -168,7 +167,7 @@ async function flagRead(flag) {
     return "flagnotfound";
   }
   try{
-    fread = await fs.readFile(flagPath(flag), "utf-8");
+    fread = await readFile(flagPath(flag), "utf-8");
   } catch(e) {
     fread = "filenotfound"
   }
@@ -181,7 +180,7 @@ async function flagSave(flag, data) {
     return "flagnotfound";
   }
   try{
-    await fs.writeFile(fsave, data, "utf-8");
+    await writeFile(fsave, data, "utf-8");
     fsave = "ok";
   } catch(e) {
     console.log(e);
@@ -196,7 +195,7 @@ async function flagUnlink(flag) {
     return "flagnotfound";
   }
   try{
-    await fs.unlinkFile(funlink);
+    await unlinkFile(funlink);
     funlink = "ok"
   } catch(e) {
     funlink = e;
@@ -480,7 +479,7 @@ async function getCapturePermsStatus(){
   console.log("Try to get permission status. Checking file existence of /usr/share/luna-service2/roles.d/org.webosbrew.piccap.service.role.json ..");
 
   try{
-    await fs.accessFile("/usr/share/luna-service2/roles.d/org.webosbrew.piccap.service.role.json", fsSync.constants.F_OK);
+    await accessFile("/usr/share/luna-service2/roles.d/org.webosbrew.piccap.service.role.json", fsSync.constants.F_OK);
   } catch(e) {
     hasCapturePerms = false;
     console.log("/usr/share/luna-service2/roles.d/org.webosbrew.piccap.service.role.json not found. Assuming permissions not enforced. Error: " + e);
@@ -496,14 +495,14 @@ async function areCapturePermsNeeded(){
   console.log("Trying to get info about library. Checking file existence of /usr/lib/libvtcapture.so.1 or /usr/lib/libvtcapture.so.1.0.0 ..");
 
   try{
-    await fs.accessFile("/usr/lib/libvtcapture.so.1", fsSync.constants.F_OK);
+    await accessFile("/usr/lib/libvtcapture.so.1", fsSync.constants.F_OK);
   } catch(e) {
     found1 = false;
     console.log("/usr/lib/libvtcapture.so.1 not found. Error: " + e);
   }
 
   try{
-    await fs.accessFile("/usr/lib/libvtcapture.so.1.0.0", fsSync.constants.F_OK);
+    await accessFile("/usr/lib/libvtcapture.so.1.0.0", fsSync.constants.F_OK);
   } catch(e) {
     found2 = false;
     console.log("/usr/lib/libvtcapture.so.1.0.0 not found. Error: " + e);

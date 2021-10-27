@@ -1,2 +1,3 @@
 build
 .vscode
+service/node_modules
