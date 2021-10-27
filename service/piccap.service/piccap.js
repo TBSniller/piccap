@@ -6923,7 +6923,7 @@ module.exports = require("fs");
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"org.webosbrew.piccap.service","version":"0.0.7","description":"PicCap Service","main":"piccap.js","scripts":{"test":"echo \\"Error: no test specified\\" && exit 1","build":"babel . -d lib","build-web":"webpack"},"author":"","license":"UNLICENSED","dependencies":{"@babel/preset-env":"^7.15.8","@babel/runtime-corejs3":"^7.15.4","bluebird":"^3.7.2"},"devDependencies":{"@babel/cli":"^7.15.7","@babel/core":"^7.15.8","@babel/plugin-transform-runtime":"^7.15.8","babel-loader":"^8.2.3","babel-plugin-transform-util-promisify":"^0.2.2","webpack":"^5.60.0","webpack-cli":"^4.9.1"}}');
+module.exports = JSON.parse('{"name":"org.webosbrew.piccap.service","version":"0.0.8","description":"PicCap Service","main":"piccap.js","scripts":{"test":"echo \\"Error: no test specified\\" && exit 1","build":"webpack"},"author":"","license":"UNLICENSED","dependencies":{"@babel/preset-env":"^7.15.8","@babel/runtime-corejs3":"^7.15.4","bluebird":"^3.7.2"},"devDependencies":{"@babel/cli":"^7.15.7","@babel/core":"^7.15.8","@babel/plugin-transform-runtime":"^7.15.8","babel-loader":"^8.2.3","babel-plugin-transform-util-promisify":"^0.2.2","webpack":"^5.60.0","webpack-cli":"^4.9.1"}}');
 
 /***/ })
 
@@ -7114,6 +7114,13 @@ function _startup() {
               console.log("Not running as root. Trying to evaluate using HBChannel..");
               service.call("luna://org.webosbrew.hbchannel.service/exec", {
                 "command": "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap.service"
+              }, function (message) {
+                console.log("HBChannel exec returns: " + message.payload.stdoutString);
+                running = true;
+              });
+              console.log("Also assuming first start. Copy autostart script to HBChannel-init.d...");
+              service.call("luna://org.webosbrew.hbchannel.service/exec", {
+                "command": "mkdir -p /var/lib/webosbrew/init.d; cp /media/developer/apps/usr/palm/services/org.webosbrew.piccap.service/piccapautostart /var/lib/webosbrew/init.d/piccapautostart; chmod +x /var/lib/webosbrew/init.d/piccapautostart"
               }, function (message) {
                 console.log("HBChannel exec returns: " + message.payload.stdoutString);
                 running = true;
@@ -7772,6 +7779,14 @@ function _hyperionstart() {
             execparameter = " -a " + ip + " -p " + port + " -x " + width + " -y " + height;
             hbcapturestartcmd = libvtpath + execparameter;
 
+            if (videocapture == "0") {
+              execparameter = execparameter + " -V";
+            }
+
+            if (graphiccapture == "0") {
+              execparameter = execparameter + " -G";
+            }
+
             if (lib == "new") {
               hbcapturestartcmd = libvtcapturepath + execparameter;
             }
@@ -7787,7 +7802,7 @@ function _hyperionstart() {
             started = true;
             console.log("Hyperion-WebOS start command fired!");
 
-          case 6:
+          case 8:
           case "end":
             return _context11.stop();
         }
