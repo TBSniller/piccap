@@ -58,17 +58,17 @@ The start delay timer is needed on newer TVs, because the executeable acutally d
 Download the ipk from releases or build it all yourself.  
 
 Then using ares:  
-`cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.0.7_all.ipk`  
+`cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.0.8_all.ipk`  
 
 Or manually:  
 Copy to TV:  
-`scp /home/USER/downloads/org.webosbrew.piccap_0.0.7_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.0.7_all.ipk`  
+`scp /home/USER/downloads/org.webosbrew.piccap_0.0.8_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.0.8_all.ipk`  
 or download:  
-`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.0.7_all.ipk` 
+`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.0.8_all.ipk` 
   
 And installing on TV using:   
 ` luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.p
-iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.0.7_all.ipk","subscribe":true}'`  
+iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.0.8_all.ipk","subscribe":true}'`  
 
 
 
@@ -77,7 +77,11 @@ Put both compiled versions of hyperion-webos versions in service folder.
 libvt (https://github.com/webosbrew/hyperion-webos): `piccap.service/hyperion-webos_libvt`  
 libvtcapture (https://github.com/TBSniller/hyperion-webos): `piccap.service/hyperion-webos_libvtcapture`  
 `mkdir build`  
-`ares-package ./piccap ./piccap.service -o build`  
+`cd service`  
+`npm install`  
+`npm run build`  
+`cd ..`  
+`ares-package ./piccap ./service/piccap.service -o build`  
 
 
 # Credits
