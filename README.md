@@ -1,4 +1,4 @@
-# PicCap - Hyperion Sender App
+# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs
 
 ### Hyperion?
 Hyperion is basicly a server service which is running on for example a Raspberry Pi connecting to LED stripes to get an ambilight like Philipps TVs have. The main page of this project: https://github.com/hyperion-project/hyperion.ng Here is a simple HowTo-Build tutorial: https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md
@@ -7,7 +7,7 @@ Hyperion is basicly a server service which is running on for example a Raspberry
 The main idea of this is, to have a simple frontend app with autostart feature for the hyperion-webos executable firstly developed by mariotaku here: https://github.com/webosbrew/hyperion-webos and also ported to newer TVs here: https://github.com/TBSniller/hyperion-webos  
 
 I'm not a real programmer and all this stuff is really new to me. The only reason this exists, is because I just badly wanted it for any cost. Feel free to create an issue or pull request if you can make things better.  
-This app is still in very early untested development.  
+**This app is still in very early untested development.**  
 
 I think a picture describes what's working and not the best:
 ![image](https://user-images.githubusercontent.com/51515147/138606355-29f7d43e-2e3c-495e-9f73-fe3b2e15ded5.png)  
@@ -63,6 +63,9 @@ Then using ares:
 Or manually:  
 Copy to TV:  
 `scp /home/USER/downloads/org.webosbrew.piccap_0.0.7_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.0.7_all.ipk`  
+or download:  
+`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.0.7_all.ipk` 
+  
 And installing on TV using:   
 ` luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.p
 iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.0.7_all.ipk","subscribe":true}'`  
