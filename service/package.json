@@ -5,8 +5,7 @@
   "main": "piccap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel . -d lib",
-    "build-web": "webpack"
+    "build": "webpack"
   },
   "author": "",
   "license": "UNLICENSED",
