@@ -100,7 +100,7 @@ function save(){
 
     ip = document.getElementById("ip").value;
     port = document.getElementById("port").value;
-    startdelay = document.getElementById("startdelay").value;
+    // startdelay = document.getElementById("startdelay").value;
     width = document.getElementById("width").value;
     height = document.getElementById("height").value;
     fps = document.getElementById("fps").value;
@@ -135,7 +135,7 @@ function save(){
         method: "setSettings",
         parameters: {ip: ip,
         port: port,
-        startdelay: startdelay,
+        // startdelay: startdelay,
         width: width,
         height: height,
         fps: fps,
@@ -243,7 +243,7 @@ async function makeSuccServiceLoad(resp){
     document.getElementById("servicestatus").innerHTML = resp.data;
     document.getElementById("ip").value = resp.ip;
     document.getElementById("port").value = resp.port;
-    document.getElementById("startdelay").value = resp.startdelay;
+//    document.getElementById("startdelay").value = resp.startdelay;
     document.getElementById("width").value = resp.width;
     document.getElementById("height").value = resp.height;
     document.getElementById("fps").value = resp.fps;
@@ -274,7 +274,7 @@ async function makeSuccServiceLoad(resp){
         document.getElementById("autostart").checked = false;
     }
 
-    console.log("Settings loaded successfully! Got the following settings: IP: " + resp.ip + " Port: " + resp.port + " Startdelay: " + resp.startdelay + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.lib + " Videocapture: " + resp.videocapture + " Graphiccapture: " + resp.graphiccapture + " Autostart: " + resp.autostart);
+    console.log("Settings loaded successfully! Got the following settings: IP: " + resp.ip + " Port: " + resp.port + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.lib + " Videocapture: " + resp.videocapture + " Graphiccapture: " + resp.graphiccapture + " Autostart: " + resp.autostart);
 }
  
 function sleep(ms) {

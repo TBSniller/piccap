@@ -41,7 +41,7 @@ const accessFile = Promise.promisify(fsSync.access);
 //Default settings
 let dip = "192.168.178.2";
 let dport = 19400;
-let dstartdelay = 30;
+// let dstartdelay = 30;
 let dwidth = 360;
 let dheight = 180;
 let dfps = 0;
@@ -53,7 +53,7 @@ let dautostart = 0;
 
 let ip;
 let port;
-let startdelay;
+// let startdelay;
 let width;
 let height;
 let fps;
@@ -65,7 +65,7 @@ let autostart;
 var availableFlags = {
     ip: 'piccap_ip',
     port: 'piccap_port',
-    startdelay: 'piccap_startdelay',
+    // startdelay: 'piccap_startdelay',
     width: 'piccap_capture_width',
     height: 'piccap_capture_height',
     fps: 'piccap_fps',
@@ -216,8 +216,8 @@ async function loadSettings() {
   port = await flagRead("port");
   if (port == "flagnotfound" || port == "filenotfound" || port == "undefined") port = dport;
   
-  startdelay = await flagRead("startdelay");
-  if (startdelay == "flagnotfound" || startdelay == "filenotfound" || startdelay == "undefined") startdelay = dstartdelay;
+  // startdelay = await flagRead("startdelay");
+  // if (startdelay == "flagnotfound" || startdelay == "filenotfound" || startdelay == "undefined") startdelay = dstartdelay;
   
   width = await flagRead("width");
   if (width == "flagnotfound" || width == "filenotfound" || width == "undefined") width = dwidth;
@@ -240,7 +240,7 @@ async function loadSettings() {
   autostart = await flagRead("autostart");
   if (autostart == "flagnotfound" || autostart == "filenotfound" || autostart == "undefined") autostart = dautostart;
 
-  console.log("IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+  console.log("IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
   setloaded = true;
 }
 
@@ -250,7 +250,7 @@ async function setSettings(message){
     //TODO: False value handling
     ip = message.payload.ip;
     port = message.payload.port;
-    startdelay = message.payload.startdelay;
+    // startdelay = message.payload.startdelay;
     width = message.payload.width;
     height = message.payload.height;
     fps = message.payload.fps;
@@ -259,7 +259,7 @@ async function setSettings(message){
     graphiccapture = message.payload.graphiccapture;
     autostart = message.payload.autostart;
   }
-  console.log("IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+  console.log("IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
   message.respond({
       returnValue: true,
       isSet: true,
@@ -284,11 +284,11 @@ async function saveSettings(message){
     error = "yes";
   } 
 
-  out = await flagSave("startdelay", startdelay);
-  if (out != "ok") {
-    console.log("Settingsfile startdelay failed to save. Error: " + out);
-    error = "yes";
-  }
+  // out = await flagSave("startdelay", startdelay);
+  // if (out != "ok") {
+  //   console.log("Settingsfile startdelay failed to save. Error: " + out);
+  //   error = "yes";
+  // }
 
   out = await flagSave("width", width);
   if (out != "ok") {
@@ -431,12 +431,12 @@ async function startService() {
     console.log("Service already started!");
     return;
   }
-  if (startdelay > 0){
-    console.log("Startdelay set to: " + startdelay + ". Waiting..");
-    var ttw = startdelay*1000;
-    await sleep(ttw);
-    console.log("Waiting for startdelay finished.");
-  }
+  // if (startdelay > 0){
+  //   console.log("Startdelay set to: " + startdelay + ". Waiting..");
+  //   var ttw = startdelay*1000;
+  //   await sleep(ttw);
+  //   console.log("Waiting for startdelay finished.");
+  // }
   await hyperionstart();
 }
 
@@ -619,7 +619,7 @@ service.register("getSettings", function(message) {
         returnValue: true,
         ip: ip,
         port: port,
-        startdelay: startdelay,
+        // startdelay: startdelay,
         width: width,
         height: height,
         fps: fps,
@@ -630,7 +630,7 @@ service.register("getSettings", function(message) {
         loaded: true,
         data: "Settings send!"
     });
-    console.log("Responding with following settings: IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+    console.log("Responding with following settings: IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
   }
 });
 

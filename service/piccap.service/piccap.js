@@ -6923,7 +6923,7 @@ module.exports = require("fs");
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"org.webosbrew.piccap.service","version":"0.0.8","description":"PicCap Service","main":"piccap.js","scripts":{"test":"echo \\"Error: no test specified\\" && exit 1","build":"webpack"},"author":"","license":"UNLICENSED","dependencies":{"@babel/preset-env":"^7.15.8","@babel/runtime-corejs3":"^7.15.4","bluebird":"^3.7.2"},"devDependencies":{"@babel/cli":"^7.15.7","@babel/core":"^7.15.8","@babel/plugin-transform-runtime":"^7.15.8","babel-loader":"^8.2.3","babel-plugin-transform-util-promisify":"^0.2.2","webpack":"^5.60.0","webpack-cli":"^4.9.1"}}');
+module.exports = JSON.parse('{"name":"org.webosbrew.piccap.service","version":"0.0.9","description":"PicCap Service","main":"piccap.js","scripts":{"test":"echo \\"Error: no test specified\\" && exit 1","build":"webpack"},"author":"","license":"UNLICENSED","dependencies":{"@babel/preset-env":"^7.15.8","@babel/runtime-corejs3":"^7.15.4","bluebird":"^3.7.2"},"devDependencies":{"@babel/cli":"^7.15.7","@babel/core":"^7.15.8","@babel/plugin-transform-runtime":"^7.15.8","babel-loader":"^8.2.3","babel-plugin-transform-util-promisify":"^0.2.2","webpack":"^5.60.0","webpack-cli":"^4.9.1"}}');
 
 /***/ })
 
@@ -7052,8 +7052,8 @@ var unlinkFile = Promise.promisify(fsSync.unlink);
 var accessFile = Promise.promisify(fsSync.access); //Default settings
 
 var dip = "192.168.178.2";
-var dport = 19400;
-var dstartdelay = 30;
+var dport = 19400; // let dstartdelay = 30;
+
 var dwidth = 360;
 var dheight = 180;
 var dfps = 0;
@@ -7063,8 +7063,8 @@ var dgraphiccapture = 1;
 var dautostart = 0; //
 
 var ip;
-var port;
-var startdelay;
+var port; // let startdelay;
+
 var width;
 var height;
 var fps;
@@ -7075,7 +7075,7 @@ var autostart;
 var availableFlags = {
   ip: 'piccap_ip',
   port: 'piccap_port',
-  startdelay: 'piccap_startdelay',
+  // startdelay: 'piccap_startdelay',
   width: 'piccap_capture_width',
   height: 'piccap_capture_height',
   fps: 'piccap_fps',
@@ -7448,59 +7448,55 @@ function _loadSettings() {
 
           case 7:
             port = _context7.sent;
-            if (port == "flagnotfound" || port == "filenotfound" || port == "undefined") port = dport;
-            _context7.next = 11;
-            return flagRead("startdelay");
+            if (port == "flagnotfound" || port == "filenotfound" || port == "undefined") port = dport; // startdelay = await flagRead("startdelay");
+            // if (startdelay == "flagnotfound" || startdelay == "filenotfound" || startdelay == "undefined") startdelay = dstartdelay;
 
-          case 11:
-            startdelay = _context7.sent;
-            if (startdelay == "flagnotfound" || startdelay == "filenotfound" || startdelay == "undefined") startdelay = dstartdelay;
-            _context7.next = 15;
+            _context7.next = 11;
             return flagRead("width");
 
-          case 15:
+          case 11:
             width = _context7.sent;
             if (width == "flagnotfound" || width == "filenotfound" || width == "undefined") width = dwidth;
-            _context7.next = 19;
+            _context7.next = 15;
             return flagRead("height");
 
-          case 19:
+          case 15:
             height = _context7.sent;
             if (height == "flagnotfound" || height == "filenotfound" || height == "undefined") height = dheight;
-            _context7.next = 23;
+            _context7.next = 19;
             return flagRead("fps");
 
-          case 23:
+          case 19:
             fps = _context7.sent;
             if (fps == "flagnotfound" || fps == "filenotfound" || fps == "undefined") fps = dfps;
-            _context7.next = 27;
+            _context7.next = 23;
             return flagRead("lib");
 
-          case 27:
+          case 23:
             lib = _context7.sent;
             if (lib == "flagnotfound" || lib == "filenotfound" || lib == "undefined") lib = dlib;
-            _context7.next = 31;
+            _context7.next = 27;
             return flagRead("videocapture");
 
-          case 31:
+          case 27:
             videocapture = _context7.sent;
             if (videocapture == "flagnotfound" || videocapture == "filenotfound" || videocapture == "undefined") videocapture = dvideocapture;
-            _context7.next = 35;
+            _context7.next = 31;
             return flagRead("graphiccapture");
 
-          case 35:
+          case 31:
             graphiccapture = _context7.sent;
             if (graphiccapture == "flagnotfound" || graphiccapture == "filenotfound" || graphiccapture == "undefined") graphiccapture = dgraphiccapture;
-            _context7.next = 39;
+            _context7.next = 35;
             return flagRead("autostart");
 
-          case 39:
+          case 35:
             autostart = _context7.sent;
             if (autostart == "flagnotfound" || autostart == "filenotfound" || autostart == "undefined") autostart = dautostart;
-            console.log("IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+            console.log("IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
             setloaded = true;
 
-          case 43:
+          case 39:
           case "end":
             return _context7.stop();
         }
@@ -7525,8 +7521,8 @@ function _setSettings() {
             if (message.payload) {
               //TODO: False value handling
               ip = message.payload.ip;
-              port = message.payload.port;
-              startdelay = message.payload.startdelay;
+              port = message.payload.port; // startdelay = message.payload.startdelay;
+
               width = message.payload.width;
               height = message.payload.height;
               fps = message.payload.fps;
@@ -7536,7 +7532,7 @@ function _setSettings() {
               autostart = message.payload.autostart;
             }
 
-            console.log("IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+            console.log("IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
             message.respond({
               returnValue: true,
               isSet: true,
@@ -7586,23 +7582,17 @@ function _saveSettings() {
             if (out != "ok") {
               console.log("Settingsfile port failed to save. Error: " + out);
               error = "yes";
-            }
+            } // out = await flagSave("startdelay", startdelay);
+            // if (out != "ok") {
+            //   console.log("Settingsfile startdelay failed to save. Error: " + out);
+            //   error = "yes";
+            // }
+
 
             _context9.next = 12;
-            return flagSave("startdelay", startdelay);
-
-          case 12:
-            out = _context9.sent;
-
-            if (out != "ok") {
-              console.log("Settingsfile startdelay failed to save. Error: " + out);
-              error = "yes";
-            }
-
-            _context9.next = 16;
             return flagSave("width", width);
 
-          case 16:
+          case 12:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7610,10 +7600,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 20;
+            _context9.next = 16;
             return flagSave("height", height);
 
-          case 20:
+          case 16:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7621,10 +7611,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 24;
+            _context9.next = 20;
             return flagSave("fps", fps);
 
-          case 24:
+          case 20:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7632,10 +7622,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 28;
+            _context9.next = 24;
             return flagSave("lib", lib);
 
-          case 28:
+          case 24:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7643,10 +7633,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 32;
+            _context9.next = 28;
             return flagSave("videocapture", videocapture);
 
-          case 32:
+          case 28:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7654,10 +7644,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 36;
+            _context9.next = 32;
             return flagSave("graphiccapture", graphiccapture);
 
-          case 36:
+          case 32:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7665,10 +7655,10 @@ function _saveSettings() {
               error = "yes";
             }
 
-            _context9.next = 40;
+            _context9.next = 36;
             return flagSave("autostart", autostart);
 
-          case 40:
+          case 36:
             out = _context9.sent;
 
             if (out != "ok") {
@@ -7677,7 +7667,7 @@ function _saveSettings() {
             }
 
             if (!(error == "yes")) {
-              _context9.next = 47;
+              _context9.next = 43;
               break;
             }
 
@@ -7687,13 +7677,13 @@ function _saveSettings() {
             });
             return _context9.abrupt("return");
 
-          case 47:
+          case 43:
             message.respond({
               returnValue: true,
               data: "Settings saved!"
             });
 
-          case 48:
+          case 44:
           case "end":
             return _context9.stop();
         }
@@ -7855,7 +7845,6 @@ function startService() {
 
 function _startService() {
   _startService = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-    var ttw;
     return regeneratorRuntime.wrap(function _callee13$(_context13) {
       while (1) {
         switch (_context13.prev = _context13.next) {
@@ -7873,24 +7862,10 @@ function _startService() {
             return _context13.abrupt("return");
 
           case 5:
-            if (!(startdelay > 0)) {
-              _context13.next = 11;
-              break;
-            }
-
-            console.log("Startdelay set to: " + startdelay + ". Waiting..");
-            ttw = startdelay * 1000;
-            _context13.next = 10;
-            return sleep(ttw);
-
-          case 10:
-            console.log("Waiting for startdelay finished.");
-
-          case 11:
-            _context13.next = 13;
+            _context13.next = 7;
             return hyperionstart();
 
-          case 13:
+          case 7:
           case "end":
             return _context13.stop();
         }
@@ -8272,7 +8247,7 @@ service.register("getSettings", function (message) {
       returnValue: true,
       ip: ip,
       port: port,
-      startdelay: startdelay,
+      // startdelay: startdelay,
       width: width,
       height: height,
       fps: fps,
@@ -8283,7 +8258,7 @@ service.register("getSettings", function (message) {
       loaded: true,
       data: "Settings send!"
     });
-    console.log("Responding with following settings: IP: " + ip + " Port: " + port + " Startdelay: " + startdelay + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
+    console.log("Responding with following settings: IP: " + ip + " Port: " + port + " Width: " + width + " Height: " + height + " FPS: " + fps + " Lib: " + lib + " Videocapture: " + videocapture + " Graphiccapture: " + graphiccapture + " Autostart: " + autostart);
   }
 });
 service.register("isStarted", function (message) {
