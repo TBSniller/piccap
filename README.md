@@ -12,7 +12,7 @@ I'm not a real programmer and all this stuff is really new to me. The only reaso
 I think a picture describes what's going on:
 ![image](https://user-images.githubusercontent.com/51515147/139295840-fd57d90d-8583-45e5-9284-04cedae2647e.png)
 
-## Not working
+### Not working
 Limiting FPS isn't working.  
 Libvt (old version) may not running on all TVs, if you get the status `capture running: true`, but Hyperion seems to be black, its an issue with the hyperion-webos_libvt binary and not this application.  
 
