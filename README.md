@@ -9,8 +9,12 @@ The main idea of this is, to have a simple frontend app with autostart feature f
 I'm not a real programmer and all this stuff is really new to me. The only reason this exists, is because I just badly wanted it for any cost. Feel free to create an issue or pull request if you can make things better.  
 **This app is still in very early development.**  
 
-I think a picture describes what's working and not the best:
-![image](https://user-images.githubusercontent.com/51515147/138606355-29f7d43e-2e3c-495e-9f73-fe3b2e15ded5.png)  
+I think a picture describes what's going on:
+![image](https://user-images.githubusercontent.com/51515147/139295840-fd57d90d-8583-45e5-9284-04cedae2647e.png)
+
+## Not working
+Limiting FPS isn't working.  
+Libvt (old version) may not running on all TVs, if you get the status `capture running: true`, but Hyperion seems to be black, its an issue with the hyperion-webos_libvt binary and not this application.  
 
 ### What do you need?
 At this time root is neccessary. You will also have the Homebrew Channel installed: https://github.com/webosbrew/webos-homebrew-channel  
