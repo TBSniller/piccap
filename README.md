@@ -15,6 +15,7 @@ I think a picture describes what's going on:
 ### Not working
 Limiting FPS isn't working.  
 Libvt (old version) may not running on all TVs, if you get the status `capture running: true`, but Hyperion seems to be black, its an issue with the hyperion-webos_libvt binary and not this application.  
+Libvt (old version) can cause HDMI flickering. To get rid from it again, the TV has to be fully rebooted.  
 
 ### What do you need?
 At this time root is neccessary. You will also have the Homebrew Channel installed: https://github.com/webosbrew/webos-homebrew-channel  
