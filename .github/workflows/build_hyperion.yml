@@ -86,10 +86,10 @@ jobs:
 
       - name: Copy native module
         run: |
-          rm ./service/piccap.service/hyperion-webos
+          rm ./service/piccap.service/hyperion-webos_libvt
           rm ./service/piccap.service/hyperion-webos_libvtcapture
           cp webos_libs/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
-          cp webos_libs/hyperion-webos ./service/piccap.service/hyperion-webos
+          cp webos_libs/hyperion-webos ./service/piccap.service/hyperion-webos_libvt
 
       - name: Package
         run: mkdir build && ares-package ./piccap ./service/piccap.service -o ./build
