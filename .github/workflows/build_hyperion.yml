@@ -42,9 +42,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: webos_libs
-        path: |
-          ${{github.workspace}}/hyperion-webos_libvtcapture/build/hyperion-webos_libvtcapture
-          ${{github.workspace}}/hyperion-webos/build/hyperion-webos
+        path: ${{github.workspace}}/hyperion-webos_libvtcapture/build/hyperion-webos_libvtcapture
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: webos_libs
+        path: ${{github.workspace}}/hyperion-webos/build/hyperion-webos
 
   build-piccap:
     runs-on: ubuntu-latest
@@ -82,8 +86,10 @@ jobs:
 
       - name: Copy native module
         run: |
-          cp webos_libs/hyperion-webos_libvtcapture/build/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
-          cp webos_libs/hyperion-webos/build/hyperion-webos ./service/piccap.service/hyperion-webos
+          rm ./service/piccap.service/hyperion-webos
+          rm ./service/piccap.service/hyperion-webos_libvtcapture
+          cp webos_libs/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
+          cp webos_libs/hyperion-webos ./service/piccap.service/hyperion-webos
 
       - name: Package
         run: mkdir build && ares-package ./piccap ./service/piccap.service -o ./build
