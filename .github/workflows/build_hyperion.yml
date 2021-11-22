@@ -82,8 +82,8 @@ jobs:
 
       - name: Copy native module
         run: |
-          cp webos_libs/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
-          cp webos_libs/hyperion-webos ./service/piccap.service/hyperion-webos
+          cp webos_libs/hyperion-webos_libvtcapture/build/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
+          cp webos_libs/hyperion-webos/build/hyperion-webos ./service/piccap.service/hyperion-webos
 
       - name: Package
         run: mkdir build && ares-package ./piccap ./service/piccap.service -o ./build
@@ -97,3 +97,9 @@ jobs:
           name: piccap_ipk
           path: |
             build/*.ipk
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./build/*.ipk
