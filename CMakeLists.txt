@@ -35,8 +35,6 @@ add_executable(hyperion-webos
 target_include_directories(hyperion-webos PRIVATE fbs)
 target_link_libraries(hyperion-webos flatccrt pthread dl ${GTHREAD2_LDFLAGS} ${PBNJSON_LDFLAGS} ${LS2_LDFLAGS} ${GLIB2_LDFLAGS} ${PMLOG_LDFLAGS})
 
-file(COPY ${CMAKE_SOURCE_DIR}/services.json DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
 # Backends
 add_library(vt_backend SHARED
     hyperion-webos/src/backends/libvt.c

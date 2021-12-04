@@ -1,0 +1,10 @@
+{
+    "id" : "org.webosbrew.piccap.native.service",
+    "description":"Native PicCap service",
+    "engine":"native",
+    "executable":"piccap_service",
+    "services": [{
+      "name": "org.webosbrew.piccap.native.service",
+      "description": "Native PicCap service"
+    }]
+  }
