@@ -6,7 +6,6 @@ add_subdirectory(hyperion-webos/flatccrt)
 
 find_package(PkgConfig REQUIRED)
 
-# ---
 # find required packages
 include(FindPkgConfig)
 
