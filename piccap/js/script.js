@@ -27,7 +27,7 @@ resetconf()		          - Btn Reset configuration
 */
 
 //default settings
-let ip = '192.168.178.2',
+var ip = '192.168.178.2',
 port = '19400',
 startdelay = '30',
 width = '360',
@@ -38,16 +38,17 @@ videocapture =  '1',
 graphiccapture = '0',
 autostart = '0';
 //
-let loadingcounter;
+var loadingcounter;
 startup();
 
-async function startup(){
-    console.log("Starting application.. Waiting for service getting ready..");
-    await sleep(7000);
+function startup(){
+  console.log("Starting application.. Waiting for service getting ready..");
+  setTimeout(function () {
     loadconf();
+  }, 3000);
 }
 
-async function setlibvtcaptureperms(){
+function setlibvtcaptureperms(){
     console.log("Trying to set libvtcapture permission files..");
     document.getElementById("servicestatus").innerHTML = "Setting permission..";
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
@@ -57,7 +58,7 @@ async function setlibvtcaptureperms(){
     });
 }
 
-async function resetconf(){
+function resetconf(){
     console.log("Resetting configuration.. Calling resetSettings from service.");
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
         method: "resetSettings",
@@ -227,8 +228,7 @@ function showSuccServiceSetPerms(resp){
     console.log("setlibvtcaptureperms successfully called!");
 }
 
-async function makeSuccServiceLoad(resp){
-    await sleep(1000);
+function makeSuccServiceLoad(resp){
     if (!resp.loaded || typeof resp.autostart === 'undefined'){ //|| Check if last possible var is set
         loadingcounter++;
         console.log("Service not fully loaded yet. loaded: " + resp.loaded + " Last var: " + resp.autostart + " Trying again... Trynumber: " + loadingcounter);
@@ -275,8 +275,4 @@ async function makeSuccServiceLoad(resp){
     }
 
     console.log("Settings loaded successfully! Got the following settings: IP: " + resp.ip + " Port: " + resp.port + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.lib + " Videocapture: " + resp.videocapture + " Graphiccapture: " + resp.graphiccapture + " Autostart: " + resp.autostart);
-}
- 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
