@@ -84,20 +84,26 @@
                       </div>
                       <div class="u-form-group u-form-radiobutton u-form-group-9">
                         <div class="u-form-radio-button-wrapper">
-                          <input id="radioold" type="radio" name="radiolib" value="radioold">
-                          <label class="u-label" for="radioold">Old TV (libvt + libgm)</label>
+                          <input id="radioauto" type="radio" name="radiolib" value="auto" checked="checked">
+                          <label class="u-label" for="radioauto">Detect backend automatically</label>
                           <br>
-                          <input id="radionew" type="radio" name="radiolib" value="radionew" checked="checked">
+                          <input id="radiolibdilevt" type="radio" name="radiolib" value="libdile_vt">
+                          <label class="u-label" for="radiolibdilevt">Old TV (libdile_vt)</label>
+                          <br>
+                          <input id="radiolibvt" type="radio" name="radiolib" value="libvt">
+                          <label class="u-label" for="radiolibvt">Old TV (libvt + libgm)</label>
+                          <br>
+                          <input id="radionew" type="radio" name="radiolib" value="libvtcapture">
                           <label class="u-label" for="radionew">New 2020+ TV (libvtcapture + libhalgal)</label>
                           <br>
                         </div>
                       </div>
                       <div class="u-form-checkbox u-form-group u-form-group-10">
-                        <input type="checkbox" id="videocapture" name="videocapture" value="On" checked="checked">
+                        <input type="checkbox" id="videocapture" name="videocapture" value="true" checked="checked">
                         <label for="videocapture" class="u-label">Video capture | Setting only for new TVs</label>
                       </div>
                       <div class="u-form-checkbox u-form-group u-form-group-11">
-                        <input type="checkbox" id="graphiccapture" name="graphiccapture" value="On" class="u-border-1 u-border-grey-30 u-input-rectangle u-white" checked="checked">
+                        <input type="checkbox" id="graphiccapture" name="graphiccapture" value="true" class="u-border-1 u-border-grey-30 u-input-rectangle u-white" checked="checked">
                         <label for="graphiccapture" class="u-label">Graphic capture (UI) | Setting only for new TVs</label>
                       </div>
                       <div class="u-align-center u-form-group u-form-submit u-form-group-12">

@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "package": "ares-package piccap/ dist/service/",
-    "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk"
+    "package": "ares-package dist/frontend/ dist/service/",
+    "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk",
+    "launch": "ares-launch org.webosbrew.piccap"
   },
+  "browserslist": ["chrome 30"],
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {

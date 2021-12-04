@@ -184,7 +184,9 @@ service.register(
     await saveConfig(config);
     if (isRoot()) {
       if (config.autostart) {
-        await execAsync(`mkdir -p /var/lib/webosbrew/init.d && ln -svf ${__dirname}/autostart.sh /var/lib/webosbrew/init.d/piccapautostart`);
+        await execAsync(
+          `mkdir -p /var/lib/webosbrew/init.d && ln -svf ${__dirname}/autostart.sh /var/lib/webosbrew/init.d/piccapautostart`,
+        );
       } else {
         await execAsync(`rm -f /var/lib/webosbrew/init.d/piccapautostart`);
       }
