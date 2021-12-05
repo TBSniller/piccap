@@ -18,7 +18,6 @@ const execAsync = Promise.promisify(exec);
 const configFilePath = path.join(__dirname, 'config.json');
 const binaryPath = path.join(__dirname, 'hyperion-webos');
 
-process.env.LD_LIBRARY_PATH = `${__dirname}:${process.env.LD_LIBRARY_PATH}`;
 process.env.SEGFAULT_SIGNALS = '';
 
 console.info(process.argv);
@@ -96,7 +95,13 @@ function spawnHyperion(activity, config) {
       }
     }, 1000);
 
-    childProcess = spawn(binaryPath, options, { stdio: ['pipe', 'pipe', 'pipe'] });
+    childProcess = spawn(binaryPath, options, {
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: {
+        ...process.env,
+        LD_LIBRARY_PATH: __dirname,
+      },
+    });
     childProcess.stdout.on('data', (data) => {
       if (!fulfilled) {
         log += data;
