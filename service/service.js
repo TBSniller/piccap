@@ -3,6 +3,7 @@ require('core-js/stable');
 require('regenerator-runtime');
 
 const pkgInfo = require('./package.json');
+const appInfo = require('../piccap/appinfo.json');
 const fs = require('fs');
 const path = require('path');
 const { Promise } = require('bluebird');
@@ -128,8 +129,9 @@ function spawnHyperion(activity, config) {
       }
 
       console.info('Child process stopped!', code, signal);
-      setTimeout(() => {
+      setTimeout(async () => {
         if (restart) {
+          asyncCall(service, 'luna://com.webos.notification/createToast', { sourceId: appInfo.id, message: 'PicCap restarted' });
           spawnHyperion(activity, config);
         }
       }, 1000);
@@ -234,6 +236,12 @@ service.register(
       service.activityManager.create('hyperion-webos-background', resolve);
     });
 
+    // We want to always restart the process if we are autostarting, regardless
+    // of early crashes...
+    if (message.payload.autostart) {
+      asyncCall(service, 'luna://com.webos.notification/createToast', { sourceId: appInfo.id, message: 'PicCap starting up' });
+      restart = true;
+    }
     const result = await spawnHyperion(activity, config);
     restart = true;
 
