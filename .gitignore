@@ -2,4 +2,3 @@ build
 .vscode
 service/node_modules
 servicenative/hyperion-webos
-hyperion-webos
