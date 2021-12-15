@@ -28,11 +28,11 @@ resetconf()		          - Btn Reset configuration
 
 //default settings
 let ip = '192.168.178.2',
-port = '19400',
+port = 19400,
 startdelay = '30',
-width = '360',
-height = '180',
-fps = '0',
+width = 360,
+height = 180,
+fps = 0,
 lib = 'new',
 videocapture =  '1',
 graphiccapture = '0',
@@ -48,10 +48,10 @@ async function startup(){
 }
 
 async function setlibvtcaptureperms(){
-    console.log("Trying to set libvtcapture permission files..");
-    document.getElementById("servicestatus").innerHTML = "Setting permission..";
+    console.log("Trying to reboot TV..");
+    document.getElementById("servicestatus").innerHTML = "Rebooting TV..";
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "setCapturePerms",
+        method: "reboot",
         onFailure: showErrorService,
         onComplete: showSuccServiceSetPerms
     });
@@ -87,7 +87,7 @@ function loadconf(){
 
     document.getElementById("servicestatus").innerHTML = "Checking servicestatus..";
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "isStarted",
+        method: "isRunning",
         onFailure: showErrorService,
         onComplete: showSuccServiceisStarted
     });
@@ -99,49 +99,49 @@ function save(){
     document.getElementById("servicestatus").innerHTML = "Saving..";
 
     ip = document.getElementById("ip").value;
-    port = document.getElementById("port").value;
+    port = +document.getElementById("port").value;
     // startdelay = document.getElementById("startdelay").value;
-    width = document.getElementById("width").value;
-    height = document.getElementById("height").value;
-    fps = document.getElementById("fps").value;
+    width = +document.getElementById("width").value;
+    height = +document.getElementById("height").value;
+    fps = +document.getElementById("fps").value;
 
     if (document.getElementById("radionew").checked){
-        lib = "new";
+        lib = "libvtcapture";
     }else if(document.getElementById("radioold").checked){
-        lib = "old";
+        lib = "libvt";
     }else{
-        lib = "notChecked";
+        lib = "libdile_vt";
     }
    
     if(document.getElementById("videocapture").checked){
-        videocapture = "1";
+        videocapture = false;
     }else{
-        videocapture = "0";
+        videocapture = true;
     }
 
     if(document.getElementById("graphiccapture").checked){
-        graphiccapture = "1";
+        graphiccapture = false;
     }else{
-        graphiccapture = "0";
+        graphiccapture = true;
     }
 
     if(document.getElementById("autostart").checked){
-        autostart = "1";
+        autostart = true;
     }else{
-        autostart = "0";
+        autostart = false;
     }
 
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
         method: "setSettings",
-        parameters: {ip: ip,
+        parameters: {address: ip,
         port: port,
         // startdelay: startdelay,
         width: width,
         height: height,
         fps: fps,
-        lib: lib,
-        videocapture:  videocapture,
-        graphiccapture: graphiccapture,
+        backend: lib,
+        novideo:  videocapture,
+        nogui: graphiccapture,
         autostart: autostart},
         onFailure: showErrorService,
         onComplete: showSuccServiceSet
@@ -176,12 +176,12 @@ function showErrorService(err){
 }
 
 function showSuccServiceisStarted(resp){
-    document.getElementById("servicestatus").innerHTML = "Capture running: " + resp.isStarted;
+    document.getElementById("servicestatus").innerHTML = "Capture running: " + resp.isRunning;
     console.log("Got servicestatus successfully!");
 }
 
 function showSuccServiceSet(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
+    document.getElementById("servicestatus").innerHTML = resp.backmsg;
     if (resp.isSet){
         console.log("Settings set successfully! Calling save..");
         webOS.service.request("luna://org.webosbrew.piccap.service/", {
@@ -195,15 +195,15 @@ function showSuccServiceSet(resp){
 }
 
 function showSuccServiceSave(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
+    document.getElementById("servicestatus").innerHTML = resp.backmsg;
     console.log("Settings saved successfully called!");
 }
 
 
 function showSuccServiceRoot(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    document.getElementById("permissionstatus").innerHTML = resp.permStatus;
-    if (!resp.rootStatus){
+    document.getElementById("servicestatus").innerHTML = resp.backmsg;
+    document.getElementById("permissionstatus").innerHTML = resp.backmsg;
+    if (!resp.isRoot){
         document.getElementById("result1").innerHTML = "Background service not running as root. Please reboot your TV, to let HBChannel elevating take affect. No powercycle - Full reboot! Will add button some time later..";
     }
     console.log("Get root status successfully called!");
@@ -211,7 +211,7 @@ function showSuccServiceRoot(resp){
 
 
 function makeSuccServiceSettingreset(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
+    document.getElementById("servicestatus").innerHTML = resp.backmsg;
     if (resp.isReset){
         console.log("Settings reset successfully! Calling configuration reload..");
         loadconf();
@@ -222,7 +222,7 @@ function makeSuccServiceSettingreset(resp){
 }
 
 function showSuccServiceSetPerms(resp){
-    document.getElementById("permissionstatus").innerHTML = resp.data;
+    document.getElementById("permissionstatus").innerHTML = resp.backmsg;
     document.getElementById("servicestatus").innerHTML = "Status got.";
     console.log("setlibvtcaptureperms successfully called!");
 }
@@ -240,15 +240,15 @@ async function makeSuccServiceLoad(resp){
         return;
     }
 
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    document.getElementById("ip").value = resp.ip;
+    document.getElementById("servicestatus").innerHTML = resp.backmsg;
+    document.getElementById("ip").value = resp.address;
     document.getElementById("port").value = resp.port;
 //    document.getElementById("startdelay").value = resp.startdelay;
     document.getElementById("width").value = resp.width;
     document.getElementById("height").value = resp.height;
     document.getElementById("fps").value = resp.fps;
 
-    if (resp.lib == "old"){
+    if (resp.backend == "libvt"){
         document.getElementById("radioold").checked = true;
         document.getElementById("radionew").checked = false;
     }else{
@@ -256,25 +256,25 @@ async function makeSuccServiceLoad(resp){
         document.getElementById("radioold").checked = false;
     }
    
-    if(videocapture == "1"){
+    if(resp.novideo == false){
         document.getElementById("videocapture").checked = true;
     }else{
         document.getElementById("videocapture").checked = false;
     }
 
-    if(graphiccapture == "1"){
+    if(resp.nogui == false){
         document.getElementById("graphiccapture").checked = true;
     }else{
         document.getElementById("graphiccapture").checked = false;
     }
 
-    if(autostart == "1"){
+    if(resp.autostart == true){
         document.getElementById("autostart").checked = true;
     }else{
         document.getElementById("autostart").checked = false;
     }
 
-    console.log("Settings loaded successfully! Got the following settings: IP: " + resp.ip + " Port: " + resp.port + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.lib + " Videocapture: " + resp.videocapture + " Graphiccapture: " + resp.graphiccapture + " Autostart: " + resp.autostart);
+    console.log("Settings loaded successfully! Got the following settings: IP: " + resp.address + " Port: " + resp.port + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.backend + " Videocapture: " + resp.novideo + " Graphiccapture: " + resp.nogui + " Autostart: " + resp.autostart);
 }
  
 function sleep(ms) {
