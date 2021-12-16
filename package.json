@@ -7,10 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "package": "ares-package dist/frontend/ dist/service/",
+    "package-native": "ares-package dist/frontend/ servicenative/",
     "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk",
     "launch": "ares-launch org.webosbrew.piccap"
   },
-  "browserslist": ["chrome 30"],
+  "browserslist": [
+    "chrome 30"
+  ],
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {

@@ -52,13 +52,16 @@ function asyncCall(uri, args) {
 async function startup() {
   let root = false;
 
-  for (let i = 0 ; i < 3 ; i++) {
+  for (let i = 0 ; i < 5 ; i++) {
     const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
     console.info(res);
-    if (res.rootStatus) break;
-    await wait(500);
+    if (res.rootStatus){
+      document.getElementById("permissionstatus").innerHTML = res.rootStatus ? 'Running as root' : 'Trying to evaluate service..';
+      break;
+    }
+    document.getElementById("permissionstatus").innerHTML = res.rootStatus ? 'Running as root' : 'Trying to evaluate service..';
+    await wait(2000);
   }
-
   await getSettings();
   await getStatus();
 }
@@ -84,21 +87,27 @@ async function getSettings() {
   document.getElementById("autostart").checked = config.autostart;
 
   console.info('Done!');
+  getStatus();
 }
 
 async function getStatus() {
-  const res = await asyncCall('luna://org.webosbrew.piccap.service/isStarted', {});
-  document.getElementById("servicestatus").innerHTML = res.isStarted ? 'Running' : 'Stopped';
+  const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
+  document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Running' : 'Stopped';
+
+  const res1 = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
+  console.info(res1);
+  document.getElementById("permissionstatus").innerHTML = res1.rootStatus ? 'Running as root' : 'Not running as root';
 }
 
-function setlibvtcaptureperms(){
-    console.log("Trying to set libvtcapture permission files..");
-    document.getElementById("servicestatus").innerHTML = "Setting permission..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "setCapturePerms",
-        onFailure: showErrorService,
-        onComplete: showSuccServiceSetPerms
-    });
+window.getSettings = async () => {
+  await getSettings();
+}
+
+window.restart = async () => {
+    console.log("Trying to terminate service..");
+    document.getElementById("servicestatus").innerHTML = "Terminating service..";
+    const res = await asyncCall('luna://org.webosbrew.piccap.service/restart', {});
+    
 }
 
 window.resetconf = () => {
