@@ -61,9 +61,9 @@
                   <h5 class="u-align-left u-text u-text-default u-text-2">Status:</h5>
                   <p id="servicestatus" class="u-align-left u-text u-text-default u-text-3">Loading status...</p>
                   <p class="u-align-center u-text u-text-4">If you are using a newer TV and have to use the libvtcapture-library, you have to enforce capture permissions for the binary.</p>
-                  <h5 class="u-align-center u-text u-text-5">Permission status:</h5>
+                  <h5 class="u-align-center u-text u-text-5">Root status:</h5>
                   <p id="permissionstatus" class="u-align-center u-text u-text-default u-text-6">Loading status...</p>
-                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="setlibvtcaptureperms()" value="Force libvtcapture permission">
+                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="restart()" value="Restart Service">
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-white u-layout-cell-2">
@@ -89,6 +89,9 @@
                           <br>
                           <input id="radionew" type="radio" name="radiolib" value="radionew" checked="checked">
                           <label class="u-label" for="radionew">New 2020+ TV (libvtcapture + libhalgal)</label>
+                          <br>
+                          <input id="radiodile" type="radio" name="radiolib" value="radiodile" checked="checked">
+                          <label class="u-label" for="radiodile">All TVs Highly experimental (libdile_vt)</label>
                           <br>
                         </div>
                       </div>

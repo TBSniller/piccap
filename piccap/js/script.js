@@ -22,7 +22,7 @@ save()		              - Btn Save
 loadconf()                - Btn Load configuration
 stopservice()	          - Btn Stop Service
 startservice()	       	  - Btn Start Service
-setlibvtcaptureperms()	  - Btn libvtcapture permission
+restart()	              - Btn Restart Service (force new perms)
 resetconf()		          - Btn Reset configuration 
 */
 
@@ -47,11 +47,11 @@ async function startup(){
     loadconf();
 }
 
-async function setlibvtcaptureperms(){
-    console.log("Trying to reboot TV..");
-    document.getElementById("servicestatus").innerHTML = "Rebooting TV..";
+async function restart(){
+    console.log("Trying to restart service..");
+    document.getElementById("servicestatus").innerHTML = "Restarting service..";
     webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "reboot",
+        method: "restart",
         onFailure: showErrorService,
         onComplete: showSuccServiceSetPerms
     });
@@ -203,9 +203,9 @@ function showSuccServiceSave(resp){
 function showSuccServiceRoot(resp){
     document.getElementById("servicestatus").innerHTML = resp.backmsg;
     document.getElementById("permissionstatus").innerHTML = resp.backmsg;
-    if (!resp.isRoot){
-        document.getElementById("result1").innerHTML = "Background service not running as root. Please reboot your TV, to let HBChannel elevating take affect. No powercycle - Full reboot! Will add button some time later..";
-    }
+//    if (!resp.isRoot){
+//        document.getElementById("result1").innerHTML = "Background service not running as root. Please reboot your TV, to let HBChannel elevating take affect. No powercycle - Full reboot! Will add button some time later..";
+//    }
     console.log("Get root status successfully called!");
 }
 
@@ -224,7 +224,7 @@ function makeSuccServiceSettingreset(resp){
 function showSuccServiceSetPerms(resp){
     document.getElementById("permissionstatus").innerHTML = resp.backmsg;
     document.getElementById("servicestatus").innerHTML = "Status got.";
-    console.log("setlibvtcaptureperms successfully called!");
+    console.log("Restart successfully called!");
 }
 
 async function makeSuccServiceLoad(resp){
