@@ -1,0 +1,9 @@
+{
+    "id": "org.webosbrew.piccap.service",
+    "description": "Hyperion Sender Service",
+    "services": [
+        {
+            "name": "org.webosbrew.piccap.service"
+        }
+    ]
+}
