@@ -22,16 +22,10 @@ jobs:
 
     - name: Create build directories
       run: |
-        mkdir ${{github.workspace}}/hyperion-webos_libvtcapture/build
         mkdir ${{github.workspace}}/hyperion-webos/build
 
     - name: Build hyperion-webos
       working-directory: ${{github.workspace}}/hyperion-webos/build
-      shell: bash
-      run: cmake .. && make
-
-    - name: Build hyperion-webos_libvtcapture
-      working-directory: ${{github.workspace}}/hyperion-webos_libvtcapture/build
       shell: bash
       run: cmake .. && make
     
@@ -42,13 +36,31 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: webos_libs
-        path: ${{github.workspace}}/hyperion-webos_libvtcapture/build/hyperion-webos_libvtcapture
+        path: ${{github.workspace}}/hyperion-webos/build/hyperion-webos
 
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
         name: webos_libs
-        path: ${{github.workspace}}/hyperion-webos/build/hyperion-webos
+        path: ${{github.workspace}}/servicenative/services.json
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: webos_libs
+        path: ${{github.workspace}}/hyperion-webos/build/libdile_vt_backend.so
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: webos_libs
+        path: ${{github.workspace}}/hyperion-webos/build/libvt_backend.so
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: webos_libs
+        path: ${{github.workspace}}/hyperion-webos/build/libvtcapture_backend.so
 
   build-piccap:
     runs-on: ubuntu-latest
@@ -68,11 +80,11 @@ jobs:
           sudo npm install -g @webosose/ares-cli
 
       - name: Install dependencies
-        working-directory: ${{github.workspace}}/service
+        working-directory: ${{github.workspace}}
         run: npm install
 
       - name: Build App
-        working-directory: ${{github.workspace}}/service
+        working-directory: ${{github.workspace}}
         run: npm run build
 
       - name: Download artifacts
@@ -86,13 +98,14 @@ jobs:
 
       - name: Copy native module
         run: |
-          rm ./service/piccap.service/hyperion-webos_libvt
-          rm ./service/piccap.service/hyperion-webos_libvtcapture
-          cp webos_libs/hyperion-webos_libvtcapture ./service/piccap.service/hyperion-webos_libvtcapture
-          cp webos_libs/hyperion-webos ./service/piccap.service/hyperion-webos_libvt
+          mkdir -p ./servicenative
+          cp webos_libs/hyperion-webos ./servicenative/hyperion-webos
+          cp webos_libs/libdile_vt_backend.so ./servicenative/libdile_vt_backend.so
+          cp webos_libs/libvt_backend.so ./servicenative/libvt_backend.so
+          cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
 
       - name: Package
-        run: mkdir build && ares-package ./piccap ./service/piccap.service -o ./build
+        run: mkdir build && ares-package ./piccap ./servicenative -o ./build
 
       - name: List files
         run: find . && find ./build
