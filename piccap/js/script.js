@@ -29,6 +29,7 @@ resetconf()		          - Btn Reset configuration
 require('core-js/stable');
 require('regenerator-runtime');
 const { Promise } = require('bluebird');
+const { formatIssueLocation } = require('fork-ts-checker-webpack-plugin/lib/issue');
 
 function wait(t) {
   return new Promise((resolve, reject) => {
@@ -50,23 +51,40 @@ function asyncCall(uri, args) {
 }
 
 async function startup() {
-  let root = false;
-
-  for (let i = 0 ; i < 5 ; i++) {
-    const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
-    console.info(res);
-    if (res.rootStatus){
-      document.getElementById("permissionstatus").innerHTML = res.rootStatus ? 'Running as root' : 'Trying to evaluate service..';
-      break;
-    }
-    document.getElementById("permissionstatus").innerHTML = res.rootStatus ? 'Running as root' : 'Trying to evaluate service..';
-    await wait(2000);
-  }
+  await checkRoot();
   await getSettings();
   await getStatus();
 }
 
 startup();
+
+async function checkRoot(){
+  let wasRoot = true;
+  let isroot = false;
+
+  for (let i = 0 ; i < 5 ; i++) {
+    const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
+    console.info(res);
+
+    if (res.rootStatus){
+      if(!wasRoot){
+        document.getElementById("permissionstatus").innerHTML = 'Evaluate success! Rooted.';
+        await wait(3000);
+        return;
+      }
+      document.getElementById("permissionstatus").innerHTML = 'Running as root';
+      break;
+    }
+
+    if(!isroot){
+      wasRoot = false;
+      document.getElementById("permissionstatus").innerHTML = 'Trying to evaluate service..';
+      await wait(2000);
+    }
+    document.getElementById("permissionstatus").innerHTML = 'Not running as root';
+  }
+
+}
 
 async function getSettings() {
   const config = await asyncCall('luna://org.webosbrew.piccap.service/getSettings', {});
@@ -93,10 +111,6 @@ async function getSettings() {
 async function getStatus() {
   const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
   document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Running' : 'Stopped';
-
-  const res1 = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
-  console.info(res1);
-  document.getElementById("permissionstatus").innerHTML = res1.rootStatus ? 'Running as root' : 'Not running as root';
 }
 
 window.getSettings = async () => {
@@ -107,7 +121,6 @@ window.restart = async () => {
     console.log("Trying to terminate service..");
     document.getElementById("servicestatus").innerHTML = "Terminating service..";
     const res = await asyncCall('luna://org.webosbrew.piccap.service/restart', {});
-    
 }
 
 window.resetconf = () => {

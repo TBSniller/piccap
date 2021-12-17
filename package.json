@@ -1,12 +1,11 @@
 {
   "name": "org.webosbrew.piccap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "PicCap Service",
   "main": "piccap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "package": "ares-package dist/frontend/ dist/service/",
     "package-native": "ares-package dist/frontend/ servicenative/",
     "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk",
     "launch": "ares-launch org.webosbrew.piccap"
