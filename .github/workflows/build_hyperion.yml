@@ -105,7 +105,7 @@ jobs:
           cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
 
       - name: Package
-        run: mkdir build && ares-package ./piccap ./servicenative -o ./build
+        run: mkdir build && ares-package dist/frontend/ ./servicenative -o ./build
 
       - name: List files
         run: find . && find ./build
