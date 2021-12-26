@@ -62,7 +62,7 @@ async function checkRoot(){
   let wasRoot = true;
   let isroot = false;
 
-  for (let i = 0 ; i < 5 ; i++) {
+  for (let i = 0 ; i < 15 ; i++) {
     const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
     console.info(res);
 
@@ -133,7 +133,7 @@ window.save = async () => {
     port: parseInt(document.getElementById("port").value) || undefined,
     width: parseInt(document.getElementById("width").value) || undefined,
     height: parseInt(document.getElementById("height").value) || undefined,
-    fps: parseInt(document.getElementById("fps").value) || undefined,
+    fps: parseInt(document.getElementById("fps").value) || 0,
     backend: document.querySelector('input[name=radiolib]:checked').value,
     captureVideo: document.getElementById("videocapture").checked,
     captureUI: document.getElementById("graphiccapture").checked,
