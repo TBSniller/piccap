@@ -75,7 +75,7 @@ async function checkRoot(){
 
     if(!isroot){
       wasRoot = false;
-      document.getElementById("permissionstatus").innerHTML = 'Trying to evaluate service..';
+      document.getElementById("permissionstatus").innerHTML = 'Service elevation in progress..';
       await wait(2000);
     }
     document.getElementById("permissionstatus").innerHTML = 'Not running as root';
