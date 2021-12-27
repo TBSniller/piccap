@@ -26,7 +26,9 @@ restart()	              - Btn Restart Service (force new perms)
 resetconf()		          - Btn Reset configuration 
 */
 
-
+require('core-js/stable');
+require('regenerator-runtime');
+const { Promise } = require('bluebird');
 
 function wait(t) {
   return new Promise((resolve, reject) => {
