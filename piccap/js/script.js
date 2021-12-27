@@ -26,10 +26,7 @@ restart()	              - Btn Restart Service (force new perms)
 resetconf()		          - Btn Reset configuration 
 */
 
-require('core-js/stable');
-require('regenerator-runtime');
-const { Promise } = require('bluebird');
-const { formatIssueLocation } = require('fork-ts-checker-webpack-plugin/lib/issue');
+
 
 function wait(t) {
   return new Promise((resolve, reject) => {
