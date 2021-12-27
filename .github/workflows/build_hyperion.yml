@@ -42,25 +42,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: webos_libs
+        path: ${{github.workspace}}/servicenative/piccapautostart
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: webos_libs
         path: ${{github.workspace}}/servicenative/services.json
 
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
         name: webos_libs
-        path: ${{github.workspace}}/hyperion-webos/build/libdile_vt_backend.so
-
-    - name: Upload native components artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: webos_libs
-        path: ${{github.workspace}}/hyperion-webos/build/libvt_backend.so
-
-    - name: Upload native components artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: webos_libs
-        path: ${{github.workspace}}/hyperion-webos/build/libvtcapture_backend.so
+        path: ${{github.workspace}}/hyperion-webos/build/*_backend.so
 
   build-piccap:
     runs-on: ubuntu-latest
@@ -103,6 +97,7 @@ jobs:
           cp webos_libs/libdile_vt_backend.so ./servicenative/libdile_vt_backend.so
           cp webos_libs/libvt_backend.so ./servicenative/libvt_backend.so
           cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
+          cp webos_libs/piccapautostart ./servicenative/piccapautostart
 
       - name: Package
         run: mkdir build && ares-package dist/frontend/ ./servicenative -o ./build
