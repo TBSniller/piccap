@@ -22,7 +22,7 @@ save()		              - Btn Save
 loadconf()                - Btn Load configuration
 stopservice()	          - Btn Stop Service
 startservice()	       	  - Btn Start Service
-restart()	              - Btn Restart Service (force new perms)
+reboot()	              - Btn Reboot
 resetconf()		          - Btn Reset configuration 
 */
 
@@ -116,10 +116,10 @@ window.getSettings = async () => {
   await getSettings();
 }
 
-window.restart = async () => {
+window.reboot = async () => {
     console.log("Trying to terminate service..");
-    document.getElementById("servicestatus").innerHTML = "Terminating service..";
-    const res = await asyncCall('luna://org.webosbrew.piccap.service/restart', {});
+    document.getElementById("servicestatus").innerHTML = "Rebooting TV..";
+    const res = await asyncCall('luna://org.webosbrew.hbchannel.service/reboot', {});
 }
 
 window.resetconf = () => {
