@@ -20,8 +20,9 @@ I think a picture describes what's going on:
   
 
 ### Not working  
-Nothing known so far.  
-Please see https://github.com/webosbrew/hyperion-webos/tree/main#known-issues for issues regarding the backend service. - This is only the frontend application!  
+Autostart only works after a complete TV-restart. If your TV goes to suspension after shutting it down, our startup scripts doesn't get fired when the TV gets waked up again. To work around it, you will have to disable LGs Quick Start+ in settings until we find a reliable way. This way the TV doesn't go to sleep, it fully shuts down.  
+Nothing more known so far.  
+Please see https://github.com/webosbrew/hyperion-webos/tree/main#known-issues for issues regarding the backend capture service. - This is only the frontend application!  
 
 ### What do you need?  
 
