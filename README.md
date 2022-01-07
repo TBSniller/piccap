@@ -45,7 +45,7 @@ Simply press start after the application ended loading.
   
 ### How to install  
 Easy way:  
-Easily install it from HBChannel https://github.com/webosbrew/webos-homebrew-channel. It's published at the repo: https://repo.webosbrew.org/apps/  
+Install it directly from HBChannel https://github.com/webosbrew/webos-homebrew-channel. It's published at the repo: https://repo.webosbrew.org/apps/  
 
 You can also download the ipk from releases or build it all yourself.
   
@@ -76,7 +76,7 @@ Then:
 As stated in the application:  
 Love to Mariotaku https://github.com/mariotaku  
 Love to JohnPaul https://github.com/Informatic  
-Love to tuxuser https://github.com/tuxuser
+Love to tuxuser https://github.com/tuxuser  
 Love to OpenLG-Discord https://discord.gg/9sqAgHVRhP  
 All this wouldn't be possible without them!  
   
