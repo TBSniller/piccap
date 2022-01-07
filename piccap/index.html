@@ -60,10 +60,10 @@
                   <input type="button" class="u-align-right u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" onclick="startservice()" value="Start">
                   <h5 class="u-align-left u-text u-text-default u-text-2">Status:</h5>
                   <p id="servicestatus" class="u-align-left u-text u-text-default u-text-3">Loading status...</p>
-                  <p class="u-align-center u-text u-text-4">Root is required for this application. You'll need a custom evaluate script, or service will fail loading!</p>
+                  <p class="u-align-center u-text u-text-4">Root and Homebrew-Channel is required for this application. Maybe a full reboot is required after first start. Disable LG Quick Start+ if you have problems with autostart!</p>
                   <h5 class="u-align-center u-text u-text-5">Root status:</h5>
                   <p id="permissionstatus" class="u-align-center u-text u-text-default u-text-6">Loading status...</p>
-                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="restart()" value="Restart Service">
+                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="reboot()" value="Reboot TV">
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-white u-layout-cell-2">
@@ -88,7 +88,7 @@
                           <label class="u-label" for="radioauto">Detect backend automatically (not working!)</label>
                           <br>
                           <input id="radiolibdilevt" type="radio" name="radiolib" value="libdile_vt" checked="checked">
-                          <label class="u-label" for="radiolibdilevt">All TVs - EXPERIMENTAL! only RAW2TMP (libdile_vt)</label>
+                          <label class="u-label" for="radiolibdilevt">Most older 2020- TVs (libdile_vt)</label>
                           <br>
                           <input id="radiolibvt" type="radio" name="radiolib" value="libvt">
                           <label class="u-label" for="radiolibvt">Old TV (libvt + libgm)</label>
