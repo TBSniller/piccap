@@ -43,12 +43,15 @@ Simply fill in your parameters and press save. The configuration file will then 
 Simply press start after the application ended loading.
   
 ### How to install  
-Download the ipk from releases or build it all yourself.
+Easy way:  
+Easily install it from HBChannel https://github.com/webosbrew/webos-homebrew-channel. It's published at the repo: https://repo.webosbrew.org/apps/  
+
+You can also download the ipk from releases or build it all yourself.
   
-Then using ares:
+After that install it using ares:
 `cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.2.0_all.ipk`
   
-Or manually:  
+Or install it manually:  
   
 Copy to TV:  
 `scp /home/USER/downloads/org.webosbrew.piccap_0.2.0_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.2.0_all.ipk`
