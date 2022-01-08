@@ -109,7 +109,7 @@ async function getSettings() {
 
 async function getStatus() {
   const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
-  document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Running' : 'Stopped';
+  document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Capture is running.' : 'Capture is stopped.';
 }
 
 window.getSettings = async () => {
@@ -117,7 +117,7 @@ window.getSettings = async () => {
 }
 
 window.reboot = async () => {
-    console.log("Trying to terminate service..");
+    console.log("Trying to reboot TV using HBChannel..");
     document.getElementById("servicestatus").innerHTML = "Rebooting TV..";
     const res = await asyncCall('luna://org.webosbrew.hbchannel.service/reboot', {});
 }

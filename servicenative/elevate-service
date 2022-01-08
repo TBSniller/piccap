@@ -133,17 +133,12 @@ function patchServiceFile(serviceFile, appName, serviceName) {
   var serviceFileOriginal = (0,fs__WEBPACK_IMPORTED_MODULE_0__.readFileSync)(serviceFile).toString();
   var serviceFileNew;
 
-  if (serviceFileOriginal.indexOf('jailer') == -1) {
-    console.info("[ ] Updating a NodeJS-Service.");
-    serviceFileNew = serviceFileOriginal.replace('/usr/bin', '/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service');
-  } else {
-    console.info("[ ] Updating a Native-Service.");
+  console.info("[ ] Updating a Native-Service.");
 
-    if (appName && serviceName) {
-      serviceFileNew = serviceFileOriginal.replace('/usr/bin/jailer -t native_devmode -i ' + appName + ' -p /media/developer/apps/usr/palm/services/' + serviceName + ' ', '');
-    } else {
-      console.info("[!] Updating Native-Service failed! Didn't got appName or serviceName.");
-    }
+  if (appName && serviceName) {
+    serviceFileNew = serviceFileOriginal.replace('/usr/bin/jailer -t native_devmode -i ' + appName + ' -p /media/developer/apps/usr/palm/services/' + serviceName + ' ', '');
+  } else {
+    console.info("[!] Updating Native-Service failed! Didn't got appName or serviceName.");
   }
 
   if (serviceFileNew !== serviceFileOriginal) {
