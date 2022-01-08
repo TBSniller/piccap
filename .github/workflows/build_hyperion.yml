@@ -93,8 +93,8 @@ jobs:
       - name: Copy native module
         run: |
           mkdir -p ./servicenative
-          cp webos_libs/hyperion-webos ./servicenative/hyperion-webos
           chmod +x webos_libs/hyperion-webos
+          cp webos_libs/hyperion-webos ./servicenative/hyperion-webos
           cp webos_libs/libdile_vt_backend.so ./servicenative/libdile_vt_backend.so
           cp webos_libs/libvt_backend.so ./servicenative/libvt_backend.so
           cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
