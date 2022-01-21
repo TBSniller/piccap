@@ -15,7 +15,7 @@ I'm not a real programmer and all this stuff is really new to me. The only reaso
 **This app is still in very early development.**
   
 I think a picture describes what's going on:  
-![image](https://user-images.githubusercontent.com/51515147/148600390-a1eafb20-240a-4d8e-b71f-e03729950599.png)
+![image](https://user-images.githubusercontent.com/51515147/150593018-8e935f55-2926-408f-81e5-40c73bf877fb.png)
 
   
 
@@ -50,18 +50,20 @@ Install it directly from HBChannel https://github.com/webosbrew/webos-homebrew-c
 You can also download the ipk from releases or build it all yourself.
   
 After that install it using ares:
-`cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.2.0_all.ipk`
+`cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.2.3_all.ipk`
   
 Or install it manually:  
   
 Copy to TV:  
-`scp /home/USER/downloads/org.webosbrew.piccap_0.2.0_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.2.0_all.ipk`
+`scp /home/USER/downloads/org.webosbrew.piccap_0.2.3_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.2.3_all.ipk`
 
 or download:  
-`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.2.0_all.ipk`
+`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.2.3_all.ipk`
 And installing on TV using:  
-`luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.p
-iccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.2.0_all.ipk","subscribe":true}'`  
+`luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.piccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.2.3_all.ipk","subscribe":true}'` 
+  
+or use one-liner:  
+`luna-send -i 'luna://org.webosbrew.hbchannel.service/install' '{"ipkUrl":"https://github.com/TBSniller/piccap/releases/download/0.2.3/org.webosbrew.piccap_0.2.3_all.ipk","ipkHash":"4bfd262421f27fd33b66062e117f97c5a3f3b8d24cd4583645878bd0cc3c6cc2"}'`
   
 
 ### How to build  
