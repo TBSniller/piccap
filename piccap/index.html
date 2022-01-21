@@ -52,7 +52,7 @@
                         <label for="autostart" class="u-label">Autostart</label>
                       </div>
                       <div class="u-align-center u-form-group u-form-submit u-form-group-5">
-                        <input type="button" class="u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-radius-8 u-btn-1" onclick="loadconf()" value="Reload configuration">
+                        <input type="button" class="u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-radius-8 u-btn-1" onclick="getSettings()" value="Reload configuration">
                       </div>
                     </form>
                   </div>
@@ -60,10 +60,10 @@
                   <input type="button" class="u-align-right u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" onclick="startservice()" value="Start">
                   <h5 class="u-align-left u-text u-text-default u-text-2">Status:</h5>
                   <p id="servicestatus" class="u-align-left u-text u-text-default u-text-3">Loading status...</p>
-                  <p class="u-align-center u-text u-text-4">If you are using a newer TV and have to use the libvtcapture-library, you have to enforce capture permissions for the binary.</p>
-                  <h5 class="u-align-center u-text u-text-5">Permission status:</h5>
+                  <p class="u-align-center u-text u-text-4">Root and Homebrew-Channel v0.4+ is required for this application. Maybe a full reboot is required after first app start.<br>Disable LG Quick Start+ if you have problems with autostart!</p>
+                  <h5 class="u-align-center u-text u-text-5">Root status:</h5>
                   <p id="permissionstatus" class="u-align-center u-text u-text-default u-text-6">Loading status...</p>
-                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="setlibvtcaptureperms()" value="Force libvtcapture permission">
+                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="reboot()" value="Reboot TV">
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-white u-layout-cell-2">
@@ -79,25 +79,31 @@
                         <input rows="4" cols="50" id="height" name="height" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" type="text" placeholder="180 (default)">
                       </div>
                       <div class="u-form-group u-form-group-8">
-                        <label for="fps" class="u-label">Max FPS (actually not working!)</label>
+                        <label for="fps" class="u-label">Max FPS</label>
                         <input type="text" placeholder="0 (unlimited | default) - 60" id="fps" name="fps" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
                       </div>
                       <div class="u-form-group u-form-radiobutton u-form-group-9">
                         <div class="u-form-radio-button-wrapper">
-                          <input id="radioold" type="radio" name="radiolib" value="radioold">
-                          <label class="u-label" for="radioold">Old TV (libvt + libgm)</label>
+                          <input id="radioauto" type="radio" name="radiolib" value="auto">
+                          <label class="u-label" for="radioauto">Detect backend automatically (not working!)</label>
                           <br>
-                          <input id="radionew" type="radio" name="radiolib" value="radionew" checked="checked">
+                          <input id="radiolibdilevt" type="radio" name="radiolib" value="libdile_vt" checked="checked">
+                          <label class="u-label" for="radiolibdilevt">Most older 2020- TVs (libdile_vt)</label>
+                          <br>
+                          <input id="radiolibvt" type="radio" name="radiolib" value="libvt">
+                          <label class="u-label" for="radiolibvt">Old TV (libvt + libgm)</label>
+                          <br>
+                          <input id="radionew" type="radio" name="radiolib" value="libvtcapture">
                           <label class="u-label" for="radionew">New 2020+ TV (libvtcapture + libhalgal)</label>
                           <br>
                         </div>
                       </div>
                       <div class="u-form-checkbox u-form-group u-form-group-10">
-                        <input type="checkbox" id="videocapture" name="videocapture" value="On" checked="checked">
+                        <input type="checkbox" id="videocapture" name="videocapture" value="true" checked="checked">
                         <label for="videocapture" class="u-label">Video capture | Setting only for new TVs</label>
                       </div>
                       <div class="u-form-checkbox u-form-group u-form-group-11">
-                        <input type="checkbox" id="graphiccapture" name="graphiccapture" value="On" class="u-border-1 u-border-grey-30 u-input-rectangle u-white" checked="checked">
+                        <input type="checkbox" id="graphiccapture" name="graphiccapture" value="true" class="u-border-1 u-border-grey-30 u-input-rectangle u-white" checked="checked">
                         <label for="graphiccapture" class="u-label">Graphic capture (UI) | Setting only for new TVs</label>
                       </div>
                       <div class="u-align-center u-form-group u-form-submit u-form-group-12">
@@ -106,7 +112,7 @@
                     </form>
                   </div>
                   <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-6"  onclick="resetconf()" value="Reset configuration">
-                  <p class="u-align-center u-text u-text-7">Some ♥ to Mariotaku and JohnPaul for very much help and initial coding of necessary things! Also thanks to the rest of the OpenLG Discord community!<br>Feel free to give some feedback: github.com/webosbrew/hyperion-webos & github.com/TBSniller/piccap
+                  <p class="u-align-center u-text u-text-7">Some ♥ to Mariotaku, JohnPaul and tuxuser for very much help and initial coding of necessary things! Also thanks to chbartsch and  obviously the rest of the OpenLG Discord community!<br>Feel free to give some feedback: github.com/webosbrew/hyperion-webos & github.com/TBSniller/piccap
                   </p>
                 </div>
               </div>

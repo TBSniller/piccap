@@ -22,261 +22,149 @@ save()		              - Btn Save
 loadconf()                - Btn Load configuration
 stopservice()	          - Btn Stop Service
 startservice()	       	  - Btn Start Service
-setlibvtcaptureperms()	  - Btn libvtcapture permission
+reboot()	              - Btn Reboot
 resetconf()		          - Btn Reset configuration 
 */
 
-//default settings
-let ip = '192.168.178.2',
-port = '19400',
-startdelay = '30',
-width = '360',
-height = '180',
-fps = '0',
-lib = 'new',
-videocapture =  '1',
-graphiccapture = '0',
-autostart = '0';
-//
-let loadingcounter;
+require('core-js/stable');
+require('regenerator-runtime');
+const { Promise } = require('bluebird');
+
+function wait(t) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, t);
+  });
+}
+
+function asyncCall(uri, args) {
+  return new Promise((resolve, reject) => {
+    const service = uri.split('/', 3).join('/');
+    const method = uri.split('/').slice(3).join('/')
+    webOS.service.request(service, {
+      method,
+      parameters: args,
+      onComplete: resolve,
+      onFailure: reject,
+    });
+  });
+}
+
+async function startup() {
+  await checkRoot();
+  await getSettings();
+  await getStatus();
+}
+
 startup();
 
-async function startup(){
-    console.log("Starting application.. Waiting for service getting ready..");
-    await sleep(7000);
-    loadconf();
-}
+async function checkRoot(){
+  let wasRoot = true;
+  let isroot = false;
 
-async function setlibvtcaptureperms(){
-    console.log("Trying to set libvtcapture permission files..");
-    document.getElementById("servicestatus").innerHTML = "Setting permission..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "setCapturePerms",
-        onFailure: showErrorService,
-        onComplete: showSuccServiceSetPerms
-    });
-}
+  for (let i = 0 ; i < 15 ; i++) {
+    const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
+    console.info(res);
 
-async function resetconf(){
-    console.log("Resetting configuration.. Calling resetSettings from service.");
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "resetSettings",
-        onFailure: showErrorService,
-        onComplete: makeSuccServiceSettingreset
-    });
-}
-
-function rootStatus(){
-    console.log("Getting root status from service");
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "isRoot",
-        onFailure: showErrorService,
-        onComplete: showSuccServiceRoot
-    });
-}
-
-function loadconf(){
-    loadingcounter = 0;
-    console.log("Loading configuration.. Calling getSettings from service.");
-    document.getElementById("servicestatus").innerHTML = "Loading configuration..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "getSettings",
-        onFailure: showErrorService,
-        onComplete: makeSuccServiceLoad
-    });
-
-    document.getElementById("servicestatus").innerHTML = "Checking servicestatus..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "isStarted",
-        onFailure: showErrorService,
-        onComplete: showSuccServiceisStarted
-    });
-
-    rootStatus();
-}
-
-function save(){
-    document.getElementById("servicestatus").innerHTML = "Saving..";
-
-    ip = document.getElementById("ip").value;
-    port = document.getElementById("port").value;
-    // startdelay = document.getElementById("startdelay").value;
-    width = document.getElementById("width").value;
-    height = document.getElementById("height").value;
-    fps = document.getElementById("fps").value;
-
-    if (document.getElementById("radionew").checked){
-        lib = "new";
-    }else if(document.getElementById("radioold").checked){
-        lib = "old";
-    }else{
-        lib = "notChecked";
-    }
-   
-    if(document.getElementById("videocapture").checked){
-        videocapture = "1";
-    }else{
-        videocapture = "0";
-    }
-
-    if(document.getElementById("graphiccapture").checked){
-        graphiccapture = "1";
-    }else{
-        graphiccapture = "0";
-    }
-
-    if(document.getElementById("autostart").checked){
-        autostart = "1";
-    }else{
-        autostart = "0";
-    }
-
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "setSettings",
-        parameters: {ip: ip,
-        port: port,
-        // startdelay: startdelay,
-        width: width,
-        height: height,
-        fps: fps,
-        lib: lib,
-        videocapture:  videocapture,
-        graphiccapture: graphiccapture,
-        autostart: autostart},
-        onFailure: showErrorService,
-        onComplete: showSuccServiceSet
-    }); 
-    
-}
-
-function startservice()
-{
-    document.getElementById("servicestatus").innerHTML = "Starting with delay..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "start",
-        onFailure: showErrorService,
-        onComplete: showSuccServiceisStarted
-    });
-}
-
-function stopservice()
-{
-    document.getElementById("servicestatus").innerHTML = "Stopping..";
-    webOS.service.request("luna://org.webosbrew.piccap.service/", {
-        method: "stop",  
-        onFailure: showErrorService,
-        onComplete: showSuccServiceisStarted
-    });
-  
-}
-
-function showErrorService(err){
-    document.getElementById("servicestatus").innerHTML = "Error: " + err.toString();
-    console.log("Error while contacting service!");
-}
-
-function showSuccServiceisStarted(resp){
-    document.getElementById("servicestatus").innerHTML = "Capture running: " + resp.isStarted;
-    console.log("Got servicestatus successfully!");
-}
-
-function showSuccServiceSet(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    if (resp.isSet){
-        console.log("Settings set successfully! Calling save..");
-        webOS.service.request("luna://org.webosbrew.piccap.service/", {
-            method: "saveSettings",
-            onFailure: showErrorService,
-            onComplete: showSuccServiceSave
-        });
+    if (res.rootStatus){
+      if(!wasRoot){
+        document.getElementById("permissionstatus").innerHTML = 'Evaluate success! Rooted.';
+        await wait(3000);
         return;
+      }
+      document.getElementById("permissionstatus").innerHTML = 'Running as root';
+      break;
     }
-    console.log("Settings not set correctly!");
+
+    if(!isroot){
+      wasRoot = false;
+      document.getElementById("permissionstatus").innerHTML = 'Service elevation in progress..';
+      await wait(2000);
+    }
+    document.getElementById("permissionstatus").innerHTML = 'Not running as root';
+  }
+
 }
 
-function showSuccServiceSave(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    console.log("Settings saved successfully called!");
+async function getSettings() {
+  const config = await asyncCall('luna://org.webosbrew.piccap.service/getSettings', {});
+  console.info(config);
+
+  Array.prototype.slice.call(document.querySelectorAll('input[name="radiolib"]')).forEach(el => {
+    el.checked = (config.backend || 'auto') === el.value;
+  });
+
+  document.getElementById("ip").value = config.ip;
+  document.getElementById("port").value = config.port;
+  document.getElementById("width").value = config.width;
+  document.getElementById("height").value = config.height;
+  document.getElementById("fps").value = config.fps;
+
+  document.getElementById("videocapture").checked = config.captureVideo;
+  document.getElementById("graphiccapture").checked = config.captureUI;
+  document.getElementById("autostart").checked = config.autostart;
+
+  console.info('Done!');
+  getStatus();
 }
 
-
-function showSuccServiceRoot(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    document.getElementById("permissionstatus").innerHTML = resp.permStatus;
-    if (!resp.rootStatus){
-        document.getElementById("result1").innerHTML = "Background service not running as root. Please reboot your TV, to let HBChannel elevating take affect. No powercycle - Full reboot! Will add button some time later..";
-    }
-    console.log("Get root status successfully called!");
+async function getStatus() {
+  const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
+  document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Capture is running.' : 'Capture is stopped.';
 }
 
-
-function makeSuccServiceSettingreset(resp){
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    if (resp.isReset){
-        console.log("Settings reset successfully! Calling configuration reload..");
-        loadconf();
-        return;
-    }
-    console.log("Settings not reset correctly! Reloading anyways..");
-    loadconf();
+window.getSettings = async () => {
+  await getSettings();
 }
 
-function showSuccServiceSetPerms(resp){
-    document.getElementById("permissionstatus").innerHTML = resp.data;
-    document.getElementById("servicestatus").innerHTML = "Status got.";
-    console.log("setlibvtcaptureperms successfully called!");
+window.reboot = async () => {
+    console.log("Trying to reboot TV using HBChannel..");
+    document.getElementById("servicestatus").innerHTML = "Rebooting TV..";
+    const res = await asyncCall('luna://org.webosbrew.hbchannel.service/reboot', {});
 }
 
-async function makeSuccServiceLoad(resp){
-    await sleep(1000);
-    if (!resp.loaded || typeof resp.autostart === 'undefined'){ //|| Check if last possible var is set
-        loadingcounter++;
-        console.log("Service not fully loaded yet. loaded: " + resp.loaded + " Last var: " + resp.autostart + " Trying again... Trynumber: " + loadingcounter);
-        webOS.service.request("luna://org.webosbrew.piccap.service/", {
-            method: "getSettings",
-            onFailure: showErrorService,
-            onComplete: makeSuccServiceLoad //Just call me again..
-        });
-        return;
-    }
-
-    document.getElementById("servicestatus").innerHTML = resp.data;
-    document.getElementById("ip").value = resp.ip;
-    document.getElementById("port").value = resp.port;
-//    document.getElementById("startdelay").value = resp.startdelay;
-    document.getElementById("width").value = resp.width;
-    document.getElementById("height").value = resp.height;
-    document.getElementById("fps").value = resp.fps;
-
-    if (resp.lib == "old"){
-        document.getElementById("radioold").checked = true;
-        document.getElementById("radionew").checked = false;
-    }else{
-        document.getElementById("radionew").checked = true;
-        document.getElementById("radioold").checked = false;
-    }
-   
-    if(videocapture == "1"){
-        document.getElementById("videocapture").checked = true;
-    }else{
-        document.getElementById("videocapture").checked = false;
-    }
-
-    if(graphiccapture == "1"){
-        document.getElementById("graphiccapture").checked = true;
-    }else{
-        document.getElementById("graphiccapture").checked = false;
-    }
-
-    if(autostart == "1"){
-        document.getElementById("autostart").checked = true;
-    }else{
-        document.getElementById("autostart").checked = false;
-    }
-
-    console.log("Settings loaded successfully! Got the following settings: IP: " + resp.ip + " Port: " + resp.port + " Width: " + resp.width + " Height: " + resp.height + " FPS: " + resp.fps + " Lib: " + resp.lib + " Videocapture: " + resp.videocapture + " Graphiccapture: " + resp.graphiccapture + " Autostart: " + resp.autostart);
+window.resetconf = () => {
+  asyncCall('luna://org.webosbrew.piccap.service/resetSettings', {}).then(getSettings);
 }
- 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+
+window.save = async () => {
+  const config = {
+    ip: document.getElementById("ip").value || undefined,
+    port: parseInt(document.getElementById("port").value) || undefined,
+    width: parseInt(document.getElementById("width").value) || undefined,
+    height: parseInt(document.getElementById("height").value) || undefined,
+    fps: parseInt(document.getElementById("fps").value) || 0,
+    backend: document.querySelector('input[name=radiolib]:checked').value,
+    captureVideo: document.getElementById("videocapture").checked,
+    captureUI: document.getElementById("graphiccapture").checked,
+    autostart: document.getElementById("autostart").checked,
+  };
+
+  if (config.backend === 'auto') config.backend = null;
+
+  console.info(config);
+
+  document.getElementById("servicestatus").innerHTML = "Saving..";
+  const res = await asyncCall('luna://org.webosbrew.piccap.service/setSettings', config);
+  await getSettings();
+  await getStatus();
+}
+
+window.startservice = async () => {
+  try {
+    document.getElementById("servicestatus").innerHTML = "Starting...";
+    await asyncCall('luna://org.webosbrew.piccap.service/start');
+    await getStatus();
+  } catch (err) {
+    document.getElementById("servicestatus").innerHTML = "Failed: "+ JSON.stringify(err);
+  }
+}
+
+window.stopservice = async () => {
+  try {
+    document.getElementById("servicestatus").innerHTML = "Stopping...";
+    await asyncCall('luna://org.webosbrew.piccap.service/stop');
+    await getStatus();
+  } catch (err) {
+    document.getElementById("servicestatus").innerHTML = "Failed: "+ JSON.stringify(err);
+  }
 }

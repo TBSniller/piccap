@@ -1,6 +1,3 @@
-[submodule "hyperion-webos_libvtcapture"]
-	path = hyperion-webos_libvtcapture
-	url = https://github.com/TBSniller/hyperion-webos_libvtcapture
 [submodule "hyperion-webos"]
 	path = hyperion-webos
 	url = https://github.com/webosbrew/hyperion-webos
