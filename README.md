@@ -79,7 +79,7 @@ As stated in the application:
 Love to Mariotaku https://github.com/mariotaku  
 Love to JohnPaul https://github.com/Informatic  
 Love to tuxuser https://github.com/tuxuser  
-Love to chbartsch https://github.com/chbartsch
+Love to chbartsch https://github.com/chbartsch  
 Love to OpenLG-Discord https://discord.gg/9sqAgHVRhP  
 All this wouldn't be possible without them!  
   
