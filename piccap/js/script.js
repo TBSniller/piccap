@@ -89,18 +89,36 @@ async function getSettings() {
   const config = await asyncCall('luna://org.webosbrew.piccap.service/getSettings', {});
   console.info(config);
 
-  Array.prototype.slice.call(document.querySelectorAll('input[name="radiolib"]')).forEach(el => {
-    el.checked = (config.backend || 'auto') === el.value;
-  });
+/*
+{
+  "returnValue":true,
+  "priority":150,
+  "address":"127.0.0.1",
+  "port":19400,
+  "width":360,
+  "height":180,
+  "fps":30,
+  "backend":"libdile_vt",
+  "uibackend":"auto"
+  "vsync":false,
+  "novideo":false,
+  "nogui":false,
+  "autostart":true,
+}
+*/
 
-  document.getElementById("ip").value = config.ip;
+  document.getElementById("address").value = config.address;
   document.getElementById("port").value = config.port;
   document.getElementById("width").value = config.width;
   document.getElementById("height").value = config.height;
   document.getElementById("fps").value = config.fps;
 
-  document.getElementById("videocapture").checked = config.captureVideo;
-  document.getElementById("graphiccapture").checked = config.captureUI;
+  document.getElementById("backend").value = config.backend || 'auto';
+  document.getElementById("uibackend").value = config.uibackend || 'auto';
+
+  document.getElementById("vsync").checked = config.vsync;
+  document.getElementById("novideo").checked = config.novideo;
+  document.getElementById("nogui").checked = config.nogui;
   document.getElementById("autostart").checked = config.autostart;
 
   console.info('Done!');
@@ -108,6 +126,18 @@ async function getSettings() {
 }
 
 async function getStatus() {
+/*
+{
+  "connected":false,
+  "returnValue":true,
+  "uiBackend":"libgm_backend.so",
+  "uiRunning":false,
+  "videoBackend":"libdile_vt_backend.so",
+  "framerate":7.4861935874763,
+  "isRunning":false,
+  "videoRunning":false
+}
+*/
   const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
   document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Capture is running.' : 'Capture is stopped.';
 }
@@ -127,15 +157,36 @@ window.resetconf = () => {
 }
 
 window.save = async () => {
+/*
+{
+  "returnValue":true,
+  "priority":150,
+  "address":"127.0.0.1",
+  "port":19400,
+  "width":360,
+  "height":180,
+  "fps":30,
+  "backend":"libdile_vt",
+  "uibackend":"auto"
+  "vsync":false,
+  "novideo":false,
+  "nogui":false,
+  "autostart":true,
+}
+*/
   const config = {
-    ip: document.getElementById("ip").value || undefined,
+    address: document.getElementById("address").value || undefined,
     port: parseInt(document.getElementById("port").value) || undefined,
     width: parseInt(document.getElementById("width").value) || undefined,
     height: parseInt(document.getElementById("height").value) || undefined,
     fps: parseInt(document.getElementById("fps").value) || 0,
-    backend: document.querySelector('input[name=radiolib]:checked').value,
-    captureVideo: document.getElementById("videocapture").checked,
-    captureUI: document.getElementById("graphiccapture").checked,
+    
+    backend: document.getElementById("backend").value,
+    uibackend: document.getElementById("uibackend").value,
+
+    vsync: document.getElementById("vsync").checked,
+    novideo: document.getElementById("novideo").checked,
+    nogui: document.getElementById("nogui").checked,
     autostart: document.getElementById("autostart").checked,
   };
 
