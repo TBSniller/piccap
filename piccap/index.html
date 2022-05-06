@@ -44,8 +44,8 @@
                         <input rows="4" cols="50" id="port" name="port" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" type="text" placeholder="19400 (default)">
                       </div>
                       <div class="u-form-group u-form-group-3">
-                        <!-- <label for="startdelay" class="u-label">Capture start delay</label>
-                        <input type="text" placeholder="30 secounds" id="startdelay" name="startdelay" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required"> -->
+                        <label for="priority" class="u-label">Hyperion source priority</label>
+                        <input type="text" placeholder="150 (default)" id="priority" name="priority" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
                       </div>
                       <div class="u-form-checkbox u-form-group u-form-group-4">
                         <input type="checkbox" id="autostart" name="autostart" value="On">
@@ -58,12 +58,18 @@
                   </div>
                   <input type="button" class="u-align-right u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-2" onclick="stopservice()" value="Stop">
                   <input type="button" class="u-align-right u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" onclick="startservice()" value="Start">
-                  <h5 class="u-align-left u-text u-text-default u-text-2">Status:</h5>
-                  <p id="servicestatus" class="u-align-left u-text u-text-default u-text-3">Loading status...</p>
-                  <p class="u-align-center u-text u-text-4">Root and Homebrew-Channel v0.4+ is required for this application. Maybe a full reboot is required after first app start.<br>Disable LG Quick Start+ if you have problems with autostart!</p>
-                  <h5 class="u-align-center u-text u-text-5">Root status:</h5>
-                  <p id="permissionstatus" class="u-align-center u-text u-text-default u-text-6">Loading status...</p>
-                  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="reboot()" value="Reboot TV">
+                  <h5 class="u-align-center u-text u-text-default u-text-2">Current service overview</h5>
+				  <h5 class="u-align-left u-text u-text-5">State:</h5>
+                  <p id="servicestate" class="u-text-3">Loading connection status...</p>
+				  <h5 class="u-align-left u-text u-text-5">Video:</h5>
+				  <p id="servicecapturestatus" class="u-text-3">Loading video capture status...</p>
+				  <h5 class="u-align-left u-text u-text-5">Graphic:</h5>
+				  <p id="serviceuistatus" class="u-text-3">Loading graphical capture status...</p>
+                  <h5 class="u-align-left u-text u-text-5">FPS:</h5>
+				  <p id="servicefpsstatus" class="u-text-3">Loading current FPS...</p>
+                  <h5 class="u-align-left u-text u-text-5">Root:</h5>
+                  <p id="permissionstatus" class="u-text-3">Loading root status...</p>
+				  <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-4" onclick="reboot()" value="Reboot TV">
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-white u-layout-cell-2">
@@ -72,48 +78,55 @@
                     <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                       <div class="u-form-group u-form-group-6">
                         <label for="width" class="u-label">Width</label>
-                        <input type="text" id="width" name="width" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" placeholder="360 (default)">
+                        <input type="text" id="width" name="width" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" placeholder="192 (default)">
                       </div>
                       <div class="u-form-group u-form-textarea u-form-group-7">
                         <label for="height" class="u-label">Height</label>
-                        <input rows="4" cols="50" id="height" name="height" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" type="text" placeholder="180 (default)">
+                        <input rows="4" cols="50" id="height" name="height" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" type="text" placeholder="96 (default)">
                       </div>
                       <div class="u-form-group u-form-group-8">
                         <label for="fps" class="u-label">Max FPS</label>
                         <input type="text" placeholder="0 (unlimited | default) - 60" id="fps" name="fps" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
                       </div>
                       <div class="u-form-group u-form-group-9">
-                        <input type="checkbox" id="vsync" name="vsync" value="false" checked="checked">
-                        <label for="vsync" class="u-label">Enable VSync</label>
+                        <input type="checkbox" id="vsync" name="vsync" value="true" checked="checked">
+                        <label for="vsync" class="u-label">VSync (only disable if having problems like low FPS)</label>
                       </div>
-                      <div class="u-form-group u-form-select u-form-group-9">
-                        <label for="backend">Video backend:</label>
+					  <br>
+                      <div class="u-form-group u-form-select u-form-group-10">
+                        <label for="backend">Video capture backend:</label>
                         <select name="backend" id="backend">
-                          <option value="libdile_vt">libdile_vt (Most older 2020- TVs)</option>
-                          <option value="libvtcapture">libvtcapture (New 2020+ TV)</option>
+						  <option value="auto">Automatic detection</option>
+                          <option value="libdile_vt">libdile_vt (WebOS 3.x+)</option>
+                          <option value="libvtcapture">libvtcapture (WebOS 5.x+)</option>
+						  <option value="libvt">libvt (WebOS 4.x | DEPRECATED)</option>
                         </select>
-                      </br>
-
-                        <label for="uibackend">UI backend:</label>
+                      </div>
+					  <div class="u-form-group u-form-select u-form-group-10">
+					    <label for="uibackend">Graphical capture backend:</label>
                         <select name="uibackend" id="uibackend">
-                          <option value="auto">Auto detect</option>
+						  <option value="auto">Automatic detection</option>
+                          <option value="libgm">libgm (WebOS 3.x+)</option>
+						  <option value="libhalgal">libhalgal (WebOS 5.x+)</option>
                         </select>
-                      </div>
+					  </div>
                       <div class="u-form-checkbox u-form-group u-form-group-11">
-                        <input type="checkbox" id="novideo" name="novideo" value="true" checked="checked">
-                        <label for="novideo" class="u-label">No Video capture</label>
-                      </div>
-                      <div class="u-form-checkbox u-form-group u-form-group-12">
-                        <input type="checkbox" id="nogui" name="nogui" value="true" class="u-border-1 u-border-grey-30 u-input-rectangle u-white" checked="checked">
-                        <label for="nogui" class="u-label">No Graphic capture (UI)</label>
+                        <input type="checkbox" id="novideo" name="novideo" value="false">
+                        <label for="novideo" class="u-label">Disable video capture</label>
+					  </div>
+					  <div class="u-form-checkbox u-form-group u-form-group-11">
+                        <input type="checkbox" id="nogui" name="nogui" value="false">
+                        <label for="nogui" class="u-label">Disable graphical(UI) capture</label>
                       </div>
                       <div class="u-align-center u-form-group u-form-submit u-form-group-13">
                         <input type="button" class="u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-radius-8 u-btn-5" onclick="save()" value="Save">
                       </div>
+				
                     </form>
                   </div>
+				  <p class="u-align-center u-text u-text-4">Root and Homebrew-Channel v0.4+ is required for this application. Maybe a full reboot is required after first app start.</p>
                   <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-6"  onclick="resetconf()" value="Reset configuration">
-                  <p class="u-align-center u-text u-text-7">Some ♥ to Mariotaku, JohnPaul and tuxuser for very much help and initial coding of necessary things! Also thanks to chbartsch and  obviously the rest of the OpenLG Discord community!<br>Feel free to give some feedback: github.com/webosbrew/hyperion-webos & github.com/TBSniller/piccap
+                  <p class="u-align-center u-text u-text-7">Some ♥ to Mariotaku, JohnPaul(infowski) and tuxuser for very much help and initial coding of necessary things! Also thanks to chbartsch and  obviously the rest of the OpenLG Discord community!<br>Feel free to give some feedback: github.com/webosbrew/hyperion-webos & github.com/TBSniller/piccap
                   </p>
                 </div>
               </div>

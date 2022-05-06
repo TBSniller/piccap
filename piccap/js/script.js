@@ -140,7 +140,10 @@ async function getStatus() {
 }
 */
   const res = await asyncCall('luna://org.webosbrew.piccap.service/status', {});
-  document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Capture is running.' : 'Capture is stopped.';
+  document.getElementById("servicestate").innerHTML = res.connected ? 'Connected' : 'Disconnected.';
+  document.getElementById("servicecapturestatus").innerHTML = res.videoRunning ? 'Capturing with ' + res.videoBackend : 'Not capturing';
+  document.getElementById("serviceuistatus").innerHTML = res.uiRunning ? 'Capturing with ' + res.uiBackend : 'Not capturing';
+  document.getElementById("servicefpsstatus").innerHTML = res.framerate;
 }
 
 window.getSettings = async () => {
@@ -191,8 +194,6 @@ window.save = async () => {
     nogui: document.getElementById("nogui").checked,
     autostart: document.getElementById("autostart").checked,
   };
-
-  if (config.backend === 'auto') config.backend = null;
 
   console.info(config);
 
