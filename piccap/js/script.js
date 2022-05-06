@@ -109,6 +109,7 @@ async function getSettings() {
 
   document.getElementById("address").value = config.address;
   document.getElementById("port").value = config.port;
+  document.getElementById("priority").value = config.priority;
   document.getElementById("width").value = config.width;
   document.getElementById("height").value = config.height;
   document.getElementById("fps").value = config.fps;
@@ -138,7 +139,7 @@ async function getStatus() {
   "videoRunning":false
 }
 */
-  const res = await asyncCall('luna://org.webosbrew.piccap.service/isRunning', {});
+  const res = await asyncCall('luna://org.webosbrew.piccap.service/status', {});
   document.getElementById("servicestatus").innerHTML = res.isRunning ? 'Capture is running.' : 'Capture is stopped.';
 }
 
@@ -177,6 +178,7 @@ window.save = async () => {
   const config = {
     address: document.getElementById("address").value || undefined,
     port: parseInt(document.getElementById("port").value) || undefined,
+    priority: parseInt(document.getElementById("priority").value) || undefined,
     width: parseInt(document.getElementById("width").value) || undefined,
     height: parseInt(document.getElementById("height").value) || undefined,
     fps: parseInt(document.getElementById("fps").value) || 0,
