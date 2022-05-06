@@ -53,6 +53,7 @@ async function startup() {
   await checkRoot();
   await getSettings();
   await getStatus();
+  statusloop();
 }
 
 startup();
@@ -144,6 +145,14 @@ async function getStatus() {
   document.getElementById("servicecapturestatus").innerHTML = res.videoRunning ? 'Capturing with ' + res.videoBackend : 'Not capturing';
   document.getElementById("serviceuistatus").innerHTML = res.uiRunning ? 'Capturing with ' + res.uiBackend : 'Not capturing';
   document.getElementById("servicefpsstatus").innerHTML = res.framerate;
+}
+
+async function statusloop(){
+  console.log("Starting loop to get status from background service.");
+  while(True){
+    setTimeout(() => {  await getStatus(); }, 5000);
+    console.log("Getting status again..");
+  }
 }
 
 window.getSettings = async () => {
