@@ -147,11 +147,13 @@ async function getStatus() {
   document.getElementById("servicefpsstatus").innerHTML = res.framerate;
 }
 
+
 async function statusloop(){
   console.log("Starting loop to get status from background service.");
   while(True){
-    setTimeout(() => {  await getStatus(); }, 5000);
+    await wait(5000);
     console.log("Getting status again..");
+    await getStatus();
   }
 }
 
