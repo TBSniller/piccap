@@ -50,6 +50,7 @@ function asyncCall(uri, args) {
 }
 
 async function startup() {
+  await wait(2000);
   await checkRoot();
   await getSettings();
   await getStatus();
@@ -58,9 +59,24 @@ async function startup() {
 
 startup();
 
+async function makeServiceRoot(){
+  console.log("Rooting..");
+  document.getElementById("servicestatus").innerHTML = "Rooting service..";
+  const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', {"command":"/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap.service"});
+  console.log("HBChannel exec returns: " + res);
+  console.log("Killing service process..");
+  document.getElementById("servicestatus").innerHTML = "Killing service..";
+  res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', {"command":"kill -9 $(pidof hyperion-webos)"});
+  console.log("HBChannel exec returns: " + res);
+  document.getElementById("servicestatus").innerHTML = "Rooting finished";
+}
+
 async function checkRoot(){
   let wasRoot = true;
   let isroot = false;
+  let rootinprog = false;
+
+  document.getElementById("servicestatus").innerHTML = "Checking root status";
 
   for (let i = 0 ; i < 15 ; i++) {
     const res = await asyncCall('luna://org.webosbrew.piccap.service/isRoot', {});
@@ -79,6 +95,11 @@ async function checkRoot(){
     if(!isroot){
       wasRoot = false;
       document.getElementById("permissionstatus").innerHTML = 'Service elevation in progress..';
+      if (!rootinprog){
+        rootinprog = true;
+        console.log("Sending elevation command to HBChannel.");
+        makeServiceRoot();
+      }
       await wait(2000);
     }
     document.getElementById("permissionstatus").innerHTML = 'Not running as root';
@@ -87,6 +108,7 @@ async function checkRoot(){
 }
 
 async function getSettings() {
+  document.getElementById("servicestatus").innerHTML = "Loading settings..";
   const config = await asyncCall('luna://org.webosbrew.piccap.service/getSettings', {});
   console.info(config);
 
@@ -124,6 +146,7 @@ async function getSettings() {
   document.getElementById("autostart").checked = config.autostart;
 
   console.info('Done!');
+  document.getElementById("servicestatus").innerHTML = "Settings loaded";
   getStatus();
 }
 
@@ -150,8 +173,8 @@ async function getStatus() {
 
 async function statusloop(){
   console.log("Starting loop to get status from background service.");
-  while(True){
-    await wait(5000);
+  while(1 == 1){
+    await wait(2000);
     console.log("Getting status again..");
     await getStatus();
   }
@@ -168,7 +191,9 @@ window.reboot = async () => {
 }
 
 window.resetconf = () => {
+  document.getElementById("servicestatus").innerHTML = "Resetting settings..";
   asyncCall('luna://org.webosbrew.piccap.service/resetSettings', {}).then(getSettings);
+  document.getElementById("servicestatus").innerHTML = "Reset command send";
 }
 
 window.save = async () => {
@@ -208,10 +233,11 @@ window.save = async () => {
 
   console.info(config);
 
-  document.getElementById("servicestatus").innerHTML = "Saving..";
+  document.getElementById("servicestatus").innerHTML = "Saving settings..";
   const res = await asyncCall('luna://org.webosbrew.piccap.service/setSettings', config);
   await getSettings();
   await getStatus();
+  document.getElementById("servicestatus").innerHTML = "Settings send";
 }
 
 window.startservice = async () => {
@@ -222,6 +248,7 @@ window.startservice = async () => {
   } catch (err) {
     document.getElementById("servicestatus").innerHTML = "Failed: "+ JSON.stringify(err);
   }
+  document.getElementById("servicestatus").innerHTML = "Start command send";
 }
 
 window.stopservice = async () => {
@@ -232,4 +259,5 @@ window.stopservice = async () => {
   } catch (err) {
     document.getElementById("servicestatus").innerHTML = "Failed: "+ JSON.stringify(err);
   }
+  document.getElementById("servicestatus").innerHTML = "Stop command send";
 }
