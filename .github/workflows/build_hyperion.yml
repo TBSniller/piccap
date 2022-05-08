@@ -96,7 +96,6 @@ jobs:
           chmod +x webos_libs/hyperion-webos webos_libs/piccapautostart
           cp webos_libs/hyperion-webos ./servicenative/hyperion-webos
           cp webos_libs/libdile_vt_backend.so ./servicenative/libdile_vt_backend.so
-          cp webos_libs/libvt_backend.so ./servicenative/libvt_backend.so
           cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
           cp webos_libs/piccapautostart ./servicenative/piccapautostart
 
