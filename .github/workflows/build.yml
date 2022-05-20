@@ -130,22 +130,20 @@ jobs:
 
       - name: Copy native module
         run: |
-          mkdir -p ./servicenative
-          cp hyperion-webos-build/hyperion-webos ./servicenative/hyperion-webos
-          cp hyperion-webos-build/*.so ./servicenative/
-          chmod +x servicenative/hyperion-webos servicenative/piccapautostart
+          mkdir -p ./dist-service
+          cp hyperion-webos-build/hyperion-webos ./dist-service/hyperion-webos
+          cp hyperion-webos-build/*.so ./dist-service/
+          cp servicenative/* ./dist-service/
+          chmod +x ./dist-service/hyperion-webos ./dist-service/piccapautostart
 
       - name: List files (frontend)
         run: find ./dist
       
       - name: List files (native)
-        run: find ./servicenative
+        run: find ./dist-service
 
       - name: Package
-        run: mkdir -p build && ares-package ./dist/ ./servicenative -o ./build
-
-      - name: List build dir
-        run: find ./build
+        run: mkdir -p build && ares-package ./dist/ ./dist-service -o ./build
 
       - name: Upload piccap ipk
         uses: actions/upload-artifact@v2

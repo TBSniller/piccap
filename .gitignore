@@ -3,7 +3,7 @@
 build/
 node_modules/
 dist/
-servicenative/*.so
+dist-service/
 
 .enyocache
 **/*.ipk

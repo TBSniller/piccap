@@ -21,13 +21,5 @@ npm run build || exit 1
 echo ":: Service ::"
 npm run build-service || exit 1
 
-echo ":: Ensure executable bit set ::"
-for file in piccapautostart hyperion-webos
-do
-  FILE="${EXEC_DIR}/servicenative/${file}"
-  echo "=> ${FILE}"
-  chmod +x ${FILE}
-done
-
 echo ":: Package into IPK ::"
 npm run package || exit 1
