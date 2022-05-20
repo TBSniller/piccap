@@ -39,38 +39,37 @@ module.exports = kind({
   titleBelow: "WebOS TV screen grabber",
   headerType: 'small',
   components: [
-    {kind: FittableColumns, classes: 'enyo-center', fit: true, components: [
-      {kind: Scroller, fit: true, components: [
+    {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
       {classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
         {components: [
-          {
-            kind: ExpandableInput,
-            name: 'addressInput',
-            content: 'Hyperion address',
-            placeholder: 'IP address or hostname',
-          },
-          {
-            kind: ExpandableInput,
-            name: 'portInput',
-            content: 'Port',
-            placeholder: 'Hyperion flatbuffer port',
-            type: 'number',
-          },
-          {
-            kind: ExpandableInput,
-            name: 'sourcePriorityInput',
-            content: 'Hyperion source priority',
-            placeholder: 'Priority',
-            type: 'number',
-          },
-          {
-            kind: ToggleItem,
-            name: 'autostartToggle',
-            content: 'Autostart',
-            checked: false,
-            disabled: false
-          },
-          {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
+          {kind: Divider, content: 'Hyperion connection'},
+          {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
+            {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+              {
+                kind: ExpandableInput,
+                name: 'addressInput',
+                content: 'IP address',
+                placeholder: 'IP address or hostname',
+              },
+              {
+                kind: ExpandableInput,
+                name: 'portInput',
+                content: 'Port',
+                placeholder: 'Hyperion flatbuffer port',
+                type: 'number',
+                fit: true,
+              },
+              {
+                kind: ExpandableInput,
+                name: 'sourcePriorityInput',
+                content: 'Source priority',
+                placeholder: 'Priority',
+                type: 'number',
+              }
+            ]}
+          ]},
+          {kind: Divider, content: 'Capture settings'},
+          {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
             {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
               {
                 kind: ExpandableInput,
@@ -118,7 +117,13 @@ module.exports = kind({
             ]
           }
         ]},
-      ]}
+        {
+          kind: ToggleItem,
+          name: 'autostartToggle',
+          content: 'Autostart',
+          checked: false,
+          disabled: false
+        },
       ]},
       {kind: Scroller, fit: true, components: [
       {classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
