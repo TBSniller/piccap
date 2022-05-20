@@ -272,7 +272,10 @@ module.exports = kind({
     { from: "status.videoBackend", to: '$.videoBackendStatus.text' },
     { from: "status.graphicsBackend", to: '$.graphicsBackendStatus.text' },
     { from: "status.fps", to: '$.fpsStatus.text' },
-    { from: "status.elevated", to: '$.elevatedStatus.text' }
+    { from: "status.elevated", to: '$.elevatedStatus.text' },
+
+    // Result
+    { from: "resultText", to: '$.result.content' }
   ],
 
   create: function () {
