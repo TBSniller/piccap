@@ -16,9 +16,10 @@ var
 
 var serviceName = "org.webosbrew.piccap.service";
 var servicePath = "/media/developer/apps/usr/palm/services/" + serviceName;
-var autostartFilepath = servicePath + "/autostart.sh";
+var autostartFilepath = servicePath + "/piccapautostart";
 var linkPath = "/var/lib/webosbrew/init.d/piccapautostart";
 var elevationCommand = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service " + serviceName;
+var terminationCommand = "killall -9 hyperion-webos"
 
 var not = function (x) { return !x };
 var yes_no_bool = function (x) {
@@ -216,6 +217,7 @@ module.exports = kind({
     { kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onSetSettings', onError: 'onSetSettings' },
 
     { kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec' },
+    { kind: LunaService, name: 'terminate', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onTermination', onError: 'onTermination' },
     { kind: LunaService, name: 'execSilent', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec' },
     { kind: LunaService, name: 'systemReboot', service: 'luna://org.webosbrew.hbchannel.service', method: 'reboot' },
   ],
@@ -273,6 +275,10 @@ module.exports = kind({
   elevate: function () {
     console.info("Sending elevation command");
     this.$.execSilent.send({ command: elevationCommand });
+  },
+  terminate: function() {
+    console.info("Sending service kill command");
+    this.$.terminate.send({ command: terminationCommand })
   },
   reboot: function () {
     console.info("Sending reboot command");
@@ -347,9 +353,20 @@ module.exports = kind({
       this.set('resultText', 'Failed: ' + evt.errorText + ' ' + evt.stdoutString + evt.stderrString);
     }
   },
+  onTermination: function (sender, evt) {
+    console.info("onTermination");
+    console.info(sender, evt);
+
+    // TODO: Show messagebox prompting user to reboot/restart app
+  },
   onServiceStatus: function (sender, evt) {
     console.info("onServiceStatus");
     console.info(sender, evt);
+
+    if (!evt.returnValue) {
+      this.set('resultText', "Failed to get service status!");
+      return;
+    }
 
     var state = (evt.isRunning ? "Running" : "Not running") + " - " + (evt.connected ? "Connected" : "Disconnected");
 
@@ -364,20 +381,67 @@ module.exports = kind({
     if (evt.elevated) {
       this.$.resetSettings.send(settings);
     } else {
-      // TODO: Terminate service
-      // TODO: Message popup requesting user to reboot system
+      this.terminate();
     }
 
     this.set('resultText', 'Service status received..');
   },
   onSetSettings: function (sender, evt) {
     console.info("onSetSettings");
+
+    if (!evt.returnValue) {
+      this.set('resultText', "Failed to save settings!");
+      return;
+    }
+
     this.set('resultText', "Settings saved!");
   },
   onGetSettings: function (sender, evt) {
     console.info("onGetSettings");
 
-    // TODO: Set all values
+    if (!evt.returnValue) {
+      this.set('resultText', "Failed to get settings!");
+      return;
+    }
+
+    var videoBackend = evt.video_backend ? evt.video_backend : "auto";
+    var uiBackend = evt.ui_backend ? evt.ui_backend : "auto";
+
+    if (evt.no_video) {
+      videoBackend = "disabled";
+    }
+
+    if (evt.no_gui) {
+      uiBackend = "disabled";
+    }
+
+    var videoBackendChoices = this.$.videoBackendPicker.components;
+    for (let i = 0; i < videoBackendChoices.length; i++ ) {
+      if (videoBackendChoices[i].backend == videoBackend) {
+        this.$.videoBackendPicker.selectedIndex = i;
+        break;
+      }
+    }
+
+    var uiBackendChoices = this.$.uiBackendPicker.components;
+    for (let i = 0; i < uiBackendChoices.length; i++ ) {
+      if (uiBackendChoices[i].backend == uiBackend) {
+        this.$.uiBackendPicker.selectedIndex = i;
+        break;
+      }
+    }
+
+    this.set('address', evt.address);
+    this.set('port', evt.port);
+    this.set('priority', evt.priority);
+    this.set('sourcePriority', evt.priority)
+    this.set('fps', evt.fps);
+    this.set('width', evt.width);
+    this.set('height', evt.height);
+    this.set('vsync', evt.vsync);
+
+    this.set('autostart', evt.autostart);
+
     this.set('resultText', "Settings reset!");
   },
   onDaemonStart: function (sender, evt) {
