@@ -137,7 +137,7 @@ module.exports = kind({
           },
           {
             kind: LabeledTextItem,
-            name: 'stateStatus',
+            name: 'daemonStatus',
             label: 'State',
             disabled: true,
           },
@@ -163,12 +163,6 @@ module.exports = kind({
             kind: LabeledTextItem,
             name: 'elevatedStatus',
             label: 'Root',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'serviceStatus',
-            label: 'Status',
             disabled: true,
           },
           {kind: Divider, content: 'Service control'},
@@ -217,7 +211,7 @@ module.exports = kind({
   resultText: 'unknown',
   status: {
     version: "unknown",
-    state: "unknown",
+    daemonStatus: "unknown",
     videoBackend: "unknown",
     graphicBackend: "unknown",
     fps: "unknown",
@@ -238,7 +232,7 @@ module.exports = kind({
 
     // Status
     {from: "status.version", to: '$.versionStatus.text'},
-    {from: "status.state", to: '$.stateStatus.text'},
+    {from: "status.daemonStatus", to: '$.daemonStatus.text'},
     {from: "status.videoBackend", to: '$.videoBackendStatus.text'},
     {from: "status.graphicsBackend", to: '$.graphicsBackendStatus.text'},
     {from: "status.fps", to: '$.fpsStatus.text'},
@@ -336,7 +330,7 @@ module.exports = kind({
 
     this.set('status.version', evt.version);
     this.set('status.elevated', evt.elevated);
-    this.set('status.state', state);
+    this.set('status.daemonStatus', state);
     this.set('status.connected', evt.connected);
     this.set('status.videoBackend', evt.videoBackend + " - " + (evt.videoRunning ? "Active" : "Inactive"));
     this.set('status.graphicsBackend', evt.uiBackend + " - " + (evt.uiRunning ? "Active" : "Inactive"));
