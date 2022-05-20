@@ -189,6 +189,7 @@ module.exports = kind({
               classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
                 { kind: Item, name: 'startButton', content: 'Start', ontap: "start" },
                 { kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop" },
+                { kind: Item, name: 'terminateButton', content: 'Terminate', ontap: "terminate" }
               ]
             },
             { kind: Divider, content: 'Settings' },
@@ -357,7 +358,12 @@ module.exports = kind({
     console.info("onTermination");
     console.info(sender, evt);
 
-    // TODO: Show messagebox prompting user to reboot/restart app
+    if (evt.returnValue) {
+      this.set('resultText', 'Successfully terminated native service!');
+      // TODO: Show messagebox prompting user to reboot/restart app
+    } else {
+      this.set('resultText', 'Failed to terminate native service!');
+    }
   },
   onServiceStatus: function (sender, evt) {
     console.info("onServiceStatus");
