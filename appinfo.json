@@ -6,10 +6,10 @@
     "main": "index.html",
     "title": "PicCap",
     "appDescription": "Hyperion Sender App - Ambilight for WebOS",
-    "icon": "logo_small.png",
-    "largeIcon": "logo_big.png",
-    "splashBackground": "splash_1080p.png",
-    "bgImage": "splash_1080p.png",
+    "icon": "assets/logo_small.png",
+    "largeIcon": "assets/logo_big.png",
+    "splashBackground": "assets/splash_1080p.png",
+    "bgImage": "assets/splash_1080p.png",
     "iconColor": "black",
     "supportGIP": true
 }
