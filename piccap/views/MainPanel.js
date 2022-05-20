@@ -126,62 +126,64 @@ module.exports = kind({
         },
       ]},
       {kind: Scroller, fit: true, components: [
-      {classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
-        {components: [
-          {kind: Divider, content: 'Service info'},
-          {
-            kind: LabeledTextItem,
-            name: 'versionStatus',
-            label: 'Version',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'daemonStatus',
-            label: 'State',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'videoBackendStatus',
-            label: 'Video',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'graphicsBackendStatus',
-            label: 'Graphic',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'fpsStatus',
-            label: 'FPS',
-            disabled: true,
-          },
-          {
-            kind: LabeledTextItem,
-            name: 'elevatedStatus',
-            label: 'Root',
-            disabled: true,
-          },
-          {kind: Divider, content: 'Service control'},
-          {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
-            {classes: 'moon-hspacing', controlClasses: 'moon-6h', components: [
-              {kind: Item, name: 'startButton', content: 'Start', ontap: "start"},
-              {kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop"},
-            ]}
+        {kind: Divider, content: 'Service info'},
+        {classes: 'moon-hspacing', controlClasses: 'moon-6h', components: [
+          {components: [
+            {
+              kind: LabeledTextItem,
+              name: 'versionStatus',
+              label: 'Version',
+              disabled: true,
+            },
+            {
+              kind: LabeledTextItem,
+              name: 'daemonStatus',
+              label: 'State',
+              disabled: true,
+            },
+            {
+              kind: LabeledTextItem,
+              name: 'videoBackendStatus',
+              label: 'Video',
+              disabled: true,
+            }
           ]},
-          {kind: Divider, content: 'Settings'},
-          {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
-            {classes: 'moon-hspacing', controlClasses: 'moon-6h', components: [
-              {kind: Item, name: 'saveButton', content: 'Save', ontap: "saveSettings"},
-              {kind: Item, name: 'resetButton', content: 'Reset', ontap: "resetSettings"},
-            ]}
-          ]}, 
-          {kind: Item, name: 'rebootButton', content: 'Reboot system', ontap: "reboot"},
+          {components: [
+            {
+              kind: LabeledTextItem,
+              name: 'graphicsBackendStatus',
+              label: 'Graphic',
+              disabled: true,
+            },
+            {
+              kind: LabeledTextItem,
+              name: 'fpsStatus',
+              label: 'FPS',
+              disabled: true,
+            },
+            {
+              kind: LabeledTextItem,
+              name: 'elevatedStatus',
+              label: 'Root',
+              disabled: true,
+            },
+          ]},
         ]},
-      ]}
+        {kind: Divider, content: 'Service control'},
+        {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
+          {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+            {kind: Item, name: 'startButton', content: 'Start', ontap: "start"},
+            {kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop"},
+          ]}
+        ]},
+        {kind: Divider, content: 'Settings'},
+        {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
+          {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+            {kind: Item, name: 'saveButton', content: 'Save', ontap: "saveSettings"},
+            {kind: Item, name: 'resetButton', content: 'Reset', ontap: "resetSettings"},
+          ]}
+        ]}, 
+        {kind: Item, name: 'rebootButton', content: 'Reboot system', ontap: "reboot"},
       ]}
     ]},
     {components: [
