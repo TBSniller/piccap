@@ -1,0 +1,161 @@
+name: WebOS build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  TOOLCHAIN_URL: https://github.com/openlgtv/buildroot-nc4/releases/latest/download/arm-webos-linux-gnueabi_sdk-buildroot.tar.gz
+  TOOLCHAIN_DIR: /opt/arm-webos-linux-gnueabi_sdk-buildroot
+  TOOLCHAIN_ENV_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/environment-setup
+  TOOLCHAIN_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
+  BUILD_DIR: build
+
+  CCACHE_CACHE_DIR: .ccache-build
+  CCACHE_COMPRESS: true
+  CCACHE_COMPRESSLEVEL: 6
+  CCACHE_MAXSIZE: 600M
+
+jobs:
+  build-native-components:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./hyperion-webos
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Restore/Cache build directories
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{ github.workspace }}/${{ env.CCACHE_CACHE_DIR }}
+
+        key: ccache-${{ runner.os }}-${{github.run_id}}
+        restore-keys: |
+          ccache-${{ runner.os }}
+
+    - name: Create build directories
+      run: |
+        mkdir -p ./${{ env.BUILD_DIR }}
+
+    - name: Download and unpack toolchain
+      working-directory: /opt
+      run: |
+        wget -q -O toolchain.tar.gz ${TOOLCHAIN_URL}
+        tar xf toolchain.tar.gz
+
+    - name: Relocate toolchain
+      run: |
+        pushd ${TOOLCHAIN_DIR}
+        ./relocate-sdk.sh
+        popd
+
+    - name: Install native dependencies
+      env:
+        apt_deps: ccache git cmake build-essential
+      run: |
+        sudo apt update
+        sudo apt install -y ${{ env.apt_deps }}
+
+    - name: Build hyperion-webos
+      working-directory: ${{github.workspace}}/hyperion-webos/build
+      shell: bash
+      run: |
+        cmake .. \
+          -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} \
+          -DCMAKE_BUILD_TYPE=Release
+        make
+    
+    - name: List files
+      run: find .
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: hyperion-webos-build
+        path: ${{github.workspace}}/hyperion-webos/build/hyperion-webos
+
+    - name: Upload native components artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: hyperion-webos-build
+        path: ${{github.workspace}}/hyperion-webos/build/*_backend.so
+
+  build-piccap:
+    runs-on: ubuntu-latest
+    needs: build-native-components
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install webOS CLI
+        run: |
+          sudo npm install -g @webosose/ares-cli
+
+      - name: Reconfigure git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
+
+      - name: Update npm
+        run: npm install -g npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build App
+        run: npm run build -- --env production
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: hyperion-webos-build
+          path: hyperion-webos-build
+
+      - name: List files
+        run: find .
+
+      - name: Copy native module
+        run: |
+          mkdir -p ./servicenative
+          cp hyperion-webos-build/hyperion-webos ./servicenative/hyperion-webos
+          cp hyperion-webos-build/*.so ./servicenative/
+          chmod +x servicenative/hyperion-webos servicenative/piccapautostart
+
+      - name: List files (frontend)
+        run: find ./dist
+      
+      - name: List files (native)
+        run: find ./servicenative
+
+      - name: Package
+        run: mkdir -p build && ares-package ./dist/ ./servicenative -o ./build
+
+      - name: List build dir
+        run: find ./build
+
+      - name: Upload piccap ipk
+        uses: actions/upload-artifact@v2
+        with:
+          name: piccap_ipk
+          path: |
+            build/*.ipk
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./build/*.ipk

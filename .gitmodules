@@ -1,3 +1,24 @@
 [submodule "hyperion-webos"]
 	path = hyperion-webos
 	url = https://github.com/webosbrew/hyperion-webos
+[submodule "lib/enyo"]
+	path = lib/enyo
+	url = https://github.com/enyojs/enyo.git
+[submodule "lib/moonstone"]
+	path = lib/moonstone
+	url = https://github.com/enyojs/moonstone.git
+[submodule "lib/spotlight"]
+	path = lib/spotlight
+	url = https://github.com/enyojs/spotlight.git
+[submodule "lib/layout"]
+	path = lib/layout
+	url = https://github.com/enyojs/layout.git
+[submodule "lib/svg"]
+	path = lib/svg
+	url = https://github.com/enyojs/svg.git
+[submodule "lib/enyo-ilib"]
+	path = lib/enyo-ilib
+	url = https://github.com/enyojs/enyo-ilib.git
+[submodule "lib/enyo-webos"]
+	path = lib/enyo-webos
+	url = https://github.com/enyojs/enyo-webos.git
