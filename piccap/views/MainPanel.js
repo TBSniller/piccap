@@ -7,10 +7,10 @@ var
   Divider = require('moonstone/Divider'),
   Scroller = require('moonstone/Scroller'),
   Item = require('moonstone/Item'),
+  Button = require('moonstone/Button'),
   ToggleItem = require('moonstone/ToggleItem'),
   LabeledTextItem = require('moonstone/LabeledTextItem'),
-  Input = require('moonstone/Input'),
-  InputDecorator = require('moonstone/InputDecorator'),
+  Dialog = require('moonstone/Dialog'),
   ExpandableInput = require('moonstone/ExpandableInput'),
   ExpandablePicker = require('moonstone/ExpandablePicker');
 
@@ -208,7 +208,19 @@ module.exports = kind({
     {
       components: [
         { kind: Divider, content: 'Result' },
-        { kind: BodyText, name: 'result', content: 'Nothing selected...' }
+        { kind: BodyText, name: 'result', content: 'Nothing selected...', showCloseButton: true },
+      ]
+    },
+    { 
+      kind: Dialog,
+      name: 'restartDialog',
+      title: 'Restart required',
+      subTitle: 'Native service was terminated after elevation. Please reboot.',
+      modal: true,
+      autoDismiss: false,
+      components: [
+        {name: 'okRestart', kind: Button, content: 'OK', ontap: 'reboot'},
+        {name: 'cancelRestart', kind: Button, content: 'Cancel', ontap: 'hideRestartDialog'}
       ]
     },
     { kind: LunaService, name: 'serviceStatus', service: 'luna://org.webosbrew.piccap.service', method: 'status', onResponse: 'onServiceStatus', onError: 'onServiceStatus' },
@@ -281,12 +293,16 @@ module.exports = kind({
     console.info("Sending service kill command");
     this.$.terminate.send({ command: terminationCommand })
   },
+  hideRestartDialog: function() {
+    this.$.restartDialog.hide();
+  },
   reboot: function () {
     console.info("Sending reboot command");
     this.$.systemReboot.send({ reason: 'SwDownload' });
   },
   start: function () {
     console.info("Start clicked");
+    this.$.restartDialog.show();
     this.$.start.send({});
   },
   stop: function () {
@@ -360,7 +376,7 @@ module.exports = kind({
 
     if (evt.returnValue) {
       this.set('resultText', 'Successfully terminated native service!');
-      // TODO: Show messagebox prompting user to reboot/restart app
+      this.$.restartDialog.show();
     } else {
       this.set('resultText', 'Failed to terminate native service!');
     }
