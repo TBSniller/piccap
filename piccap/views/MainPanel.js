@@ -298,11 +298,11 @@ module.exports = kind({
   },
   reboot: function () {
     console.info("Sending reboot command");
+    this.hideRestartDialog();
     this.$.systemReboot.send({ reason: 'SwDownload' });
   },
   start: function () {
     console.info("Start clicked");
-    this.$.restartDialog.show();
     this.$.start.send({});
   },
   stop: function () {
