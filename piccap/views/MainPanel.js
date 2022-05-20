@@ -212,8 +212,8 @@ module.exports = kind({
     { kind: LunaService, name: 'serviceStatus', service: 'luna://org.webosbrew.piccap.service', method: 'status', onResponse: 'onServiceStatus', onError: 'onServiceStatus' },
     { kind: LunaService, name: 'start', service: 'luna://org.webosbrew.piccap.service', method: 'start', onResponse: 'onDaemonStart', onError: 'onDaemonStart' },
     { kind: LunaService, name: 'stop', service: 'luna://org.webosbrew.piccap.service', method: 'stop', onResponse: 'onDaemonStop', onError: 'onDaemonStop' },
-    { kind: LunaService, name: 'getSettings', service: 'luna://org.webosbrew.piccap.service', method: 'getSettings', onResponse: 'onDaemonVersion', onError: 'onDaemonVersion' },
-    { kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onTermination', onError: 'onTermination' },
+    { kind: LunaService, name: 'getSettings', service: 'luna://org.webosbrew.piccap.service', method: 'getSettings', onResponse: 'onGetSettings', onError: 'onGetSettings' },
+    { kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onSetSettings', onError: 'onSetSettings' },
 
     { kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec' },
     { kind: LunaService, name: 'execSilent', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec' },
@@ -294,7 +294,7 @@ module.exports = kind({
       command: command,
     });
   },
-  saveSettings: function (command) {
+  saveSettings: function () {
     console.info("Save settings clicked");
 
     var noVideo = false;
@@ -334,6 +334,10 @@ module.exports = kind({
 
     this.$.setSettings.send(settings);
   },
+  resetSettings: function () {
+    console.info("Reset settings clicked");
+    this.$.getSettings.send();
+  },
   onExec: function (sender, evt) {
     console.info("onExec");
     console.info(evt);
@@ -357,11 +361,24 @@ module.exports = kind({
     this.set('status.graphicsBackend', evt.uiBackend + " - " + (evt.uiRunning ? "Active" : "Inactive"));
     this.set('status.fps', evt.framerate);
 
+    if (evt.elevated) {
+      this.$.resetSettings.send(settings);
+    } else {
+      // TODO: Terminate service
+      // TODO: Message popup requesting user to reboot system
+    }
+
     this.set('resultText', 'Service status received..');
   },
-  onTermination: function (sender, evt) {
-    console.info("onTermination");
-    this.set('resultText', "Native service terminated - Please restart the app!");
+  onSetSettings: function (sender, evt) {
+    console.info("onSetSettings");
+    this.set('resultText', "Settings saved!");
+  },
+  onGetSettings: function (sender, evt) {
+    console.info("onGetSettings");
+
+    // TODO: Set all values
+    this.set('resultText', "Settings reset!");
   },
   onDaemonStart: function (sender, evt) {
     console.info("onDaemonStart");
