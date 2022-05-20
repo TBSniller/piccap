@@ -5,8 +5,8 @@
   "main": "piccap/index.js",
   "scripts": {
     "build": "enyo pack",
-    "build-service": "mkdir -p ./dist && mkdir -p ./hyperion-webos/build && cd hyperion-webos/build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make && cd ../.. && cp -r ./hyperion-webos/build/dist/{hyperion-webos,*.so} ./dist/",
-    "package-native": "ares-package dist/ servicenative/ -o enyo-ilib",
+    "build-service": "mkdir -p ./dist && mkdir -p ./hyperion-webos/build && cd hyperion-webos/build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make && cd ../.. && cp -r ./hyperion-webos/build/{hyperion-webos,*.so} ./dist/",
+    "package": "ares-package dist/ servicenative/",
     "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk",
     "launch": "ares-launch org.webosbrew.piccap",
     "clean": "rm -rf dist/",

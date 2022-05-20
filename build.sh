@@ -21,9 +21,6 @@ npm run build || exit 1
 echo ":: Service ::"
 npm run build-service || exit 1
 
-echo ":: Copy native files (hyperion-webos) ::"
-cp -r ./hyperion-webos/build/{hyperion-webos,*.so} ./servicenative/
-
 echo ":: Ensure executable bit set ::"
 for file in piccapautostart hyperion-webos
 do
