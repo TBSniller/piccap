@@ -4,10 +4,10 @@ var
   FittableColumns = require('layout/FittableColumns'),
   BodyText = require('moonstone/BodyText'),
   LunaService = require('enyo-webos/LunaService'),
-	Divider = require('moonstone/Divider'),
-	Scroller = require('moonstone/Scroller'),
+  Divider = require('moonstone/Divider'),
+  Scroller = require('moonstone/Scroller'),
   Item = require('moonstone/Item'),
-	ToggleItem = require('moonstone/ToggleItem'),
+  ToggleItem = require('moonstone/ToggleItem'),
   LabeledTextItem = require('moonstone/LabeledTextItem'),
   Input = require('moonstone/Input'),
   InputDecorator = require('moonstone/InputDecorator'),
@@ -39,166 +39,185 @@ module.exports = kind({
   titleBelow: "WebOS TV screen grabber",
   headerType: 'small',
   components: [
-    {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
-      {classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
-        {components: [
-          {kind: Divider, content: 'Hyperion connection'},
-          {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
-            {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
-              {
-                kind: ExpandableInput,
-                name: 'addressInput',
-                content: 'IP address',
-                placeholder: 'IP address or hostname',
-              },
-              {
-                kind: ExpandableInput,
-                name: 'portInput',
-                content: 'Port',
-                placeholder: 'Hyperion flatbuffer port',
-                type: 'number',
-                fit: true,
-              },
-              {
-                kind: ExpandableInput,
-                name: 'sourcePriorityInput',
-                content: 'Source priority',
-                placeholder: 'Priority',
-                type: 'number',
-              }
-            ]}
-          ]},
-          {kind: Divider, content: 'Capture settings'},
-          {kind: FittableColumns, classes: 'enyo-stretch', fit: true, components: [
-            {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
-              {
-                kind: ExpandableInput,
-                name: 'widthInput',
-                content: 'Width',
-                placeholder: 'pixels',
-                type: 'number',
-              },
-              {
-                kind: ExpandableInput,
-                name: 'heightInput',
-                content: 'Height',
-                placeholder: 'pixels',
-                type: 'number',
-              },
-              {
-                kind: ExpandableInput,
-                name: 'fpsInput',
-                content: 'Max FPS',
-                placeholder: 'FPS',
-                type: 'number',
-              }
-            ]},
-          ]},
-          {
-            kind: ToggleItem,
-            name: 'vsyncToggle',
-            content: 'VSync',
-            disabled: false
-          },
-          {kind: ExpandablePicker, name: 'videoBackendPicker', noneText: 'None Selected', content: 'Video capture backend', selectedIndex: 0,
-            components: [
-              {content: 'Automatic detection', backend: 'auto'},
-              {content: 'libdile_vt (WebOS 3.x+)', backend: 'libdile_vt'},
-              {content: 'libvtcapture (WebOS 5.x+)', backend: 'libvtcapture'},
-              {content: 'Disabled', backend: 'disabled'}
-            ]
-          },
-          {kind: ExpandablePicker, name: 'uiBackendPicker', noneText: 'None Selected', content: 'Graphic capture backend', selectedIndex: 0,
-            components: [
-              {content: 'Automatic detection', backend: 'auto'},
-              {content: 'libgm (WebOS 3.x+)', backend: 'libgm'},
-              {content: 'libhalgal (WebOS 5.x+)', backend: 'libhalgal'},
-              {content: 'Disabled', backend: 'disabled'}
-            ]
-          }
-        ]},
+    {
+      kind: FittableColumns, classes: 'enyo-stretch', fit: false, components: [
         {
-          kind: ToggleItem,
-          name: 'autostartToggle',
-          content: 'Autostart',
-          checked: false,
-          disabled: false
+          components: [
+            { kind: Divider, content: 'Hyperion connection' },
+            {
+              components: [
+                {
+                  classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+                    {
+                      kind: ExpandableInput,
+                      name: 'addressInput',
+                      content: 'IP address',
+                      placeholder: 'IP address or hostname',
+                    },
+                    {
+                      kind: ExpandableInput,
+                      name: 'portInput',
+                      content: 'Port',
+                      placeholder: 'Hyperion flatbuffer port',
+                      type: 'number',
+                      fit: true,
+                    },
+                    {
+                      kind: ExpandableInput,
+                      name: 'sourcePriorityInput',
+                      content: 'Source priority',
+                      placeholder: 'Priority',
+                      type: 'number',
+                    }
+                  ]
+                }
+              ]
+            },
+            { kind: Divider, content: 'Capture settings' },
+            {
+              classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+                {
+                  kind: ExpandableInput,
+                  name: 'widthInput',
+                  content: 'Width',
+                  placeholder: 'pixels',
+                  type: 'number',
+                },
+                {
+                  kind: ExpandableInput,
+                  name: 'heightInput',
+                  content: 'Height',
+                  placeholder: 'pixels',
+                  type: 'number',
+                },
+                {
+                  kind: ExpandableInput,
+                  name: 'fpsInput',
+                  content: 'Max FPS',
+                  placeholder: 'FPS',
+                  type: 'number',
+                }
+              ]
+            },
+            {
+              kind: ToggleItem,
+              name: 'vsyncToggle',
+              content: 'VSync',
+              disabled: false
+            },
+            {
+              kind: ExpandablePicker, name: 'videoBackendPicker', noneText: 'None Selected', content: 'Video capture backend', selectedIndex: 0,
+              components: [
+                { content: 'Automatic detection', backend: 'auto' },
+                { content: 'libdile_vt (WebOS 3.x+)', backend: 'libdile_vt' },
+                { content: 'libvtcapture (WebOS 5.x+)', backend: 'libvtcapture' },
+                { content: 'Disabled', backend: 'disabled' }
+              ]
+            },
+            {
+              kind: ExpandablePicker, name: 'uiBackendPicker', noneText: 'None Selected', content: 'Graphic capture backend', selectedIndex: 0,
+              components: [
+                { content: 'Automatic detection', backend: 'auto' },
+                { content: 'libgm (WebOS 3.x+)', backend: 'libgm' },
+                { content: 'libhalgal (WebOS 5.x+)', backend: 'libhalgal' },
+                { content: 'Disabled', backend: 'disabled' }
+              ]
+            },
+            {
+              kind: ToggleItem,
+              name: 'autostartToggle',
+              content: 'Autostart',
+              checked: false,
+              disabled: false
+            },
+          ]
         },
-      ]},
-      {kind: Scroller, fit: true, components: [
-        {kind: Divider, content: 'Service info'},
-        {classes: 'moon-hspacing', controlClasses: 'moon-6h', components: [
-          {components: [
+        {
+          kind: Scroller, fit: true, components: [
+            { kind: Divider, content: 'Service info' },
             {
-              kind: LabeledTextItem,
-              name: 'versionStatus',
-              label: 'Version',
-              disabled: true,
+              classes: 'moon-hspacing', controlClasses: 'moon-6h', components: [
+                {
+                  components: [
+                    {
+                      kind: LabeledTextItem,
+                      name: 'versionStatus',
+                      label: 'Version',
+                      disabled: true,
+                    },
+                    {
+                      kind: LabeledTextItem,
+                      name: 'daemonStatus',
+                      label: 'State',
+                      disabled: true,
+                    },
+                    {
+                      kind: LabeledTextItem,
+                      name: 'elevatedStatus',
+                      label: 'Root',
+                      disabled: true,
+                    }
+                  ]
+                },
+                {
+                  components: [
+                    {
+                      kind: LabeledTextItem,
+                      name: 'videoBackendStatus',
+                      label: 'Video',
+                      disabled: true,
+                    },
+                    {
+                      kind: LabeledTextItem,
+                      name: 'graphicsBackendStatus',
+                      label: 'Graphic',
+                      disabled: true,
+                    },
+                    {
+                      kind: LabeledTextItem,
+                      name: 'fpsStatus',
+                      label: 'FPS',
+                      disabled: true,
+                    },
+                  ]
+                },
+              ]
             },
+            { kind: Divider, content: 'Service control' },
             {
-              kind: LabeledTextItem,
-              name: 'daemonStatus',
-              label: 'State',
-              disabled: true,
+              classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+                { kind: Item, name: 'startButton', content: 'Start', ontap: "start" },
+                { kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop" },
+              ]
             },
+            { kind: Divider, content: 'Settings' },
             {
-              kind: LabeledTextItem,
-              name: 'videoBackendStatus',
-              label: 'Video',
-              disabled: true,
-            }
-          ]},
-          {components: [
-            {
-              kind: LabeledTextItem,
-              name: 'graphicsBackendStatus',
-              label: 'Graphic',
-              disabled: true,
+              classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
+                { kind: Item, name: 'saveButton', content: 'Save', ontap: "saveSettings" },
+                { kind: Item, name: 'resetButton', content: 'Reset', ontap: "resetSettings" },
+              ]
             },
-            {
-              kind: LabeledTextItem,
-              name: 'fpsStatus',
-              label: 'FPS',
-              disabled: true,
-            },
-            {
-              kind: LabeledTextItem,
-              name: 'elevatedStatus',
-              label: 'Root',
-              disabled: true,
-            },
-          ]},
-        ]},
-        {kind: Divider, content: 'Service control'},
-        {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
-          {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
-            {kind: Item, name: 'startButton', content: 'Start', ontap: "start"},
-            {kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop"},
-          ]}
-        ]},
-        {kind: Divider, content: 'Settings'},
-        {kind: FittableColumns, classes: 'enyo-center', fit: false, components: [
-          {classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
-            {kind: Item, name: 'saveButton', content: 'Save', ontap: "saveSettings"},
-            {kind: Item, name: 'resetButton', content: 'Reset', ontap: "resetSettings"},
-          ]}
-        ]}, 
-        {kind: Item, name: 'rebootButton', content: 'Reboot system', ontap: "reboot"},
-      ]}
-    ]},
-    {components: [
-      {kind: Divider, content: 'Result'},
-      {kind: BodyText, name: 'result', content: 'Nothing selected...'}
-    ]},
-    {kind: LunaService, name: 'serviceStatus', service: 'luna://org.webosbrew.piccap.service', method: 'status', onResponse: 'onServiceStatus', onError: 'onServiceStatus'},
-    {kind: LunaService, name: 'start', service: 'luna://org.webosbrew.piccap.service', method: 'start', onResponse: 'onDaemonStart', onError: 'onDaemonStart'},
-    {kind: LunaService, name: 'stop', service: 'luna://org.webosbrew.piccap.service', method: 'stop', onResponse: 'onDaemonStop', onError: 'onDaemonStop'},
-    {kind: LunaService, name: 'getSettings', service: 'luna://org.webosbrew.piccap.service', method: 'getSettings', onResponse: 'onDaemonVersion', onError: 'onDaemonVersion'},
-    {kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onTermination', onError: 'onTermination'},
+            { kind: Divider, content: 'System' },
+            { kind: Item, name: 'rebootButton', content: 'Reboot', ontap: "reboot" },
+          ]
+        }
+      ]
+    },
+    {
+      components: [
+        { kind: Divider, content: 'Result' },
+        { kind: BodyText, name: 'result', content: 'Nothing selected...' }
+      ]
+    },
+    { kind: LunaService, name: 'serviceStatus', service: 'luna://org.webosbrew.piccap.service', method: 'status', onResponse: 'onServiceStatus', onError: 'onServiceStatus' },
+    { kind: LunaService, name: 'start', service: 'luna://org.webosbrew.piccap.service', method: 'start', onResponse: 'onDaemonStart', onError: 'onDaemonStart' },
+    { kind: LunaService, name: 'stop', service: 'luna://org.webosbrew.piccap.service', method: 'stop', onResponse: 'onDaemonStop', onError: 'onDaemonStop' },
+    { kind: LunaService, name: 'getSettings', service: 'luna://org.webosbrew.piccap.service', method: 'getSettings', onResponse: 'onDaemonVersion', onError: 'onDaemonVersion' },
+    { kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onTermination', onError: 'onTermination' },
 
-    {kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec'},
-    {kind: LunaService, name: 'execSilent', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec'},
-    {kind: LunaService, name: 'systemReboot', service: 'luna://org.webosbrew.hbchannel.service', method: 'reboot'},
+    { kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec' },
+    { kind: LunaService, name: 'execSilent', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec' },
+    { kind: LunaService, name: 'systemReboot', service: 'luna://org.webosbrew.hbchannel.service', method: 'reboot' },
   ],
 
   address: '127.0.0.1',
@@ -223,22 +242,22 @@ module.exports = kind({
 
   bindings: [
     // Settings
-    {from: "address", to: '$.addressInput.value'},
-    {from: "port", to: '$.portInput.value'},
-    {from: "sourcePriority", to: '$.sourcePriorityInput.value'},
-    {from: "port", to: '$.portInput.value'},
-    {from: "width", to: '$.widthInput.value'},
-    {from: "height", to: '$.heightInput.value'},
-    {from: "fps", to: '$.fpsInput.value'},
-    {from: "vsync", to: '$.vsyncToggle.checked'},
+    { from: "address", to: '$.addressInput.value' },
+    { from: "port", to: '$.portInput.value' },
+    { from: "sourcePriority", to: '$.sourcePriorityInput.value' },
+    { from: "port", to: '$.portInput.value' },
+    { from: "width", to: '$.widthInput.value' },
+    { from: "height", to: '$.heightInput.value' },
+    { from: "fps", to: '$.fpsInput.value' },
+    { from: "vsync", to: '$.vsyncToggle.checked' },
 
     // Status
-    {from: "status.version", to: '$.versionStatus.text'},
-    {from: "status.daemonStatus", to: '$.daemonStatus.text'},
-    {from: "status.videoBackend", to: '$.videoBackendStatus.text'},
-    {from: "status.graphicsBackend", to: '$.graphicsBackendStatus.text'},
-    {from: "status.fps", to: '$.fpsStatus.text'},
-    {from: "status.elevated", to: '$.elevatedStatus.text'}
+    { from: "status.version", to: '$.versionStatus.text' },
+    { from: "status.daemonStatus", to: '$.daemonStatus.text' },
+    { from: "status.videoBackend", to: '$.videoBackendStatus.text' },
+    { from: "status.graphicsBackend", to: '$.graphicsBackendStatus.text' },
+    { from: "status.fps", to: '$.fpsStatus.text' },
+    { from: "status.elevated", to: '$.elevatedStatus.text' }
   ],
 
   create: function () {
@@ -247,17 +266,17 @@ module.exports = kind({
     // At first, elevate the native service
     // It does not do harm if service is elevated already
     this.elevate();
-    this.set('resultText','Checking service status...');
+    this.set('resultText', 'Checking service status...');
     this.$.serviceStatus.send({});
   },
   // Elevates the native service - this enables org.webosbrew.piccap.service to run as root by default
   elevate: function () {
     console.info("Sending elevation command");
-    this.$.execSilent.send({command: elevationCommand});
+    this.$.execSilent.send({ command: elevationCommand });
   },
   reboot: function () {
     console.info("Sending reboot command");
-    this.$.systemReboot.send({reason: 'SwDownload'});
+    this.$.systemReboot.send({ reason: 'SwDownload' });
   },
   start: function () {
     console.info("Start clicked");
@@ -270,7 +289,7 @@ module.exports = kind({
   exec: function (command) {
     console.info("exec called");
     console.info(command);
-    this.set('resultText','Processing...');
+    this.set('resultText', 'Processing...');
     this.$.exec.send({
       command: command,
     });
@@ -319,9 +338,9 @@ module.exports = kind({
     console.info("onExec");
     console.info(evt);
     if (evt.returnValue) {
-      this.set('resultText','Success!<br />' + evt.stdoutString + evt.stderrString);
+      this.set('resultText', 'Success!<br />' + evt.stdoutString + evt.stderrString);
     } else {
-      this.set('resultText','Failed: ' + evt.errorText + ' ' + evt.stdoutString + evt.stderrString);
+      this.set('resultText', 'Failed: ' + evt.errorText + ' ' + evt.stdoutString + evt.stderrString);
     }
   },
   onServiceStatus: function (sender, evt) {
@@ -342,7 +361,7 @@ module.exports = kind({
   },
   onTermination: function (sender, evt) {
     console.info("onTermination");
-    this.set('resultText',"Native service terminated - Please restart the app!");
+    this.set('resultText', "Native service terminated - Please restart the app!");
   },
   onDaemonStart: function (sender, evt) {
     console.info("onDaemonStart");
