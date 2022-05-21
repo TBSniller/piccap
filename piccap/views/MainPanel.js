@@ -245,16 +245,14 @@ module.exports = kind({
   vsync: false,
 
   resultText: 'unknown',
-  status: {
-    version: "unknown",
-    daemonStatus: "unknown",
-    videoBackend: "unknown",
-    graphicBackend: "unknown",
-    fps: "unknown",
-    elevated: "unknown"
-  },
 
-
+  versionStatus: "unknown",
+  daemonStatus: "unknown",
+  videoBackendStatus: "unknown",
+  graphicBackendStatus: "unknown",
+  fpsStatus: "unknown",
+  elevatedStatus: "unknown",
+  
   bindings: [
     // Settings
     { from: "address", to: '$.addressInput.value' },
@@ -267,12 +265,12 @@ module.exports = kind({
     { from: "vsync", to: '$.vsyncToggle.checked' },
 
     // Status
-    { from: "status.version", to: '$.versionStatus.text' },
-    { from: "status.daemonStatus", to: '$.daemonStatus.text' },
-    { from: "status.videoBackend", to: '$.videoBackendStatus.text' },
-    { from: "status.graphicsBackend", to: '$.graphicsBackendStatus.text' },
-    { from: "status.fps", to: '$.fpsStatus.text' },
-    { from: "status.elevated", to: '$.elevatedStatus.text' },
+    { from: "versionStatus", to: '$.versionStatus.text' },
+    { from: "daemonStatus", to: '$.daemonStatus.text' },
+    { from: "videoBackendStatus", to: '$.videoBackendStatus.text' },
+    { from: "graphicsBackendStatus", to: '$.graphicsBackendStatus.text' },
+    { from: "fpsStatus", to: '$.fpsStatus.text' },
+    { from: "elevatedStatus", to: '$.elevatedStatus.text' },
 
     // Result
     { from: "resultText", to: '$.result.content' }
@@ -344,18 +342,18 @@ module.exports = kind({
     }
 
     var settings = {
-      address: address,
-      port: port,
-      priority: sourcePriority,
-      fps: fps,
-      width: width,
-      height: height,
-      vsync: vsync,
-      backend: videoBackend,
-      uibackend: uiBackend,
-      novideo: noVideo,
-      nogui: noGui,
-      autostart: autostart,
+      "address": address,
+      "port": port,
+      "priority": sourcePriority,
+      "fps": fps,
+      "width": width,
+      "height": height,
+      "vsync": vsync,
+      "backend": videoBackend,
+      "uibackend": uiBackend,
+      "novideo": noVideo,
+      "nogui": noGui,
+      "autostart": autostart,
     }
 
     this.$.setSettings.send(settings);
@@ -395,16 +393,16 @@ module.exports = kind({
 
     var state = (evt.isRunning ? "Running" : "Not running") + " - " + (evt.connected ? "Connected" : "Disconnected");
 
-    this.set('status.version', evt.version);
-    this.set('status.elevated', evt.elevated);
-    this.set('status.daemonStatus', state);
-    this.set('status.connected', evt.connected);
-    this.set('status.videoBackend', evt.videoBackend + " - " + (evt.videoRunning ? "Active" : "Inactive"));
-    this.set('status.graphicsBackend', evt.uiBackend + " - " + (evt.uiRunning ? "Active" : "Inactive"));
-    this.set('status.fps', evt.framerate);
+    this.set('versionStatus', evt.version);
+    this.set('elevatedStatus', evt.elevated);
+    this.set('daemonStatus', state);
+    this.set('connectedStatus', evt.connected);
+    this.set('videoBackendStatus', evt.videoBackend + " - " + (evt.videoRunning ? "Active" : "Inactive"));
+    this.set('graphicsBackendStatus', evt.uiBackend + " - " + (evt.uiRunning ? "Active" : "Inactive"));
+    this.set('fpsStatus', evt.framerate);
 
     if (evt.elevated) {
-      this.$.resetSettings.send(settings);
+      this.$.getSettings.send(settings);
     } else {
       this.terminate();
     }
@@ -466,8 +464,6 @@ module.exports = kind({
     this.set('vsync', evt.vsync);
 
     this.set('autostart', evt.autostart);
-
-    this.set('resultText', "Settings reset!");
   },
   onDaemonStart: function (sender, evt) {
     console.info("onDaemonStart");
