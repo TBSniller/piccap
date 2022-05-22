@@ -219,18 +219,6 @@ module.exports = kind({
         { kind: BodyText, name: 'result', content: 'Nothing selected...', showCloseButton: true },
       ]
     },
-    { 
-      kind: Dialog,
-      name: 'restartDialog',
-      title: 'Restart required',
-      subTitle: 'Native service was terminated after elevation. Please reboot.',
-      modal: true,
-      autoDismiss: false,
-      components: [
-        {name: 'okRestart', kind: Button, content: 'OK', ontap: 'reboot'},
-        {name: 'cancelRestart', kind: Button, content: 'Cancel', ontap: 'hideRestartDialog'}
-      ]
-    },
     { kind: LunaService, name: 'serviceStatus', service: 'luna://org.webosbrew.piccap.service', method: 'status', onResponse: 'onServiceStatus', onError: 'onServiceStatus' },
     { kind: LunaService, name: 'start', service: 'luna://org.webosbrew.piccap.service', method: 'start', onResponse: 'onDaemonStart', onError: 'onDaemonStart' },
     { kind: LunaService, name: 'stop', service: 'luna://org.webosbrew.piccap.service', method: 'stop', onResponse: 'onDaemonStop', onError: 'onDaemonStop' },
@@ -309,12 +297,8 @@ module.exports = kind({
     console.info("Sending service kill command");
     this.$.terminate.send({ command: terminationCommand })
   },
-  hideRestartDialog: function() {
-    this.$.restartDialog.hide();
-  },
   reboot: function () {
     console.info("Sending reboot command");
-    this.hideRestartDialog();
     this.$.systemReboot.send({ reason: 'SwDownload' });
   },
   start: function () {
@@ -403,8 +387,7 @@ module.exports = kind({
     console.info(sender, evt);
 
     if (evt.returnValue) {
-      this.set('resultText', 'Successfully terminated native service!');
-      this.$.restartDialog.show();
+      this.set('resultText', 'Successfully terminated native service, waiting for restart!');
     } else {
       this.set('resultText', 'Failed to terminate native service!');
     }
