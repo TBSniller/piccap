@@ -263,13 +263,12 @@ module.exports = kind({
   
   bindings: [
     // Settings
-    { from: "address", to: '$.addressInput.value' },
-    { from: "port", to: '$.portInput.value' },
-    { from: "sourcePriority", to: '$.sourcePriorityInput.value' },
-    { from: "port", to: '$.portInput.value' },
-    { from: "width", to: '$.widthInput.value' },
-    { from: "height", to: '$.heightInput.value' },
-    { from: "fps", to: '$.fpsInput.value' },
+    { from: "address", to: '$.addressInput.value', oneWay: false },
+    { from: "port", to: '$.portInput.value', oneWay: false },
+    { from: "sourcePriority", to: '$.sourcePriorityInput.value', oneWay: false },
+    { from: "width", to: '$.widthInput.value', oneWay: false },
+    { from: "height", to: '$.heightInput.value', oneWay: false },
+    { from: "fps", to: '$.fpsInput.value', oneWay: false },
     { from: "vsync", to: '$.vsyncToggle.checked', oneWay: false },
     { from: "autostart", to: '$.autostartToggle.checked', oneWay: false },
 
