@@ -496,6 +496,8 @@ module.exports = kind({
     this.set('height', evt.height);
     this.set('vsync', evt.vsync);
     this.set('autostart', evt.autostart);
+
+    this.set('resultText', "Settings reset!");
   },
   onDaemonStart: function (sender, evt) {
     console.info("onDaemonStart");
