@@ -260,6 +260,9 @@ module.exports = kind({
   graphicBackendStatus: "unknown",
   fpsStatus: "unknown",
   elevatedStatus: "unknown",
+
+  init_done: false,
+  status_update_interval: 2000, //ms
   
   bindings: [
     // Settings
@@ -291,7 +294,11 @@ module.exports = kind({
     // It does not do harm if service is elevated already
     this.elevate();
     this.set('resultText', 'Checking service status...');
-    this.$.serviceStatus.send({});
+    // Start polling status
+    var self = this;
+    setInterval(function () {
+      self.$.serviceStatus.send({});
+    }, this.status_update_interval);
   },
   // Elevates the native service - this enables org.webosbrew.piccap.service to run as root by default
   elevate: function () {
@@ -422,7 +429,10 @@ module.exports = kind({
     this.set('fpsStatus', evt.framerate);
 
     if (evt.elevated) {
-      this.$.getSettings.send({});
+      if (!this.init_done) {
+        this.init_done = true;
+        this.$.getSettings.send({});
+      }
     } else {
       this.terminate();
     }
