@@ -360,11 +360,11 @@ module.exports = kind({
 
     var settings = {
       "address": this.address,
-      "port": this.port,
-      "priority": this.sourcePriority,
-      "fps": this.fps,
-      "width": this.width,
-      "height": this.height,
+      "port": parseInt(this.port),
+      "priority": parseInt(this.sourcePriority),
+      "fps": parseInt(this.fps),
+      "width": parseInt(this.width),
+      "height": parseInt(this.height),
       "vsync": this.vsync,
       "quirks": quirks,
       "backend": videoBackend,
