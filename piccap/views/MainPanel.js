@@ -128,8 +128,16 @@ module.exports = kind({
               kind: ToggleItem,
               name: 'autostartToggle',
               content: 'Autostart',
-              checked: false,
               disabled: false
+            },
+            {
+              kind: ExpandablePicker, name: 'quirksPicker', noneText: 'None Selected', content: 'Device quirks',
+              multipleSelection: true,
+              autoCollapseOnSelect: false, 
+              components: [
+                { content: 'DILE_VT_CREATE_EX', flag: 0x1 },
+                { content: 'UNUSED_ITEM', flag: 0x100 }
+              ]
             },
           ]
         },
@@ -243,7 +251,6 @@ module.exports = kind({
   fps: 30,
   autostart: false,
   vsync: false,
-  quirks: 0,
 
   resultText: 'unknown',
 
@@ -264,6 +271,7 @@ module.exports = kind({
     { from: "height", to: '$.heightInput.value' },
     { from: "fps", to: '$.fpsInput.value' },
     { from: "vsync", to: '$.vsyncToggle.checked' },
+    { from: "autostart", to: '$.autostartToggle.checked' },
 
     // Status
     { from: "versionStatus", to: '$.versionStatus.text' },
@@ -342,6 +350,15 @@ module.exports = kind({
       console.log("Setting: nogui");
     }
 
+    var quirks = 0;
+    console.log("Setting: Quirks selected", this.$.quirksPicker.selected);
+    // Assemble quirks value from set quirk flags
+    this.$.quirksPicker.selected.forEach(function(entry) {
+      console.log("Setting Quirk: ", entry.content);
+      quirks |= entry.flag;
+    });
+    console.log("Setting assembled Quirks value: ", quirks);
+
     var settings = {
       "address": this.address,
       "port": this.port,
@@ -350,7 +367,7 @@ module.exports = kind({
       "width": this.width,
       "height": this.height,
       "vsync": this.vsync,
-      "quirks": this.quirks,
+      "quirks": quirks,
       "backend": videoBackend,
       "uibackend": uiBackend,
       "novideo": noVideo,
@@ -358,7 +375,7 @@ module.exports = kind({
       "autostart": this.autostart,
     }
 
-    console.log("Saving settings " + settings);
+    console.log("Saving settings", settings);
 
     this.$.setSettings.send(settings);
   },
@@ -425,27 +442,29 @@ module.exports = kind({
   },
   onGetSettings: function (sender, evt) {
     console.info("onGetSettings");
+    console.info(sender, evt);
 
     if (!evt.returnValue) {
       this.set('resultText', "Failed to get settings!");
       return;
     }
 
-    var videoBackend = evt.video_backend ? evt.video_backend : "auto";
-    var uiBackend = evt.ui_backend ? evt.ui_backend : "auto";
+    var quirks = evt.quirks;
+    var videoBackend = evt.backend ? evt.backend : "auto";
+    var uiBackend = evt.uibackend ? evt.uibackend : "auto";
 
-    if (evt.no_video) {
+    if (evt.novideo) {
       videoBackend = "disabled";
     }
 
-    if (evt.no_gui) {
+    if (evt.nogui) {
       uiBackend = "disabled";
     }
 
     var videoBackendChoices = this.$.videoBackendPicker.components;
     for (let i = 0; i < videoBackendChoices.length; i++ ) {
       if (videoBackendChoices[i].backend == videoBackend) {
-        this.$.videoBackendPicker.selectedIndex = i;
+        this.$.videoBackendPicker.set('selectedIndex', i);
         break;
       }
     }
@@ -453,20 +472,30 @@ module.exports = kind({
     var uiBackendChoices = this.$.uiBackendPicker.components;
     for (let i = 0; i < uiBackendChoices.length; i++ ) {
       if (uiBackendChoices[i].backend == uiBackend) {
-        this.$.uiBackendPicker.selectedIndex = i;
+        this.$.uiBackendPicker.set('selectedIndex', i);
         break;
       }
     }
 
+    var quirksSelectedIndex = [];
+    var quirksChoices = this.$.quirksPicker.components;
+    for (let i = 0; i < quirksChoices.length; i++ ) {
+      var entry = quirksChoices[i];
+      if ((quirks & entry.flag) == entry.flag) {
+        console.log("Quirks value", quirks, "Has flag:", entry);
+        quirksSelectedIndex.push(i);
+      }
+    }
+    this.$.quirksPicker.set('selectedIndex', quirksSelectedIndex);
+    console.log("Get: Quirks value", quirks, "Quirks selected", quirksSelectedIndex)
+
     this.set('address', evt.address);
     this.set('port', evt.port);
-    this.set('priority', evt.priority);
     this.set('sourcePriority', evt.priority)
     this.set('fps', evt.fps);
     this.set('width', evt.width);
     this.set('height', evt.height);
     this.set('vsync', evt.vsync);
-
     this.set('autostart', evt.autostart);
   },
   onDaemonStart: function (sender, evt) {
