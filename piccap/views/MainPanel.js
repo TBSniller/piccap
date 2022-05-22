@@ -243,6 +243,7 @@ module.exports = kind({
   fps: 30,
   autostart: false,
   vsync: false,
+  quirks: 0,
 
   resultText: 'unknown',
 
@@ -342,25 +343,28 @@ module.exports = kind({
     }
 
     var settings = {
-      "address": address,
-      "port": port,
-      "priority": sourcePriority,
-      "fps": fps,
-      "width": width,
-      "height": height,
-      "vsync": vsync,
+      "address": this.address,
+      "port": this.port,
+      "priority": this.sourcePriority,
+      "fps": this.fps,
+      "width": this.width,
+      "height": this.height,
+      "vsync": this.vsync,
+      "quirks": this.quirks,
       "backend": videoBackend,
       "uibackend": uiBackend,
       "novideo": noVideo,
       "nogui": noGui,
-      "autostart": autostart,
+      "autostart": this.autostart,
     }
+
+    console.log("Saving settings " + settings);
 
     this.$.setSettings.send(settings);
   },
   resetSettings: function () {
     console.info("Reset settings clicked");
-    this.$.getSettings.send();
+    this.$.getSettings.send({});
   },
   onExec: function (sender, evt) {
     console.info("onExec");
@@ -402,7 +406,7 @@ module.exports = kind({
     this.set('fpsStatus', evt.framerate);
 
     if (evt.elevated) {
-      this.$.getSettings.send(settings);
+      this.$.getSettings.send({});
     } else {
       this.terminate();
     }
