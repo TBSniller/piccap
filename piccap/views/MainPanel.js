@@ -270,8 +270,8 @@ module.exports = kind({
     { from: "width", to: '$.widthInput.value' },
     { from: "height", to: '$.heightInput.value' },
     { from: "fps", to: '$.fpsInput.value' },
-    { from: "vsync", to: '$.vsyncToggle.checked' },
-    { from: "autostart", to: '$.autostartToggle.checked' },
+    { from: "vsync", to: '$.vsyncToggle.checked', oneWay: false },
+    { from: "autostart", to: '$.autostartToggle.checked', oneWay: false },
 
     // Status
     { from: "versionStatus", to: '$.versionStatus.text' },
