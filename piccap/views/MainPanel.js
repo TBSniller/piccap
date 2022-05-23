@@ -249,6 +249,7 @@ module.exports = kind({
   fpsStatus: "unknown",
   elevatedStatus: "unknown",
 
+  elevation_in_progress: false,
   init_done: false,
   status_update_interval: 2000, //ms
   
@@ -291,6 +292,7 @@ module.exports = kind({
   // Elevates the native service - this enables org.webosbrew.piccap.service to run as root by default
   elevate: function () {
     console.info("Sending elevation command");
+    this.elevation_in_progress = true;
     this.$.execSilent.send({ command: elevationCommand });
   },
   terminate: function() {
@@ -366,11 +368,12 @@ module.exports = kind({
     }
 
     console.log("Saving settings", settings);
-
+    this.set('resultText', 'Saving settings...');
     this.$.setSettings.send(settings);
   },
   resetSettings: function () {
     console.info("Reset settings clicked");
+    this.set('resultText', 'Resetting settings...');
     this.$.getSettings.send({});
   },
   onExec: function (sender, evt) {
@@ -422,11 +425,14 @@ module.exports = kind({
         this.init_done = true;
         this.$.getSettings.send({});
       }
+
+      if (this.elevation_in_progress) {
+        this.elevation_in_progress = false;
+        this.set('resultText', 'Elevation of native service succeeded!');
+      }
     } else {
       this.terminate();
     }
-
-    this.set('resultText', 'Service status received..');
   },
   onSetSettings: function (sender, evt) {
     console.info("onSetSettings");
@@ -495,8 +501,6 @@ module.exports = kind({
     this.set('height', evt.height);
     this.set('vsync', evt.vsync);
     this.set('autostart', evt.autostart);
-
-    this.set('resultText', "Settings reset!");
   },
   onDaemonStart: function (sender, evt) {
     console.info("onDaemonStart");
