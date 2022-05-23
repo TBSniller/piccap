@@ -401,14 +401,20 @@ module.exports = kind({
       return;
     }
 
-    var state = (evt.isRunning ? "Running" : "Not running") + " - " + (evt.connected ? "Connected" : "Disconnected");
+    function backendState(backend, running) {
+      if (!backend) {
+        return "Disabled";
+      }
 
+      return backend + " - " + (running ? "Active" : "Inactive");
+    }
+
+    var state = (evt.isRunning ? "Running" : "Not running") + " - " + (evt.connected ? "Connected" : "Disconnected");
     this.set('versionStatus', evt.version);
     this.set('elevatedStatus', evt.elevated);
     this.set('daemonStatus', state);
-    this.set('connectedStatus', evt.connected);
-    this.set('videoBackendStatus', evt.videoBackend + " - " + (evt.videoRunning ? "Active" : "Inactive"));
-    this.set('graphicsBackendStatus', evt.uiBackend + " - " + (evt.uiRunning ? "Active" : "Inactive"));
+    this.set('videoBackendStatus', backendState(evt.videoBackend, evt.videoRunning));
+    this.set('graphicsBackendStatus', backendState(evt.uiBackend, evt.uiRunning));
     this.set('fpsStatus', evt.framerate);
 
     if (evt.elevated) {
