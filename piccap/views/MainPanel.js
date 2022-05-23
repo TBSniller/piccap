@@ -415,7 +415,7 @@ module.exports = kind({
     this.set('daemonStatus', state);
     this.set('videoBackendStatus', backendState(evt.videoBackend, evt.videoRunning));
     this.set('graphicsBackendStatus', backendState(evt.uiBackend, evt.uiRunning));
-    this.set('fpsStatus', evt.framerate);
+    this.set('fpsStatus', evt.framerate.toFixed(2));
 
     if (evt.elevated) {
       if (!this.init_done) {
