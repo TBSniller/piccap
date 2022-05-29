@@ -18,8 +18,7 @@ var serviceName = "org.webosbrew.piccap.service";
 var servicePath = "/media/developer/apps/usr/palm/services/" + serviceName;
 var autostartFilepath = servicePath + "/piccapautostart";
 var linkPath = "/var/lib/webosbrew/init.d/piccapautostart";
-var elevationCommand = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service " + serviceName;
-var terminationCommand = "killall -9 hyperion-webos"
+var elevationCommand = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service " + serviceName + "&& killall -9 hyperion-webos";
 
 var not = function (x) { return !x };
 var yes_no_bool = function (x) {
@@ -196,8 +195,7 @@ module.exports = kind({
             {
               classes: 'moon-hspacing', controlClasses: 'moon-4h', components: [
                 { kind: Item, name: 'startButton', content: 'Start', ontap: "start" },
-                { kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop" },
-                { kind: Item, name: 'terminateButton', content: 'Terminate', ontap: "terminate" }
+                { kind: Item, name: 'stopButton', content: 'Stop', ontap: "stop" }
               ]
             },
             { kind: Divider, content: 'Settings' },
@@ -226,7 +224,6 @@ module.exports = kind({
     { kind: LunaService, name: 'setSettings', service: 'luna://org.webosbrew.piccap.service', method: 'setSettings', onResponse: 'onSetSettings', onError: 'onSetSettings' },
 
     { kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec' },
-    { kind: LunaService, name: 'terminate', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onTermination', onError: 'onTermination' },
     { kind: LunaService, name: 'execSilent', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec' },
     { kind: LunaService, name: 'systemReboot', service: 'luna://org.webosbrew.hbchannel.service', method: 'reboot' },
   ],
@@ -294,10 +291,6 @@ module.exports = kind({
     console.info("Sending elevation command");
     this.elevation_in_progress = true;
     this.$.execSilent.send({ command: elevationCommand });
-  },
-  terminate: function() {
-    console.info("Sending service kill command");
-    this.$.terminate.send({ command: terminationCommand })
   },
   reboot: function () {
     console.info("Sending reboot command");
@@ -385,16 +378,6 @@ module.exports = kind({
       this.set('resultText', 'Failed: ' + evt.errorText + ' ' + evt.stdoutString + evt.stderrString);
     }
   },
-  onTermination: function (sender, evt) {
-    console.info("onTermination");
-    console.info(sender, evt);
-
-    if (evt.returnValue) {
-      this.set('resultText', 'Successfully terminated native service, waiting for restart!');
-    } else {
-      this.set('resultText', 'Failed to terminate native service!');
-    }
-  },
   onServiceStatus: function (sender, evt) {
     console.info("onServiceStatus");
     console.info(sender, evt);
@@ -430,8 +413,6 @@ module.exports = kind({
         this.elevation_in_progress = false;
         this.set('resultText', 'Elevation of native service succeeded!');
       }
-    } else {
-      this.terminate();
     }
   },
   onSetSettings: function (sender, evt) {
