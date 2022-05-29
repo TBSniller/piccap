@@ -246,7 +246,6 @@ module.exports = kind({
   fpsStatus: "unknown",
   elevatedStatus: "unknown",
 
-  elevation_in_progress: false,
   init_done: false,
   status_update_interval: 2000, //ms
   
@@ -289,7 +288,6 @@ module.exports = kind({
   // Elevates the native service - this enables org.webosbrew.piccap.service to run as root by default
   elevate: function () {
     console.info("Sending elevation command");
-    this.elevation_in_progress = true;
     this.$.execSilent.send({ command: elevationCommand });
   },
   reboot: function () {
@@ -407,11 +405,6 @@ module.exports = kind({
       if (!this.init_done) {
         this.init_done = true;
         this.$.getSettings.send({});
-      }
-
-      if (this.elevation_in_progress) {
-        this.elevation_in_progress = false;
-        this.set('resultText', 'Elevation of native service succeeded!');
       }
     }
   },
