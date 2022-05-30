@@ -20,18 +20,6 @@ var autostartFilepath = servicePath + "/piccapautostart";
 var linkPath = "/var/lib/webosbrew/init.d/piccapautostart";
 var elevationCommand = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service " + serviceName + "&& killall -9 hyperion-webos";
 
-var not = function (x) { return !x };
-var yes_no_bool = function (x) {
-  if (x)
-    return "Yes";
-  else
-    return "No";
-}
-
-const sleep = (duration) => {
-  return new Promise(resolve => setTimeout(resolve, duration));
-}
-
 module.exports = kind({
   name: 'MainPanel',
   kind: Panel,
