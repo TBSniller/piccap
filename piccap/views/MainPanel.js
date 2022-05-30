@@ -135,7 +135,7 @@ module.exports = kind({
               autoCollapseOnSelect: false, 
               components: [
                 { content: 'DILE_VT_CREATE_EX', flag: 0x1 },
-                { content: 'UNUSED_ITEM', flag: 0x100 }
+                { content: 'DILE_VT_NO_FREEZE_CAPTURE', flag: 0x2 }
               ]
             },
           ]
