@@ -435,7 +435,7 @@ module.exports = kind({
     }
 
     var videoBackendChoices = this.$.videoBackendPicker.components;
-    for (let i = 0; i < videoBackendChoices.length; i++ ) {
+    for (var i = 0; i < videoBackendChoices.length; i++ ) {
       if (videoBackendChoices[i].backend == videoBackend) {
         this.$.videoBackendPicker.set('selectedIndex', i);
         break;
@@ -443,7 +443,7 @@ module.exports = kind({
     }
 
     var uiBackendChoices = this.$.uiBackendPicker.components;
-    for (let i = 0; i < uiBackendChoices.length; i++ ) {
+    for (var i = 0; i < uiBackendChoices.length; i++ ) {
       if (uiBackendChoices[i].backend == uiBackend) {
         this.$.uiBackendPicker.set('selectedIndex', i);
         break;
@@ -452,7 +452,7 @@ module.exports = kind({
 
     var quirksSelectedIndex = [];
     var quirksChoices = this.$.quirksPicker.components;
-    for (let i = 0; i < quirksChoices.length; i++ ) {
+    for (var i = 0; i < quirksChoices.length; i++ ) {
       var entry = quirksChoices[i];
       if ((quirks & entry.flag) == entry.flag) {
         console.log("Quirks value", quirks, "Has flag:", entry);
