@@ -247,7 +247,6 @@ module.exports = kind({
   elevatedStatus: "unknown",
 
   initDone: false,
-  status_update_interval: 2000, //ms
   
   bindings: [
     // Settings
