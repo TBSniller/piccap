@@ -307,13 +307,11 @@ module.exports = kind({
     console.info("Stop clicked");
     this.$.stop.send({});
   },
-  exec: function (command) {
+  exec: function (cmd) {
     console.info("exec called");
-    console.info(command);
+    console.info(cmd);
     this.set('resultText', 'Processing...');
-    this.$.exec.send({
-      command: command,
-    });
+    this.$.exec.send({command: cmd});
   },
   saveSettings: function () {
     console.info("Save settings clicked");
