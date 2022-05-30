@@ -275,15 +275,21 @@ module.exports = kind({
   create: function () {
     this.inherited(arguments);
     console.info("Application created");
-    // At first, elevate the native service
-    // It does not do harm if service is elevated already
-    this.elevate();
-    this.set('resultText', 'Checking service status...');
-    // Start polling status
+    this.set('resultText', 'Waiting for startup...');
+    // Spawn startup routine after 3 seconds, so UI has time to load
     var self = this;
+    setTimeout(function() {
+      self.doStartup();
+    }, 3000);
+  },
+  // Spawned from this.create() with a little delay
+  doStartup: function() {
+    this.set('resultText', 'Startup routine started...');
+    var self = this;
+    // Start to continuosly poll service status
     setInterval(function () {
       self.$.serviceStatus.send({});
-    }, this.status_update_interval);
+    }, 2000);
   },
   // Elevates the native service - this enables org.webosbrew.piccap.service to run as root by default
   elevate: function () {
