@@ -246,7 +246,7 @@ module.exports = kind({
   fpsStatus: "unknown",
   elevatedStatus: "unknown",
 
-  init_done: false,
+  initDone: false,
   status_update_interval: 2000, //ms
   
   bindings: [
@@ -401,11 +401,15 @@ module.exports = kind({
     this.set('graphicsBackendStatus', backendState(evt.uiBackend, evt.uiRunning));
     this.set('fpsStatus', evt.framerate.toFixed(2));
 
-    if (evt.elevated) {
-      if (!this.init_done) {
-        this.init_done = true;
-        this.$.getSettings.send({});
-      }
+    if (this.elevatedStatus && !this.initDone) {
+      this.set('resultText', 'Startup routine finished!');
+      this.initDone = true;
+      this.$.getSettings.send({});
+    } else if (!this.elevatedStatus) {
+      // Elevate the native service
+      // Eventually the next service status callback will report elevation
+      this.set('resultText', 'Trying to elevate...');
+      this.elevate();
     }
   },
   onSetSettings: function (sender, evt) {
