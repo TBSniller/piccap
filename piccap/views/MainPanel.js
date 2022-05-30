@@ -285,7 +285,7 @@ module.exports = kind({
   },
   reboot: function () {
     console.info("Sending reboot command");
-    this.$.exec.send({ command: 'reboot' });
+    this.$.systemReboot.send({});
   },
   start: function () {
     console.info("Start clicked");
