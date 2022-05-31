@@ -262,16 +262,12 @@ module.exports = kind({
   create: function () {
     this.inherited(arguments);
     console.info("Application created");
-    this.set('resultText', 'Waiting for startup...');
-    // Spawn startup routine after 3 seconds, so UI has time to load
-    var self = this;
-    setTimeout(function() {
-      self.doStartup();
-    }, 3000);
+    this.doStartup();
   },
   // Spawned from this.create() with a little delay
   doStartup: function() {
-    this.set('resultText', 'Startup routine started...');
+    console.info('doStartup');
+    this.set('resultText', 'Waiting for service status data...');
     var self = this;
     // Start to continuosly poll service status
     setInterval(function () {
