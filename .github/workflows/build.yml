@@ -24,9 +24,10 @@ jobs:
       run:
         working-directory: ./hyperion-webos
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: recursive
+        fetch-depth: 0
 
     - name: Restore/Cache build directories
       uses: actions/cache@v3
