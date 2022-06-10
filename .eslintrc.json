@@ -1,7 +1,6 @@
 {
     "root": true,
     "extends": [
-        "airbnb-typescript/base",
         "prettier"
     ],
     "parser": "@typescript-eslint/parser",
@@ -14,22 +13,15 @@
         ],
         "no-console": "off",
         "no-restricted-syntax": "off",
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true,
-                "packageDir": "./"
-            }
-        ],
         "@typescript-eslint/ban-ts-comment": "off"
     },
     "ignorePatterns": [
-        "frontend/**",
         "lib/**",
         "node_modules/**",
-        "dist/**"
+        "hyperion-webos/**",
+        "dist/**",
+        "tools/**"
     ],
     "parserOptions": {
-        "project": "./tsconfig.json"
     }
 }
