@@ -16,9 +16,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "core-js": "^3.12.1",
-    "webos-service": "git+https://github.com/webosose/nodejs-module-webos-service.git",
-    "bluebird": "^3.7.2"
+    "webos-service": "git+https://github.com/webosose/nodejs-module-webos-service.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
