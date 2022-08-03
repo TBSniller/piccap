@@ -9,7 +9,7 @@ module.exports = (env) => [
     target: 'browserslist',
     mode: env.production ? 'production' : 'development',
     entry: {
-      'js/script.js': './piccap/js/script.js',
+      'js/script.js': './frontend/js/script.js',
     },
     output: {
       path: path.resolve(__dirname, './dist/frontend/'),
@@ -34,7 +34,7 @@ module.exports = (env) => [
     },
     plugins: [
       new CopyPlugin({
-        patterns: [{ context: 'piccap', from: '**', to: '.' }],
+        patterns: [{ context: 'frontend', from: '**', to: '.' }],
       }),
     ],
   },
