@@ -35,25 +35,25 @@ jobs:
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: webos_libs
+        name: nativeservice_files
         path: ${{github.workspace}}/hyperion-webos/build/hyperion-webos
 
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: webos_libs
+        name: nativeservice_files
         path: ${{github.workspace}}/servicenative/piccapautostart
 
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: webos_libs
+        name: nativeservice_files
         path: ${{github.workspace}}/servicenative/services.json
 
     - name: Upload native components artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: webos_libs
+        name: nativeservice_files
         path: ${{github.workspace}}/hyperion-webos/build/*_backend.so
 
   build-piccap:
@@ -84,8 +84,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: webos_libs
-          path: webos_libs
+          name: nativeservice_files
+          path: nativeservice_files
 
       - name: List files
         run: find .
@@ -93,11 +93,11 @@ jobs:
       - name: Copy native module
         run: |
           mkdir -p ./servicenative
-          chmod +x webos_libs/hyperion-webos webos_libs/piccapautostart
-          cp webos_libs/hyperion-webos ./servicenative/hyperion-webos
-          cp webos_libs/libdile_vt_backend.so ./servicenative/libdile_vt_backend.so
-          cp webos_libs/libvtcapture_backend.so ./servicenative/libvtcapture_backend.so
-          cp webos_libs/piccapautostart ./servicenative/piccapautostart
+          chmod +x nativeservice_files/hyperion-webos nativeservice_files/piccapautostart
+          cp nativeservice_files/hyperion-webos ./servicenative/hyperion-webos
+          cp nativeservice_files/*.so ./servicenative/
+          cp nativeservice_files/piccapautostart ./servicenative/piccapautostart
+          cp nativeservice_files/services.json ./servicenative/services.json
 
       - name: Package
         run: mkdir build && ares-package ./dist/frontend/ ./servicenative -o ./build

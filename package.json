@@ -14,7 +14,7 @@
     "chrome 30"
   ],
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "core-js": "^3.12.1",
     "webos-service": "git+https://github.com/webosose/nodejs-module-webos-service.git",
