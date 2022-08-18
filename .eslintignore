@@ -1,0 +1,8 @@
+node_modules/
+hyperion-webos/
+build/
+dist/
+servicenative/
+.vscode/
+.github/
+frontend/js/spatial-navigation.js

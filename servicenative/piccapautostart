@@ -1,3 +1,0 @@
-#!/bin/bash
-luna-send -n 1 -f luna://org.webosbrew.piccap.service/isRunning '{}' &
-exit 0
