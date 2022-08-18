@@ -7,21 +7,13 @@ Hyperion basicly is a server service which is running on for example a Raspberry
   
 ### What is this?  
 The main idea of this is, to have a simple frontend app with autostart feature for the hyperion-webos executable firstly developed by mariotaku here: https://github.com/webosbrew/hyperion-webos. This executeable now is a real native WebOS-service through what we get some benefits like higher performance.  
-PicCap directly speaks to this service, so its reasonable for starting, stopping, displaying and changing settings of this service.  
+PicCap directly speaks to this service, so its reasonable for starting, stopping, displaying and changing settings of this service.   
   
-  
-I'm not a real programmer and all this stuff is really new to me. The only reason this exists, is because I just wanted to have it for any cost. Feel free to create an issue or pull request if you can make things better.  
-  
-**This app is still in very early development.**
-  
-I think a picture describes what's going on:  
-![image](https://user-images.githubusercontent.com/51515147/150593018-8e935f55-2926-408f-81e5-40c73bf877fb.png)
-
-  
+**This app is still in very early development.**  
+But we are giving our best to make it as good as possible.
 
 ### Not working  
-- Autostart only works after a complete TV-restart. If your TV goes to suspension after shutting it down, our startup scripts doesn't get fired when the TV gets waked up again. To work around it, you will have to disable LGs Quick Start+ in settings until we find a reliable way. This way the TV doesn't go to sleep, it fully shuts down.  
-- Nothing more known so far.  
+- Nothing known so far.  
 - Please see https://github.com/webosbrew/hyperion-webos/tree/main#known-issues for issues regarding the backend capture service. - This is only the frontend application!  
 
 ### What do you need?  
@@ -31,19 +23,19 @@ At this time root is neccessary. You will also need to have the latest Homebrew 
 You should also know what you are doing and should have basic knowledge about all this root stuff, because you can brick your TV and I wouldn't take any responsibilty if you did so. Mainly this isn't the case, but you have been warned. 
   
 ### After first start  
-Wait a few secounds to let the service elevate root permissions through the Homebrew Channel-Service. After that a full reboot (no powercycle) of your TV might be neccessary. You can simply use the reboot button.
+Wait a few secounds to let the service elevate root permissions through the Homebrew Channel-Service. After that a full reboot (no powercycle) of your TV might be neccessary. You can simply use the reboot button on settings page.
   
   
-### Old TV, new TV?  
-Actually we reversed four different librarys which are used by LG TVs to capture the screen. That's why this app covers different ways of handling these librarys.  
+### Capture backends?
+Actually we reversed a few different librarys which are used by LG TVs to capture the screen. That's why this app covers different ways of handling these librarys.  
 You can take a look at here to get an idea: https://github.com/webosbrew/hyperion-webos/tree/main#backends
 
 ### How to use  
-Simply fill in your parameters and press save. The configuration file will then be saved to the service directory and reloaded to the application.
+Simply fill in your parameters on the settings page and press save. The configuration file will then be saved and used by the hyperion-webos backend service.
   
-Simply press start after the application ended loading.
+Simply press start after the application ended loading on the service page.
   
-### How to install  
+### How to install (Outdated)   
 Easy way:  
 Install it directly from HBChannel https://github.com/webosbrew/webos-homebrew-channel. It's published at the repo: https://repo.webosbrew.org/apps/  
 
@@ -67,12 +59,18 @@ or use one-liner:
   
 
 ### How to build  
-Put compiled versions of hyperion-webos and needed libraries in nativeservice folder.  
-Then:  
-`mkdir build`  
-`npm install`
-`npm run-script build`
-`npm run-script package-native`
+  
+For building everything, you will need the buildchain from here https://github.com/webosbrew/meta-lg-webos-ndk/releases/download/1.0.g-rev.4/webos-sdk-x86_64-armv7a-neon-toolchain-1.0.g.sh and after installing you will have to source the toolchain like `source /opt/webos-sdk-x86_64/1.0.g/environment-setup-armv7a-neon-webos-linux-gnueabi`.
+
+The first time you will also need to install the dependencies with `npm install`.  
+After that you can build everything up:
+```
+# Build hyperion-webos and PicCap
+npm run-script build-all
+# Package them to a IPK
+npm run-script package
+```  
+Your compiled files will be at `./build`.
   
 # Credits  
 As stated in the application:  
