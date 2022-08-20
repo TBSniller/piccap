@@ -18,6 +18,9 @@ jobs:
       with:
          node-version: 16
 
+    - name: Check CMAKE Version
+      run: cmake --version
+
     - name: Install webOS CLI
       run: sudo npm install -g @webosose/ares-cli
 
