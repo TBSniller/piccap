@@ -18,9 +18,6 @@ jobs:
       with:
          node-version: 16
 
-    - name: Check CMAKE Version
-      run: cmake --version
-
     - name: Install webOS CLI
       run: sudo npm install -g @webosose/ares-cli
 
@@ -36,6 +33,9 @@ jobs:
 
     - name: Initialize NDK Environments
       run: env -i bash -c '. /opt/webos-sdk-x86_64/1.0.g/environment-setup-armv7a-neon-webos-linux-gnueabi && env' >> $GITHUB_ENV
+
+    - name: Check CMAKE Version
+      run: cmake --version
 
     - name: Build PicCap, hyperion-webos and copy files
       working-directory: ${{github.workspace}}
