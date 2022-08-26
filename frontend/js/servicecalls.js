@@ -11,6 +11,9 @@ const availableQuirks = {
   QUIRK_VTCAPTURE_FORCE_CAPTURE: '0x100',
 };
 
+// let loggingStarted = false;
+let statusRefreshStarted = false;
+
 function wait(t) {
   return new Promise((resolve) => {
     setTimeout(resolve, t);
@@ -32,16 +35,21 @@ function asyncCall(uri, args) {
   });
 }
 
+async function killHyperion() {
+  document.getElementById('txtInfoState').innerHTML = 'Killing service..';
+  const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: 'kill -9 $(pidof hyperion-webos)' });
+  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
+}
+
 async function makeServiceRoot() {
   console.log('Rooting..');
   document.getElementById('txtInfoState').innerHTML = 'Rooting app and service..';
-  let res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: '/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap.service' });
-  console.log(`HBChannel exec returns: ${res}`);
+  const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: '/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap.service' });
+  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
 
   console.log('Killing service process..');
   document.getElementById('txtInfoState').innerHTML = 'Killing service..';
-  res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: 'kill -9 $(pidof hyperion-webos)' });
-  console.log(`HBChannel exec returns: ${res}`);
+  await killHyperion();
 
   document.getElementById('txtInfoState').innerHTML = 'Rooting finished';
 }
@@ -154,14 +162,28 @@ async function getSettings() {
   getStatus();
 }
 
-async function statusloop() {
+async function statusloop(state) {
+  if (state === 'stop') {
+    statusRefreshStarted = false;
+    document.getElementById('txtInfoState').innerHTML = 'Status refreshing stopped';
+    return;
+  }
+
   console.log('Starting loop to get status from background service.');
-  while (true) {
-    await wait(2000);
-    console.log('Getting status again..');
+  statusRefreshStarted = true;
+  while (statusRefreshStarted) {
+    await wait(3000);
     await getStatus();
   }
 }
+
+window.restartHyperion = async () => {
+  document.getElementById('txtInfoState').innerHTML = 'Restarting hyperion..';
+  await killHyperion();
+  document.getElementById('txtInfoState').innerHTML = 'Call status to start it up..';
+  await wait(3000);
+  getStatus();
+};
 
 window.serviceResetSettings = async () => {
   document.getElementById('txtInfoState').innerHTML = 'Loading default settings..';
@@ -268,6 +290,35 @@ window.serviceSaveSettings = async () => {
   document.getElementById('txtInfoState').innerHTML = 'Settings send and reloaded';
 };
 
+window.reloadHyperionLog = async () => {
+  const textareaHyperionLog = document.getElementById('textareaHyperionLog');
+
+  console.log('Calling HBCHannel to get latest 200 hyperion-webos log lines.');
+  const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: 'grep hyperion-webos /var/log/messages | tail -n200' });
+  console.log(`HBChannel exec returned. stderr: ${res.stderrString}`);
+  textareaHyperionLog.value += `${res.stdoutString}\r\n`;
+};
+
+// Using this function to setup logging for now.
+// Future start/stop of currently not implemented hyperion-webos log method.
+window.startStopLogging = async () => {
+  console.log('Setup logging using HBChannel');
+  document.getElementById('txtInfoState').innerHTML = 'Calling HBChannel for log setup';
+  const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: '/media/developer/apps/usr/palm/services/org.webosbrew.piccap.service/setuplegacylogging.sh' });
+  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
+
+/*
+  // Future Stuff
+  const btnLogStartStop = document.getElementById('btnLogStartStop');
+  if (!loggingStarted) {
+    loggingStarted = true;
+    btnLogStartStop.innerHTML = 'Stop logging';
+  } else {
+    loggingStarted = false;
+    btnLogStartStop.innerHTML = 'Start logging';
+  } */
+};
+
 window.serviceStart = async () => {
   try {
     document.getElementById('txtServiceStatus').innerHTML = 'Starting service...';
@@ -305,6 +356,18 @@ window.tvReboot = async () => {
 
 async function startup() {
   await wait(2000);
+
+  // Overwrite console.log
+  const consoleLog = window.console.log;
+  /* eslint-disable func-names */
+  window.console.log = function (...args) {
+    consoleLog(...args);
+    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
+    if (!textareaConsoleLog) return;
+    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
+  };
+  /* eslint-enable func-names */
+
   await checkRoot();
   await getSettings();
   await getStatus();

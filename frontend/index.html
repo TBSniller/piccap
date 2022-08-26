@@ -15,7 +15,7 @@
     <nav>
       <div class="menu" id="menu">
         <div class="logo">
-          <p>PicCap - Hyperion Sender App</p>
+          <p>PicCap - Hyperion Sender App</p><p id="txtPicCapVersion">loading...</p>
         </div>
         <ul>
           <li><button onclick="switchView('service')" id="btnNavService">Service</button></li>
@@ -164,8 +164,25 @@
       </div>
       
       <div id="logs" class="logs">
-        <div class="title">
-          <p>Some legacy stuff without service subscription In progress!</p>
+        <div class="upperTab">
+          <p>Some very simple experimental feature to collect logs. Setup logging is needed after a reboot.<br/>Will be reworked in newer versions. Press the load button to get last 200 log entries.</p>
+          <div class="hyperionLogsBtns btns" id="hyperionLogsBtns">
+            <button id="btnLogSwitchPicCap" onclick="switchLog('piccap')">PicCap</button>
+            <button id="btnLogStartStop" onclick="startStopLogging()">Setup logging</button>
+            <button id="btnLogReload" onclick="reloadHyperionLog()">Load last 200</button>
+            <button id="btnKillHyperion" onclick="restartHyperion()">Full service restart</button>
+          </div>
+          <div class="consoleLogsBtns btns" id="consoleLogsBtns">
+            <button id="btnLogSwitchHyperion" onclick="switchLog('hyperion')">Hyperion-WebOS</button>
+          </div>
+        </div>
+        <div class="consoleLog logBox" id="consoleLog">
+          <textarea id="textareaConsoleLog">Logs from PicCap
+          </textarea>
+        </div>
+        <div class="hyperionLog logBox" id="hyperionLog">
+          <textarea id="textareaHyperionLog">Logs from hyperion-webos - Log gathering must be started and reloaded manually.
+          </textarea>
         </div>
       </div>
       

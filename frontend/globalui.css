@@ -8,6 +8,9 @@
   background: #fff;
   color: #000;
 }
+.menu .logo p{
+  display: inline;
+}
 nav{
   position: fixed;
   background: #0d47a1;
@@ -152,6 +155,12 @@ nav .menu{
 
 .main button:active {
   background: lightgray;
+}
+
+#txtPicCapVersion {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 #txtServiceVersion {
@@ -299,4 +308,39 @@ nav .menu{
   border-style: solid;
   border-radius: 3px;
   border: 3px solid white;
+}
+
+.upperTab p{
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.upperTab .btns button{
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+#hyperionLogsBtns {
+  display: none;
+}
+
+#consoleLogsBtns {
+  display: block;
+}
+
+.logBox textarea{
+  resize: none;
+  width: 95%;
+  height: 500px;
+}
+
+.consoleLog {
+  display: block;
+  height: 95%;
+}
+.hyperionLog {
+  display: none;
 }
