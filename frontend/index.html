@@ -166,14 +166,12 @@
       <div id="logs" class="logs">
         <div class="upperTab">
           <p>Some very simple experimental feature to collect logs. Setup logging is needed after a reboot.<br/>Will be reworked in newer versions. Press the load button to get last 200 log entries.</p>
-          <div class="hyperionLogsBtns btns" id="hyperionLogsBtns">
+          <div class="logsBtns btns" id="logsBtns">
             <button id="btnLogSwitchPicCap" onclick="switchLog('piccap')">PicCap</button>
+            <button id="btnLogSwitchHyperion" onclick="switchLog('hyperion')">Hyperion-WebOS</button>
             <button id="btnLogStartStop" onclick="startStopLogging()">Setup logging</button>
             <button id="btnLogReload" onclick="reloadHyperionLog()">Load last 200</button>
             <button id="btnKillHyperion" onclick="restartHyperion()">Full service restart</button>
-          </div>
-          <div class="consoleLogsBtns btns" id="consoleLogsBtns">
-            <button id="btnLogSwitchHyperion" onclick="switchLog('hyperion')">Hyperion-WebOS</button>
           </div>
         </div>
         <div class="consoleLog logBox" id="consoleLog">

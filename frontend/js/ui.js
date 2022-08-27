@@ -1,4 +1,5 @@
 import axios from 'axios';
+import packageJSON from '../../package.json';
 
 /* eslint-disable func-names */
 window.switchView = function (view) {
@@ -113,6 +114,31 @@ window.toggleAdvanced = function () {
     settingItemsAdv.style.display = 'none';
   }
 };
+
+window.switchLog = function (location) {
+  const divConsoleLog = document.getElementById('consoleLog');
+  const divHyperionLog = document.getElementById('hyperionLog');
+  const btnLogSwitchPicCap = document.getElementById('btnLogSwitchPicCap');
+  const btnLogSwitchHyperion = document.getElementById('btnLogSwitchHyperion');
+
+  if (location === 'hyperion') {
+    divConsoleLog.style.display = 'none';
+    divHyperionLog.style.display = 'block';
+
+    btnLogSwitchHyperion.style.background = 'white';
+    btnLogSwitchHyperion.style.color = 'black';
+    btnLogSwitchPicCap.style.background = null;
+    btnLogSwitchPicCap.style.color = null;
+  } else {
+    divConsoleLog.style.display = 'block';
+    divHyperionLog.style.display = 'none';
+
+    btnLogSwitchPicCap.style.background = 'white';
+    btnLogSwitchPicCap.style.color = 'black';
+    btnLogSwitchHyperion.style.background = null;
+    btnLogSwitchHyperion.style.color = null;
+  }
+};
 /* eslint-enable func-names */
 
 function getContributors(owner, repo) {
@@ -166,5 +192,9 @@ getContributors('tbsniller', 'piccap');
 window.addEventListener('load', () => {
   /* eslint-disable no-undef */
   switchView('service');
+  switchLog('piccap')
   /* eslint-enable no-undef */
+
+  const piccapVersion = packageJSON.version;
+  document.getElementById('txtPicCapVersion').innerHTML = `v${piccapVersion}`;
 });

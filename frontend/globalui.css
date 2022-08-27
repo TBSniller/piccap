@@ -318,17 +318,12 @@ nav .menu{
   text-align: center;
 }
 
+.logsBtns {
+  display: block;
+}
 .upperTab .btns button{
   width: 200px;
   margin-bottom: 10px;
-}
-
-#hyperionLogsBtns {
-  display: none;
-}
-
-#consoleLogsBtns {
-  display: block;
 }
 
 .logBox textarea{
