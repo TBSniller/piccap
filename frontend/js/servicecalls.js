@@ -366,6 +366,24 @@ async function startup() {
     if (!textareaConsoleLog) return;
     args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
   };
+
+  const consoleError = window.console.error;
+  /* eslint-disable func-names */
+  window.console.error = function (...args) {
+    consoleError(...args);
+    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
+    if (!textareaConsoleLog) return;
+    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
+  };
+
+  const consoleWarn = window.console.warn;
+  /* eslint-disable func-names */
+  window.console.warn = function (...args) {
+    consoleWarn(...args);
+    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
+    if (!textareaConsoleLog) return;
+    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
+  };
   /* eslint-enable func-names */
 
   await checkRoot();

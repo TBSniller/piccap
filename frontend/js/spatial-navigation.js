@@ -14,6 +14,7 @@
  * Licensed under the MIT license (MIT)
  */
 import 'core-js';
+import './domrect-polyfill';
 
 (function () {
   // The polyfill must not be executed, if it's already enabled via browser engine or browser extensions.
