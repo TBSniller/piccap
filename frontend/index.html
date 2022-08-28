@@ -9,12 +9,18 @@
     <script type="text/javascript" src="./ui.bundled.js"></script>
     <script type="text/javascript" src="./servicecalls.bundled.js"></script>
     <script type="text/javascript" src="./spatialnavigation.bundled.js"></script>
-    <link rel="stylesheet" href="./globalui.css" media="screen">
+<!--     <script type="text/javascript" src="./js/ui.js"></script>
+    <script type="text/javascript" src="./js/servicecalls.js"></script>
+    <script type="text/javascript" src="./js/spatial-navigation.js"></script> -->
+    <link rel="stylesheet" href="./css/basicui.css" media="screen">
+    <link rel="stylesheet" href="./css/blueui.css" media="screen">
+    <link rel="stylesheet" href="./css/darkui.css" media="screen">
+    <link rel="stylesheet" href="./css/blackui.css" media="screen">
    </head>
   <body>
     <nav>
-      <div class="menu" id="menu">
-        <div class="logo">
+      <div class="menu blueMode" id="menu">
+        <div class="logo blueMode">
           <p>PicCap - Hyperion Sender App</p><p id="txtPicCapVersion">loading...</p>
         </div>
         <ul>
@@ -25,23 +31,23 @@
         </ul>
       </div>
     </nav>
-    <div class="background"></div>
-    <div class="main">
-      <div id="service" class="service">
-        <div class="title"><p>hyperion-webos</p><p id="txtServiceVersion">loading..</p>
+    <div class="background blueMode"></div>
+    <div class="main blueMode">
+      <div id="service" class="service blueMode">
+        <div class="title blueMode"><p>hyperion-webos</p><p id="txtServiceVersion">loading..</p>
         </div>
-        <div class="sub_title" id="txtServiceStatus">Loading status..</div>
-        <div class="btns">
+        <div class="sub_title blueMode" id="txtServiceStatus">Loading status..</div>
+        <div class="btns blueMode">
           <button onclick="serviceStart()" id="btnServiceStart">Start</button>
           <button onclick="serviceStop()" id="btnServiceStop">Stop</button>
         </div>
-        <div class="btns">
+        <div class="btns blueMode">
           <button onclick="serviceReload()" id="btnServiceReload">Reload</button>
         </div>
       </div>
       
-      <div id="settings" class="settings">
-        <div class="settingItems settingItemsNormal" id="settingItemsNormal">
+      <div id="settings" class="settings blueMode">
+        <div class="settingItems settingItemsNormal blueMode" id="settingItemsNormal">
           <ul>
             <li><p><b>Service settings</b></p></li>
           </ul><br/>
@@ -70,7 +76,7 @@
                   <option value="manual">Manual</option>
               </select>
             </li>
-            <div class="manualres" id="manualres">
+            <div class="manualres blueMode" id="manualres">
               <li>
                 <p>Width</p>
                 <input type="text" id="txtInputSettingsWidth"/>
@@ -108,30 +114,30 @@
               </select>
               </li>
               <li>
-                <div class="checkboxes checklabel">
+                <div class="checkboxes checklabel blueMode">
                   <label for="checkSettingsAutostart">Autostart<input type="checkbox" id="checkSettingsAutostart"/></label><br/>
                   <label for="checkSettingsVSync">VSync<input type="checkbox" id="checkSettingsVSync"/></label>
                 </div>
               </li>
             </ul><br/>
         </div>
-        <div class="settingItems settingItemsAdv" id="settingItemsAdv">
+        <div class="settingItems settingItemsAdv blueMode" id="settingItemsAdv">
            <ul>
             <li><p><b>Service advanced settings</b></p></li>
           </ul><br/>
-          <div class="dileVTCheckbox checklabel">
+          <div class="dileVTCheckbox checklabel blueMode">
             <ul>
               <li>
                 <label><b>DILE_VT quirks:</b></label>
               </li>
               <li>
-                <div class="checkboxes">
+                <div class="checkboxes blueMode">
                   <label for="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE ">QUIRK_DILE_VT_NO_FREEZE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE"/></label><br/>
                   <label for="checkSettingsQUIRK_DILE_VT_CREATE_EX">QUIRK_DILE_VT_CREATE_EX<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_CREATE_EX"/></label>
                 </div>
               </li>
               <li>
-                <div class="checkboxes">
+                <div class="checkboxes blueMode">
                   <label for="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2">QUIRK_DILE_VT_DUMP_LOCATION_2<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2"/></label>
                 </div>
               </li>
@@ -140,33 +146,33 @@
           <ul>
             <li><p>_______________________________________________</p></li>
           </ul><br/>
-          <div class="vtCaptureCheckbox checklabel">
+          <div class="vtCaptureCheckbox checklabel blueMode">
             <ul>
               <li>
                 <label><b>vtCapture quirks:</b></label>
               </li>
               <li>
-                <div class="checkboxes">
+                <div class="checkboxes blueMode">
                   <label for="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE">QUIRK_VTCAPTURE_FORCE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE"/></label>
                 </div>
               </li>
             </ul><br/>
           </div>
         </div>
-        <div class="btns">
+        <div class="btns blueMode">
           <button onclick="serviceSaveSettings()" id="btnSettingsSave">Save</button>
           <button onclick="serviceResetSettings()" id="btnSettingsReset">Reset</button>
           <button onclick="toggleAdvanced()" id="btnSettingsAdvanced">Advanced</button>
         </div>
-        <div class="btns">
+        <div class="btns blueMode">
           <button onclick="tvReboot()" id="btnSettingsReboot">Reboot</button>
         </div>
       </div>
       
-      <div id="logs" class="logs">
-        <div class="upperTab">
+      <div id="logs" class="logs blueMode">
+        <div class="upperTab blueMode">
           <p>Some very simple experimental feature to collect logs. Setup logging is needed after a reboot.<br/>Will be reworked in newer versions. Press the load button to get last 200 log entries.</p>
-          <div class="logsBtns btns" id="logsBtns">
+          <div class="logsBtns btns blueMode" id="logsBtns">
             <button id="btnLogSwitchPicCap" onclick="switchLog('piccap')">PicCap</button>
             <button id="btnLogSwitchHyperion" onclick="switchLog('hyperion')">Hyperion-WebOS</button>
             <button id="btnLogStartStop" onclick="startStopLogging()">Setup logging</button>
@@ -174,21 +180,21 @@
             <button id="btnKillHyperion" onclick="restartHyperion()">Full service restart</button>
           </div>
         </div>
-        <div class="consoleLog logBox" id="consoleLog">
+        <div class="consoleLog logBox blueMode" id="consoleLog">
           <textarea id="textareaConsoleLog">Logs from PicCap
           </textarea>
         </div>
-        <div class="hyperionLog logBox" id="hyperionLog">
+        <div class="hyperionLog logBox blueMode" id="hyperionLog">
           <textarea id="textareaHyperionLog">Logs from hyperion-webos - Log gathering must be started and reloaded manually.
           </textarea>
         </div>
       </div>
       
-      <div id="about" class="About">
-        <div class="sub_title">
+      <div id="about" class="About blueMode">
+        <div class="sub_title blueMode">
           <p>Some info about this project</p>
         </div><br/>
-        <div class="aboutItems">
+        <div class="aboutItems blueMode">
           <ul>
             <li>
               <p>PicCap is the frontend app, which you have installed on your TV and you can see here, to make things as easy as possible. It ships and controls the seperated hyperion-webos background service, which controls the capture interfaces on your TV based on reverse engineering, proccesses the output and sends the resulting low quality image data to a receiver like Hyperion's flatbuffer server.<br/>On newer TVs there is no official way for capturing DRM-protected content like Netflix or Amazon. This restriction doesn't take place for content comming from an HDMI input.<br/>So currently as a workaround you can play your media using your PC, FireTV-Stick or Chromecast and still enjoy your LEDs.<br/><u>This app requires to be run as root and tries to do this at the first start using the Homebrew Channel.</u></p>
@@ -217,33 +223,40 @@
           <ul>
             <li>
               <p style="text-align: left">hyperion-webos</p>
-              <div class="hyperionwebosContributors avatars"></div>
+              <div class="hyperionwebosContributors avatars blueMode"></div>
             </li>
             <li>
               <p style="text-align: left">PicCap</p>
-              <div class="piccapContributors avatars"></div>
+              <div class="piccapContributors avatars blueMode"></div>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="status">
-      <p>State: </p>
-      <p id="txtInfoState">Loading..</p>
-      
-      <p>| Receiver: </p>
-      <p id="txtInfoReceiver">n/a</p>
-      
-      <!--- UI --->
-      <p>| UI: </p>
-      <p id="txtInfoUI">n/a</p>
-      
-      <!--- Video --->
-      <p>| Video: </p>
-      <p id="txtInfoVideo">n/a</p>
-      
-      <p>| FPS: </p>
-      <p id="txtInfoFPS">n/a</p>
+    <div class="status blueMode">
+      <div class="lightMode blueMode">
+        <button id="btnLightBlue" onclick="switchLightMode('blue')"><img src="assets/icon_lightModeBlue.png"></img></button>
+        <button id="btnLightDark" onclick="switchLightMode('dark')"><img src="assets/icon_lightModeDark.png"></img></button>
+        <button id="btnLightBlack" onclick="switchLightMode('black')"><img src="assets/icon_lightModeBlack.png"></img></button>
+      </div>
+      <div class="info blueMode">
+        <p>State: </p>
+        <p id="txtInfoState">Loading..</p>
+        
+        <p> | Receiver: </p>
+        <p id="txtInfoReceiver">n/a</p>
+        
+        <!--- UI --->
+        <p> | UI: </p>
+        <p id="txtInfoUI">n/a</p>
+        
+        <!--- Video --->
+        <p> | Video: </p>
+        <p id="txtInfoVideo">n/a</p>
+        
+        <p> | FPS: </p>
+        <p id="txtInfoFPS">n/a</p>
+      </div>
     </div>
   </body>
 </html>
