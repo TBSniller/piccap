@@ -3,9 +3,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    ui: path.resolve(__dirname, './frontend/js/ui.js'),
-    servicecalls: path.resolve(__dirname, './frontend/js/servicecalls.js'),
-    spatialnavigation: path.resolve(__dirname, './frontend/js/spatial-navigation.js'),
+    'all': [
+      path.resolve(__dirname, './frontend/js/ui.js'),
+      path.resolve(__dirname, './frontend/js/servicecalls.js'),
+      path.resolve(__dirname, './frontend/js/spatial-navigation.js'),
+    ]
   },
   target: 'browserslist',
   mode: 'production',
