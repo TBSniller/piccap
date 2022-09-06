@@ -35,19 +35,26 @@ function asyncCall(uri, args) {
   });
 }
 
+function logIt(message) {
+  const textareaConsoleLog = document.getElementById('textareaConsoleLog');
+  console.log(message);
+  textareaConsoleLog.value += `${message}\n`;
+}
+export default logIt;
+
 async function killHyperion() {
   document.getElementById('txtInfoState').innerHTML = 'Killing service..';
   const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: 'kill -9 $(pidof hyperion-webos)' });
-  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
+  logIt(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
 }
 
 async function makeServiceRoot() {
-  console.log('Rooting..');
+  logIt('Rooting..');
   document.getElementById('txtInfoState').innerHTML = 'Rooting app and service..';
   const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: '/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.piccap.service' });
-  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
+  logIt(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
 
-  console.log('Killing service process..');
+  logIt('Killing service process..');
   document.getElementById('txtInfoState').innerHTML = 'Killing service..';
   await killHyperion();
 
@@ -65,7 +72,7 @@ async function checkRoot() {
   for (let i = 0; i < 15; i += 1) {
     /* eslint-disable no-await-in-loop */
     const res = await asyncCall('luna://org.webosbrew.piccap.service/status', {});
-    console.info(res);
+    logIt(res);
 
     if (res.elevated) {
       if (!wasRoot) {
@@ -82,7 +89,7 @@ async function checkRoot() {
       document.getElementById('txtInfoState').innerHTML = 'Service elevation in progress..';
       if (!rootinprog) {
         rootinprog = true;
-        console.log('Sending elevation command to HBChannel.');
+        logIt('Sending elevation command to HBChannel.');
         makeServiceRoot();
       }
       await wait(2000);
@@ -111,7 +118,7 @@ async function getStatus() {
 async function getSettings() {
   document.getElementById('txtInfoState').innerHTML = 'Loading settings..';
   const config = await asyncCall('luna://org.webosbrew.piccap.service/getSettings', {});
-  console.info(config);
+  logIt(config);
 
   document.getElementById('selectSettingsVideoBackend').value = config.novideo === true ? 'disabled' : config.backend || 'auto';
   document.getElementById('selectSettingsGraphicalBackend').value = config.nogui === true ? 'disabled' : config.uibackend || 'auto';
@@ -144,11 +151,11 @@ async function getSettings() {
   }
 
   Object.keys(availableQuirks).forEach((quirk) => {
-    console.log(`Processing: ${quirk}`);
+    logIt(`Processing: ${quirk}`);
     const quirkval = availableQuirks[quirk];
     /* eslint-disable eqeqeq */
     if ((config.quirks & quirkval) == quirkval) {
-      console.log(`Quirk ${quirk} enabled!`);
+      logIt(`Quirk ${quirk} enabled!`);
       document.getElementById(`checkSettings${quirk}`).checked = true;
     }
     /* eslint-enable eqeqeq */
@@ -157,7 +164,7 @@ async function getSettings() {
   document.getElementById('checkSettingsVSync').checked = config.vsync;
   document.getElementById('checkSettingsAutostart').checked = config.autostart;
 
-  console.info('Done!');
+  logIt('Done!');
   document.getElementById('txtInfoState').innerHTML = 'Settings loaded';
   getStatus();
 }
@@ -169,7 +176,7 @@ async function statusloop(state) {
     return;
   }
 
-  console.log('Starting loop to get status from background service.');
+  logIt('Starting loop to get status from background service.');
   statusRefreshStarted = true;
   while (statusRefreshStarted) {
     await wait(3000);
@@ -208,7 +215,7 @@ window.serviceResetSettings = async () => {
     autostart: false,
   };
 
-  console.info(config);
+  logIt(config);
 
   document.getElementById('txtInfoState').innerHTML = 'Sending default settings..';
   await asyncCall('luna://org.webosbrew.piccap.service/setSettings', config);
@@ -222,12 +229,12 @@ window.serviceSaveSettings = async () => {
 
   let quirkcalc = 0;
   Object.keys(availableQuirks).forEach((quirk) => {
-    console.log(`Processing quirk: ${quirk}`);
+    logIt(`Processing quirk: ${quirk}`);
     const quirkval = availableQuirks[quirk];
-    console.log(`Quirk val: ${quirkval}`);
+    logIt(`Quirk val: ${quirkval}`);
     if (document.getElementById(`checkSettings${quirk}`).checked === true) {
       quirkcalc |= quirkval;
-      console.log(`Quirkcalc: ${quirkcalc}`);
+      logIt(`Quirkcalc: ${quirkcalc}`);
     }
   });
 
@@ -281,7 +288,7 @@ window.serviceSaveSettings = async () => {
     autostart: document.getElementById('checkSettingsAutostart').checked,
   };
 
-  console.info(config);
+  logIt(config);
 
   document.getElementById('txtInfoState').innerHTML = 'Sending settings..';
   await asyncCall('luna://org.webosbrew.piccap.service/setSettings', config);
@@ -293,19 +300,19 @@ window.serviceSaveSettings = async () => {
 window.reloadHyperionLog = async () => {
   const textareaHyperionLog = document.getElementById('textareaHyperionLog');
 
-  console.log('Calling HBCHannel to get latest 200 hyperion-webos log lines.');
+  logIt('Calling HBCHannel to get latest 200 hyperion-webos log lines.');
   const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: 'grep hyperion-webos /var/log/messages | tail -n200' });
-  console.log(`HBChannel exec returned. stderr: ${res.stderrString}`);
+  logIt(`HBChannel exec returned. stderr: ${res.stderrString}`);
   textareaHyperionLog.value += `${res.stdoutString}\r\n`;
 };
 
 // Using this function to setup logging for now.
 // Future start/stop of currently not implemented hyperion-webos log method.
 window.startStopLogging = async () => {
-  console.log('Setup logging using HBChannel');
+  logIt('Setup logging using HBChannel');
   document.getElementById('txtInfoState').innerHTML = 'Calling HBChannel for log setup';
   const res = await asyncCall('luna://org.webosbrew.hbchannel.service/exec', { command: '/media/developer/apps/usr/palm/services/org.webosbrew.piccap.service/setuplegacylogging.sh' });
-  console.log(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
+  logIt(`HBChannel exec returned. stdout: ${res.stdoutString} stderr: ${res.stderrString}`);
 
 /*
   // Future Stuff
@@ -320,6 +327,7 @@ window.startStopLogging = async () => {
 };
 
 window.serviceStart = async () => {
+  logIt('Start clicked ');
   try {
     document.getElementById('txtServiceStatus').innerHTML = 'Starting service...';
     document.getElementById('txtInfoState').innerHTML = 'Sending start command';
@@ -348,43 +356,15 @@ window.serviceReload = async () => {
 };
 
 window.tvReboot = async () => {
-  console.log('Trying to reboot TV using HBChannel..');
+  logIt('Trying to reboot TV using HBChannel..');
   document.getElementById('txtInfoState').innerHTML = 'Rebooting TV..';
   const res = await asyncCall('luna://org.webosbrew.hbchannel.service/reboot', {});
-  console.log(res);
+  logIt(res);
 };
 
 async function startup() {
   await wait(2000);
-
-  // Overwrite console.log
-  const consoleLog = window.console.log;
-  /* eslint-disable func-names */
-  window.console.log = function (...args) {
-    consoleLog(...args);
-    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
-    if (!textareaConsoleLog) return;
-    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
-  };
-
-  const consoleError = window.console.error;
-  /* eslint-disable func-names */
-  window.console.error = function (...args) {
-    consoleError(...args);
-    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
-    if (!textareaConsoleLog) return;
-    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
-  };
-
-  const consoleWarn = window.console.warn;
-  /* eslint-disable func-names */
-  window.console.warn = function (...args) {
-    consoleWarn(...args);
-    const textareaConsoleLog = document.getElementById('textareaConsoleLog');
-    if (!textareaConsoleLog) return;
-    args.forEach((arg) => { textareaConsoleLog.value += `${JSON.stringify(arg)}\n`; });
-  };
-  /* eslint-enable func-names */
+  logIt('Test');
 
   await checkRoot();
   await getSettings();

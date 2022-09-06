@@ -1,5 +1,5 @@
-import axios from 'axios';
 import packageJSON from '../../package.json';
+import logIt from './servicecalls';
 
 /* eslint-disable func-names */
 window.switchView = function (view) {
@@ -12,7 +12,6 @@ window.switchView = function (view) {
   const btnsettings = document.getElementById('btnNavSettings');
   const btnlogs = document.getElementById('btnNavLogs');
   const btnabout = document.getElementById('btnNavAbout');
-
   switch (view) {
     case 'service':
       service.style.display = 'block';
@@ -140,74 +139,96 @@ window.switchLog = function (location) {
   }
 };
 
-function saveLightMode(color){
-  console.log("Saving " + color + " as light mode.");
-  localStorage.setItem("lightMode", color);
+/* eslint-enable func-names */
+function saveLightMode(color) {
+  logIt(`Saving ${color} as light mode.`);
+  localStorage.setItem('lightMode', color);
 }
 
-function loadLightMode(){
-  const lightMode = localStorage.getItem("lightMode");
-  switchLightMode(lightMode);
-}
-
+/* eslint-disable func-names */
 window.switchLightMode = function (color) {
   const btnLightBlue = document.getElementById('btnLightBlue');
   const btnLightDark = document.getElementById('btnLightDark');
   const btnLightBlack = document.getElementById('btnLightBlack');
 
-  switch(color) {
-    case "blue":
+  switch (color) {
+    case 'blue':
       btnLightBlue.style.background = 'white';
       btnLightBlue.style.color = 'black';
       btnLightDark.style.background = null;
       btnLightDark.style.color = null;
       btnLightBlack.style.background = null;
       btnLightBlack.style.color = null;
-      document.querySelectorAll('.darkMode, .blackMode').forEach(elem=>elem.classList.add('blueMode'));
-      document.querySelectorAll('.darkMode').forEach(elem=>elem.classList.remove('darkMode'));
-      document.querySelectorAll('.blackMode').forEach(elem=>elem.classList.remove('blackMode'));
-      saveLightMode("blue");
+      document.querySelectorAll('.darkMode, .blackMode').forEach((elem) => elem.classList.add('blueMode'));
+      document.querySelectorAll('.darkMode').forEach((elem) => elem.classList.remove('darkMode'));
+      document.querySelectorAll('.blackMode').forEach((elem) => elem.classList.remove('blackMode'));
+      saveLightMode('blue');
       break;
-    case "dark":
+    case 'dark':
       btnLightBlue.style.background = null;
       btnLightBlue.style.color = null;
       btnLightDark.style.background = 'white';
       btnLightDark.style.color = 'black';
       btnLightBlack.style.background = null;
       btnLightBlack.style.color = null;
-      document.querySelectorAll('.blueMode, .blackMode').forEach(elem=>elem.classList.add('darkMode'));
-      document.querySelectorAll('.blueMode').forEach(elem=>elem.classList.remove('blueMode'));
-      document.querySelectorAll('.blackMode').forEach(elem=>elem.classList.remove('blackMode'));
-      saveLightMode("dark");
+      document.querySelectorAll('.blueMode, .blackMode').forEach((elem) => elem.classList.add('darkMode'));
+      document.querySelectorAll('.blueMode').forEach((elem) => elem.classList.remove('blueMode'));
+      document.querySelectorAll('.blackMode').forEach((elem) => elem.classList.remove('blackMode'));
+      saveLightMode('dark');
       break;
-    case "black":
+    case 'black':
       btnLightBlue.style.background = null;
       btnLightBlue.style.color = null;
       btnLightDark.style.background = null;
       btnLightDark.style.color = null;
       btnLightBlack.style.background = 'white';
       btnLightBlack.style.color = 'black';
-      document.querySelectorAll('.blueMode, .darkMode').forEach(elem=>elem.classList.add('blackMode'));
-      document.querySelectorAll('.blueMode').forEach(elem=>elem.classList.remove('blueMode'));
-      document.querySelectorAll('.darkMode').forEach(elem=>elem.classList.remove('darkMode'));
-      saveLightMode("black");
+      document.querySelectorAll('.blueMode, .darkMode').forEach((elem) => elem.classList.add('blackMode'));
+      document.querySelectorAll('.blueMode').forEach((elem) => elem.classList.remove('blueMode'));
+      document.querySelectorAll('.darkMode').forEach((elem) => elem.classList.remove('darkMode'));
+      saveLightMode('black');
       break;
     default:
-      console.log(color + " not found. Using blue as default.");
+      logIt(`${color} not found. Using blue as default.`);
+      /* eslint-disable no-undef */
       switchLightMode('blue');
+      /* eslint-enable no-undef */
       break;
   }
 };
 
+function loadLightMode() {
+  const lightMode = localStorage.getItem('lightMode');
+  /* eslint-disable no-undef */
+  switchLightMode(lightMode);
+  /* eslint-enable no-undef */
+}
+
+function getJSON(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+
+  xhr.onload = function () {
+    const { status } = xhr;
+
+    if (status === 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status);
+    }
+  };
+
+  xhr.send();
+}
 /* eslint-enable func-names */
 
 function getContributors(owner, repo) {
-  axios
-    .get(
-      `https://api.github.com/repos/${owner}/${repo}/contributors`,
-    )
-    .then((response) => {
-      const resp = response.data;
+  getJSON(`https://api.github.com/repos/${owner}/${repo}/contributors`, (err, data) => {
+    if (err != null) {
+      console.error(err);
+    } else {
+      const resp = data;
       let div = document.querySelector('.hyperionwebosContributors');
       if (repo === 'piccap') {
         div = document.querySelector('.piccapContributors');
@@ -243,8 +264,8 @@ function getContributors(owner, repo) {
         last.appendChild(lielem);
         div.appendChild(last);
       });
-    })
-    .catch((error) => console.error(error));
+    }
+  });
 }
 getContributors('webosbrew', 'hyperion-webos');
 getContributors('tbsniller', 'piccap');

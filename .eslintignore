@@ -6,3 +6,4 @@ servicenative/
 .vscode/
 .github/
 frontend/js/spatial-navigation.js
+frontend/js/domrect-polyfill.js
