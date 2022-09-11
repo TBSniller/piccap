@@ -1,5 +1,5 @@
 import packageJSON from '../../package.json';
-import logIt from './servicecalls';
+//import logIt from './servicecalls';
 
 /* eslint-disable func-names */
 window.switchView = function (view) {
