@@ -100,6 +100,7 @@ function checkRoot() {
   document.getElementById('txtServiceStatus').innerHTML = 'Processing root check';
   logIt('Starting loop for PicCap-Service to get root-status');
 
+  let firstInterval = true;
   checkRootStatusIntervalID = window.setInterval(() => {
     logIt('Calling PicCap-Service to get root-status');
     document.getElementById('txtInfoState').innerHTML = 'Checking root status';
@@ -114,6 +115,13 @@ function checkRoot() {
       },
     );
     /* eslint-enable no-undef */
+
+    if (rootingInProgress === false && isRoot === false && firstInterval === false){
+      logIt('Not rooted and rooting not in progress yet.');
+      makeServiceRoot();
+      rootingInProgress = true;
+    }
+    firstInterval = false;
   }, 3000);
 }
 
