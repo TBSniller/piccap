@@ -1,5 +1,10 @@
 import packageJSON from '../../package.json';
-//import logIt from './servicecalls';
+
+function logIt(message) {
+  const textareaConsoleLog = document.getElementById('textareaConsoleLog');
+  console.log(message);
+  textareaConsoleLog.value += `${message}\n`;
+}
 
 /* eslint-disable func-names */
 window.switchView = function (view) {

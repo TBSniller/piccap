@@ -17,7 +17,6 @@ function logIt(message) {
   console.log(message);
   textareaConsoleLog.value += `${message}\n`;
 }
-export default logIt;
 
 
 function onHBExec(result) {
