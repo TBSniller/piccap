@@ -351,7 +351,7 @@ window.serviceSaveSettings = () => {
     autostart: document.getElementById('checkSettingsAutostart').checked,
   };
 
-  logIt(config);
+  logIt(`Config: ${JSON.stringify(config)}`);
 
   document.getElementById('txtInfoState').innerHTML = 'Sending settings..';
   saveSettings(config);
