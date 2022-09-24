@@ -12,21 +12,22 @@ So currently as a workaround you can play your media using your PC, FireTV-Stick
 It is used in DIY-environments, like builded up in [this tutorial](https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md).  
 You can also run [Hyperion.ng webOS loader](https://github.com/webosbrew/hyperion.ng-webos-loader) or it's fork [HyperHDR webOS loader](https://github.com/webosbrew/hyperhdr-webos-loader) directly on your webOS TV, so you don't need any further hardware, expect of your LED driver. Both apps can be found in [Homebrew Channels app repository](https://repo.webosbrew.org/apps/).  
   
-[video]
-(Captured on a webOS5-TV using vtCapture as library)
+https://user-images.githubusercontent.com/51515147/192116249-f5080f02-3566-4c94-b9e1-bdb11aba2698.mp4
+
+This footage is captured on a webOS5-TV using vtCapture as library.
 
 ## How to install  
 
 ### What do you need?  
 - [Root access](https://github.com/RootMyTV/RootMyTV.github.io) to your TV  
--  Latest version of [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel) installed, as we take use of its elevate-service script  
+- Latest version of [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel) installed, as we take use of its elevate-service script  
 - Brain with some basic knowledge - We haven't encountered any bricks, but standard no warranty clause applies
 
 ### Easy way
 Open Homebrew Channel and install PicCap directly from there.  
   
 ### Manual way
-First you will have to [build] it from scratch, or download pre-compiled IPK from [releases].  
+First you will have to [build](https://github.com/TBSniller/piccap#development) it from scratch, or download pre-compiled IPK from [releases](https://github.com/TBSniller/piccap/releases).  
   
 ```
 # Copy IPK to TV 
@@ -70,12 +71,12 @@ cd ./piccap
 npm install
 
 # Build
-npm run-script build-all  		# Build PicCap & hyperion-webos + deps
-npm run-script build-frontend	# Build PicCap only
-npm run-script build-backend	# Build hyperion-webos + deps only
+npm run-script build-all        # Build PicCap & hyperion-webos + deps
+npm run-script build-frontend   # Build PicCap only
+npm run-script build-backend    # Build hyperion-webos + deps only
 
-# Package
-npm run-script package			# Packages IPK-file for TV installation
+# Package IPK-file for TV installation
+npm run-script package
 ```  
 
 ## Other
@@ -90,10 +91,14 @@ Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-w
 
 ### Credits
 This project would never ever exists without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
-Both programmed important things at the beginning of this whole ambilight project.
-[@tuxuser](https://github.com/tuxuser) also made some important changes in the mid of this project.
+Both programmed important things at the beginning of this whole ambilight project. [@tuxuser](https://github.com/tuxuser) also made some important changes in the mid of this project.  
 Share them some love if you can, they teached and showed me alot!
   
 Check out [OpenLGs-Discord](https://discord.gg/9sqAgHVRhP) server, if you have some questions. You will find a very helpful community. <3  
 
 ### Screenshots
+![Main](https://user-images.githubusercontent.com/51515147/192116360-efd6483a-8dc7-4b61-af27-d428f90740a3.jpg)  
+![Settings](https://user-images.githubusercontent.com/51515147/192116365-1f9a7590-7a88-4bfd-924f-3b8bf9ae47b6.jpg)  
+![Advanced settings](https://user-images.githubusercontent.com/51515147/192116371-21387541-7c56-4866-b7fd-23246a9a4d2e.jpg)  
+![Logs](https://user-images.githubusercontent.com/51515147/192116386-df4e5e3c-7260-451e-8685-69a69a3abc0b.jpg)  
+![About](https://user-images.githubusercontent.com/51515147/192116388-6dce877d-41be-41b1-922e-630783fbca7c.jpg)  
