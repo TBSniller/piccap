@@ -1,85 +1,99 @@
-
 # PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs  
   
-### Hyperion?  
-Hyperion basicly is a server service which is running on for example a Raspberry Pi connecting to LED stripes to get an ambilight, as like Philipps TVs have. The main page of this project: https://github.com/hyperion-project/hyperion.ng Here is a simple HowTo-DIY-Build tutorial: https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md
-  
-  
-### What is this?  
-The main idea of this is, to have a simple frontend app with autostart feature for the hyperion-webos executable firstly developed by mariotaku here: https://github.com/webosbrew/hyperion-webos. This executeable now is a real native WebOS-service through what we get some benefits like higher performance.  
-PicCap directly speaks to this service, so its reasonable for starting, stopping, displaying and changing settings of this service.   
-  
-**This app is still in very early development.**  
-But we are giving our best to make it as good as possible.
+## What's this?
 
-### Not working  
-- Nothing known so far.  
-- Please see https://github.com/webosbrew/hyperion-webos/tree/main#known-issues for issues regarding the backend capture service. - This is only the frontend application!  
+### PicCap?    
+PicCap is an frontend app, which you can install on your TV, to make TV content capturing as easy as possible. It ships and controls the seperated [hyperion-webos](https://github.com/webosbrew/hyperion-webos) background native service, which uses capture interfaces on your TV based on reverse engineering, proccesses the output and sends as result a low quality image to a receiver like Hyperion's flatbuffer server.  
+On newer TVs there is no official way for capturing DRM-protected content like from Netflix or Amazon. This restriction doesn't take place for content comming from an HDMI input.  
+So currently as a workaround you can play your media using your PC, FireTV-Stick or Chromecast and still enjoy your LEDs.
+
+### Hyperion?  
+[hyperion.ng](https://github.com/hyperion-project/hyperion.ng) basicly is a server service, which transforms incomming image data to an LED output. The idea is to have an ambilight like it's known from Philipps TVs.
+It is used in DIY-environments, like builded up in [this tutorial](https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md).  
+You can also run [Hyperion.ng webOS loader](https://github.com/webosbrew/hyperion.ng-webos-loader) or it's fork [HyperHDR webOS loader](https://github.com/webosbrew/hyperhdr-webos-loader) directly on your webOS TV, so you don't need any further hardware, expect of your LED driver. Both apps can be found in [Homebrew Channels app repository](https://repo.webosbrew.org/apps/).  
+  
+[video]
+(Captured on a webOS5-TV using vtCapture as library)
+
+## How to install  
 
 ### What do you need?  
+- [Root access](https://github.com/RootMyTV/RootMyTV.github.io) to your TV  
+-  Latest version of [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel) installed, as we take use of its elevate-service script  
+- Brain with some basic knowledge - We haven't encountered any bricks, but standard no warranty clause applies
 
-At this time root is neccessary. You will also need to have the latest Homebrew Channel installed: https://github.com/webosbrew/webos-homebrew-channel
+### Easy way
+Open Homebrew Channel and install PicCap directly from there.  
+  
+### Manual way
+First you will have to [build] it from scratch, or download pre-compiled IPK from [releases].  
+  
+```
+# Copy IPK to TV 
+scp /home/[USER]/downloads/org.webosbrew.piccap_[version]_all.ipk root@[TVIP]:/tmp/org.webosbrew.piccap_[version]_all.ipk
 
-You should also know what you are doing and should have basic knowledge about all this root stuff, because you can brick your TV and I wouldn't take any responsibilty if you did so. Mainly this isn't the case, but you have been warned. 
+# On TV install IPK
+luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.piccap","ipkUrl":"/tmp/org.webosbrew.piccap_[version]_all.ipk","subscribe":true}'
+```
   
-### After first start  
-Wait a few secounds to let the service elevate root permissions through the Homebrew Channel-Service. After that a full reboot (no powercycle) of your TV might be neccessary. You can simply use the reboot button on settings page.
+## How to use
+### First start  
+Wait a few secounds to let the service elevate root permissions through Homebrew Channel-Service. Check status message in bottom right corner, to see when it's done.
   
   
-### Capture backends?
-Actually we reversed a few different librarys which are used by LG TVs to capture the screen. That's why this app covers different ways of handling these librarys.  
-You can take a look at here to get an idea: https://github.com/webosbrew/hyperion-webos/tree/main#backends
+### Settings 
+ - If you use hyperion.ng or HyperHDR loader, you will have to fill `127.0.0.1` as IP address. 
+ - Change priority if you have other capture or effect sources for your Hyperion or HyperHDR instance.  
 
-### How to use  
-Simply fill in your parameters on the settings page and press save. The configuration file will then be saved and used by the hyperion-webos backend service.
-  
-Simply press start after the application ended loading on the service page.
-  
-### How to install (Outdated)   
-Easy way:  
-Install it directly from HBChannel https://github.com/webosbrew/webos-homebrew-channel. It's published at the repo: https://repo.webosbrew.org/apps/  
+### Backends
+We use different libraries to capture TVs content. These are used by hyperion-webos and described [here](https://github.com/webosbrew/hyperion-webos/tree/main#backends).  
 
-You can also download the ipk from releases or build it all yourself.
-  
-After that install it using ares:
-`cmd.exe /c E:\webOS_TV_SDK\CLI\bin\ares-install.cmd -d YOURTV E:\Downloads\org.webosbrew.piccap_0.2.3_all.ipk`
-  
-Or install it manually:  
-  
-Copy to TV:  
-`scp /home/USER/downloads/org.webosbrew.piccap_0.2.3_all.ipk root@TVIP:/tmp/org.webosbrew.piccap_0.2.3_all.ipk`
+### Advanced settings
+Some TV models are comptabile with a specific backend, but require a slightly different routine to work reliably. You can find an explaination for  these so called quirks [here](https://github.com/webosbrew/hyperion-webos/tree/main#quirks).
 
-or download:  
-`wget -P /tmp https://github.com/TBSniller/piccap/releases/download/testing/org.webosbrew.piccap_0.2.3_all.ipk`
-And installing on TV using:  
-`luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"org.webosbrew.piccap","ipkUrl":"/tmp/org.webosbrew.piccap_0.2.3_all.ipk","subscribe":true}'` 
-  
-or use one-liner:  
-`luna-send -i 'luna://org.webosbrew.hbchannel.service/install' '{"ipkUrl":"https://github.com/TBSniller/piccap/releases/download/0.2.3/org.webosbrew.piccap_0.2.3_all.ipk","ipkHash":"4bfd262421f27fd33b66062e117f97c5a3f3b8d24cd4583645878bd0cc3c6cc2"}'`
-  
+## Development
+### Dependencies
+To build PicCap and hyperion-webos you will need:  
+- [Node.js](https://nodejs.org/en/download/)  
+- [buildroot-nc4](https://github.com/openlgtv/buildroot-nc4)  
+
+You will also need `clang-format-14` if you want to contribute.  
 
 ### How to build  
-  
-For building everything, you will need the buildchain from here https://github.com/webosbrew/meta-lg-webos-ndk/releases/download/1.0.g-rev.4/webos-sdk-x86_64-armv7a-neon-toolchain-1.0.g.sh and after installing you will have to source the toolchain like `source /opt/webos-sdk-x86_64/1.0.g/environment-setup-armv7a-neon-webos-linux-gnueabi`.
-
-The first time you will also need to install the dependencies with `npm install`.  
-After that you can build everything up:
+We have tried to make build proccess as easy as possible. After building all files can be found in `./build`.
 ```
-# Build hyperion-webos and PicCap
-npm run-script build-all
-# Package them to a IPK
-npm run-script package
+# Clone project and submodules
+git clone --recursive https://github.com/TBSniller/piccap.git
+cd ./piccap
+
+# Install node dependencies
+npm install
+
+# Build
+npm run-script build-all  		# Build PicCap & hyperion-webos + deps
+npm run-script build-frontend	# Build PicCap only
+npm run-script build-backend	# Build hyperion-webos + deps only
+
+# Package
+npm run-script package			# Packages IPK-file for TV installation
 ```  
-Your compiled files will be at `./build`.
+
+## Other
+
+### Known issues  
+**Expect bugs - This app is still in early development**  
+Nothing known so far.  
+
+Feel free to raise an issue!  
+
+Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-webos/tree/main#known-issues) for issues regarding the backend service. - This only is the frontend application and has nothing to do with capture related things!  
+
+### Credits
+This project would never ever exists without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
+Both programmed important things at the beginning of this whole ambilight project.
+[@tuxuser](https://github.com/tuxuser) also made some important changes in the mid of this project.
+Share them some love if you can, they teached and showed me alot!
   
-# Credits  
-As stated in the application:  
-Love to Mariotaku https://github.com/mariotaku  
-Love to JohnPaul https://github.com/Informatic  
-Love to tuxuser https://github.com/tuxuser  
-Love to chbartsch https://github.com/chbartsch  
-Love to OpenLG-Discord https://discord.gg/9sqAgHVRhP  
-All this wouldn't be possible without them!  
-  
-Obvously WebOS SDK from LG https://webostv.developer.lge.com/sdk/installation/download-installer/  
-Application design easily created with https://nicepage.com/html-website-builder  
+Check out [OpenLGs-Discord](https://discord.gg/9sqAgHVRhP) server, if you have some questions. You will find a very helpful community. <3  
+
+### Screenshots
