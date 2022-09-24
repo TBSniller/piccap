@@ -92,7 +92,9 @@ Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-w
 ### Credits
 This project would never ever exists without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
 Both programmed important things at the beginning of this whole ambilight project. [@tuxuser](https://github.com/tuxuser) also made some important changes in the mid of this project.  
-Share them some love if you can, they teached and showed me alot!
+Share them some love if you can, they teached and showed me alot!  
+
+You should also check out the other contributors. Some nice enhancements wouldn't be there without them :)  
   
 Check out [OpenLGs-Discord](https://discord.gg/9sqAgHVRhP) server, if you have some questions. You will find a very helpful community. <3  
 
