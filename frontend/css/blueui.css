@@ -1,0 +1,152 @@
+.menu.blueMode {
+  background: #0d47a1;
+}
+
+.menu .logo.blueMode p{
+  color: #fff;
+}
+.menu.blueMode ul li button{
+  color: #fff;
+  border-radius: 5px;
+  border-style: none;
+  background: none;
+}
+.menu.blueMode ul li button:hover{
+  background: #fff;
+  color: black;
+}
+
+.background.blueMode{
+  background: #1e88e5;
+}
+
+.main .title.blueMode{
+  color: #fff;
+}
+
+.main .sub_title.blueMode{
+  color: #fff;
+}
+
+.main .btns.blueMode button{
+  border-radius: 5px;
+  border: 2px solid white;
+  outline: none;
+  background: none;
+  color: #fff;
+}
+
+.btns.blueMode button:hover{
+  background: white;
+  color: black;
+}
+
+.status.blueMode {
+  background: #1565c0;
+}
+
+.status .info.blueMode p {
+  color: #fff;
+}
+
+.lightMode.blueMode button {
+  outline: none;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.lightMode.blueMode button:hover{
+  background-color: white;
+  color: black;
+}
+.lightMode.blueMode button:focus {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.menu.blueMode :focus {
+  border-style: solid;
+  border-radius: 3px;
+  border: 3px solid black;
+}
+
+.main.blueMode button:focus {
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.main.blueMode button:active {
+  background: lightgray;
+}
+
+.settingItems.blueMode p{
+  color: #fff;
+}
+
+.checklabel.blueMode label{
+  color: #fff;
+}
+
+.settingItems.blueMode input[type="checkbox"]{
+  border-style: none;
+  border-radius: 5px;
+}
+
+.settingItems.blueMode select{
+  border-style: none;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.settingItems.blueMode :focus{
+  border-style: solid;
+  border-radius: 2px;
+  border: 2px solid black;
+}
+
+.settingItems.blueMode button:active{
+    background: lightgray;
+}
+
+.settingItems.blueMode input:focus{
+  border-style: solid;
+  border-radius: 2px;
+  border: 2px solid black;
+}
+
+.checkboxes.blueMode input[type="checkbox"]:focus{
+  outline: 2px solid black;
+}
+
+.aboutItems.blueMode p{
+  color: #fff;
+}
+
+.aboutItems.blueMode a{
+  color: white;
+}
+
+.aboutItems.blueMode :focus {
+  border-style: solid;
+  border-radius: 3px;
+  border: 3px solid white;
+}
+
+.upperTab.blueMode p{
+  color: #fff;
+}
+
+.logBox.blueMode textarea{
+  color: white;
+  background-color: #1e88e5;
+  border: 1px solid white;
+}
+
+.logBox.blueMode textarea:focus{
+  background-color: #1e88e5;
+  border: 2px solid white;
+  outline: 1px solid white;
+}

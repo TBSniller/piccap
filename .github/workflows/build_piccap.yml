@@ -1,0 +1,62 @@
+name: Build PicCap with hyperion-webos and create IPK
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-all:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+        
+    - uses: actions/setup-node@v1
+      with:
+         node-version: 16
+
+    - name: Install webOS CLI
+      run: sudo npm install --location=global @webosose/ares-cli
+
+    - name: Install dependencies
+      working-directory: ${{github.workspace}}
+      run: npm install
+ 
+    - name: Download and unpack toolchain
+      working-directory: /opt
+      run: wget -q -O toolchain.tar.gz https://github.com/openlgtv/buildroot-nc4/releases/download/webos-9f5b1a1/arm-webos-linux-gnueabi_sdk-buildroot.tar.gz && tar -xf toolchain.tar.gz
+
+    - name: Relocate toolchain
+      working-directory: /opt/arm-webos-linux-gnueabi_sdk-buildroot
+      run: ./relocate-sdk.sh
+
+    - name: Setup Env
+      run: env -i bash -c 'export CMAKE_TOOLCHAIN_FILE=/opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake && env' >> $GITHUB_ENV
+
+    - name: Check CMAKE Version
+      run: which cmake && cmake --version
+
+    - name: Build PicCap, hyperion-webos and copy files
+      working-directory: ${{github.workspace}}
+      run: npm run-script build-all
+
+    - name: Package Frontend and Service
+      run: npm run-script package
+
+    - name: List files
+      run: find . && find ./build
+
+    - name: Upload PicCap IPK
+      uses: actions/upload-artifact@v2
+      with:
+        name: piccap_ipk
+        path: ./build/*.ipk
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ./build/*.ipk

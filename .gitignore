@@ -1,9 +1,4 @@
-dist
 build
-.vscode
-service/node_modules
-servicenative/hyperion-webos
-servicenative/libvt_backend.so
-servicenative/libvtcapture_backend.so
-servicenative/libdile_vt_backend.so
+.vscode/*
+!.vscode/settings.json
 node_modules

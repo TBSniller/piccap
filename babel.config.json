@@ -1,19 +1,14 @@
 {
-    "plugins": [
-        "@babel/plugin-transform-object-assign"
-    ],
-    "sourceType": "unambiguous",
     "presets": [
         [
-            "@babel/env",
+            "@babel/preset-env",
             {
                 "targets": {
-                    "node": "0.10"
+                    "chrome": "38"
                 },
                 "useBuiltIns": "entry",
                 "corejs": "3"
             }
-        ],
-        "@babel/preset-typescript"
+        ]
     ]
 }

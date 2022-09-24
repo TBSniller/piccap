@@ -1,46 +1,45 @@
 {
   "name": "org.webosbrew.piccap",
-  "version": "0.2.3",
-  "description": "PicCap Service",
-  "main": "piccap.js",
+  "version": "0.4.1",
+  "description": "PicCap - Hyperion Sender App",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "package-native": "ares-package dist/frontend/ servicenative/ -o build",
+    "lint-frontend": "eslint frontend/js/",
+    "lint-frontend-fix": "eslint --fix frontend/js/",
+    "lint-backend": "cd ./hyperion-webos && python lint/run-clang-format.py --extensions \"c,h,cpp\" --color auto --recursive ./src",
+    "lint-backend-fix": "cd ./hyperion-webos && python lint/run-clang-format.py --extensions \"c,h,cpp\" --color auto --recursive --inplace true ./src",
+    "clean": "rm -rf ./build/*; rm -rf ./hyperion-webos/build/*",
+    "build-frontend": "mkdir -p ./build/piccap-frontend && webpack",
+    "build-backend": "mkdir -p ./build/hyperion-webos && mkdir -p ./hyperion-webos/build && cd ./hyperion-webos/build && cmake .. && make hyperion-webos gm_backend halgal_backend dile_vt_backend vtcapture_backend && cd ../.. && cp ./hyperion-webos/build/hyperion-webos ./build/hyperion-webos/ && cp ./hyperion-webos/build/libdile_vt_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libgm_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libhalgal_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libvtcapture_backend.so ./build/hyperion-webos/ && cp ./servicefiles/* ./build/hyperion-webos && chmod +x ./build/hyperion-webos/hyperion-webos ./build/hyperion-webos/piccapautostart",
+    "build-all": "mkdir -p ./build/piccap-frontend && webpack && mkdir -p ./build/hyperion-webos && mkdir -p ./hyperion-webos/build && cd ./hyperion-webos/build && cmake .. && make && cd ../.. && cp ./hyperion-webos/build/hyperion-webos ./build/hyperion-webos/ && cp ./hyperion-webos/build/libdile_vt_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libgm_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libhalgal_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libvtcapture_backend.so ./build/hyperion-webos/ && cp ./servicefiles/* ./build/hyperion-webos && chmod +x ./build/hyperion-webos/hyperion-webos ./build/hyperion-webos/piccapautostart",
+    "package": "ares-package ./build/piccap-frontend ./build/hyperion-webos -o ./build",
     "deploy": "ares-install org.webosbrew.piccap_${npm_package_version}_all.ipk",
     "launch": "ares-launch org.webosbrew.piccap"
   },
   "browserslist": [
-    "chrome 30"
+    "chrome 38"
   ],
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
-    "core-js": "^3.12.1",
-    "webos-service": "git+https://github.com/webosose/nodejs-module-webos-service.git",
-    "bluebird": "^3.7.2"
+    "@babel/preset-env": "^7.18.10",
+    "bluebird": "^3.7.2",
+    "core-js": "^3.24.1",
+    "regenerator-runtime": "^0.13.9",
+    "webos-service": "git+https://github.com/webosose/nodejs-module-webos-service.git"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-transform-object-assign": "^7.16.0",
-    "@babel/preset-env": "^7.15.8",
-    "@babel/preset-typescript": "^7.13.0",
-    "@babel/runtime-corejs3": "^7.15.4",
-    "@types/webos-service": "^0.4.2",
-    "@webosose/ares-cli": "^2.1.0",
-    "babel-loader": "^8.2.3",
-    "copy-webpack-plugin": "^10.0.0",
-    "eslint": "^7.25.0",
-    "eslint-config-airbnb-typescript": "^12.3.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "fork-ts-checker-webpack-plugin": "^6.2.10",
-    "prettier": "^2.2.1",
-    "typescript": "^4.2.4",
-    "webpack": "^5.60.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-shebang-plugin": "^1.1.7"
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/runtime-corejs3": "^7.18.9",
+    "@webosose/ares-cli": "^2.3.1",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^10.2.4",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-compat": "^4.0.2",
+    "eslint-plugin-import": "^2.26.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

@@ -1,0 +1,152 @@
+.menu.darkMode {
+  background: #303030;
+}
+
+.menu .logo.darkMode p{
+  color: #fff;
+}
+.menu.darkMode ul li button{
+  color: #fff;
+  border-radius: 5px;
+  border-style: none;
+  background: none;
+}
+.menu.darkMode ul li button:hover{
+  background: #fff;
+  color: black;
+}
+
+.background.darkMode{
+  background: #424242;
+}
+
+.main .title.darkMode{
+  color: #fff;
+}
+
+.main .sub_title.darkMode{
+  color: #fff;
+}
+
+.main .btns.darkMode button{
+  border-radius: 5px;
+  border: 2px solid white;
+  outline: none;
+  background: none;
+  color: #fff;
+}
+
+.btns.darkMode button:hover{
+  background: white;
+  color: black;
+}
+
+.status.darkMode {
+  background: #212121;
+}
+
+.status .info.darkMode p {
+  color: #fff;
+}
+
+.lightMode.darkMode button {
+  outline: none;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.lightMode.darkMode button:hover{
+  background-color: white;
+  color: black;
+}
+.lightMode.darkMode button:focus {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.menu.darkMode :focus {
+  border-style: solid;
+  border-radius: 3px;
+  border: 3px solid black;
+}
+
+.main.darkMode button:focus {
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.main.darkMode button:active {
+  background: lightgray;
+}
+
+.settingItems.darkMode p{
+  color: #fff;
+}
+
+.checklabel.darkMode label{
+  color: #fff;
+}
+
+.settingItems.darkMode input[type="checkbox"]{
+  border-style: none;
+  border-radius: 5px;
+}
+
+.settingItems.darkMode select{
+  border-style: none;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.settingItems.darkMode :focus{
+  border-style: solid;
+  border-radius: 2px;
+  border: 2px solid black;
+}
+
+.settingItems.darkMode button:active{
+    background: lightgray;
+}
+
+.settingItems.darkMode input:focus{
+  border-style: solid;
+  border-radius: 2px;
+  border: 2px solid black;
+}
+
+.checkboxes.darkMode input[type="checkbox"]:focus{
+  outline: 2px solid black;
+}
+
+.aboutItems.darkMode p{
+  color: #fff;
+}
+
+.aboutItems.darkMode a{
+  color: white;
+}
+
+.aboutItems.darkMode :focus {
+  border-style: solid;
+  border-radius: 3px;
+  border: 3px solid white;
+}
+
+.upperTab.darkMode p{
+  color: #fff;
+}
+
+.logBox.darkMode textarea{
+  color: white;
+  background-color: #424242;
+  border: 1px solid white;
+}
+
+.logBox.darkMode textarea:focus{
+  background-color: #424242;
+  border: 2px solid white;
+  outline: 1px solid white;
+}

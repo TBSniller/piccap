@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/hyperion-webos",
+    "cmake.buildDirectory": "${workspaceFolder}/hyperion-webos/build"
+}
