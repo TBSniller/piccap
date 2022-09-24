@@ -1,6 +1,6 @@
 {
   "name": "org.webosbrew.piccap",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "PicCap - Hyperion Sender App",
   "main": "index.html",
   "scripts": {
