@@ -4,8 +4,10 @@
   "description": "PicCap - Hyperion Sender App",
   "main": "index.html",
   "scripts": {
-    "lint": "eslint frontend/js/",
-    "lint-fix": "eslint --fix frontend/js/",
+    "lint-frontend": "eslint frontend/js/",
+    "lint-frontend-fix": "eslint --fix frontend/js/",
+    "lint-backend": "cd ./hyperion-webos && python lint/run-clang-format.py --extensions \"c,h,cpp\" --color auto --recursive ./src",
+    "lint-backend-fix": "cd ./hyperion-webos && python lint/run-clang-format.py --extensions \"c,h,cpp\" --color auto --recursive --inplace true ./src",
     "clean": "rm -rf ./build/*; rm -rf ./hyperion-webos/build/*",
     "build-frontend": "mkdir -p ./build/piccap-frontend && webpack",
     "build-backend": "mkdir -p ./build/hyperion-webos && mkdir -p ./hyperion-webos/build && cd ./hyperion-webos/build && cmake .. && make hyperion-webos gm_backend halgal_backend dile_vt_backend vtcapture_backend && cd ../.. && cp ./hyperion-webos/build/hyperion-webos ./build/hyperion-webos/ && cp ./hyperion-webos/build/libdile_vt_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libgm_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libhalgal_backend.so ./build/hyperion-webos/ && cp ./hyperion-webos/build/libvtcapture_backend.so ./build/hyperion-webos/ && cp ./servicefiles/* ./build/hyperion-webos && chmod +x ./build/hyperion-webos/hyperion-webos ./build/hyperion-webos/piccapautostart",
