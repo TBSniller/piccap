@@ -84,11 +84,10 @@ npm run-script package
 
 ### Known issues  
 **Expect bugs - This app is still in early development**  
-Nothing known so far.  
-
-Feel free to raise an issue!  
+No issues are known so far, if you find one, feel free to raise an issue!  
 
 Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-webos/tree/main#known-issues) for issues regarding the backend service. - This only is the frontend application and has nothing to do with capture related things!  
+Version tracker is available in [hyperion-webos#16](https://github.com/webosbrew/hyperion-webos/issues/16). 
 
 ### Credits
 This project would never ever exists without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
