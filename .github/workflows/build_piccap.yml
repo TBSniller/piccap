@@ -44,7 +44,7 @@ jobs:
         ./relocate-sdk.sh
 
     - name: Setup Env
-      run: env -i bash -c 'export CMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE && env' >> $GITHUB_ENV
+      run: env -i bash -c 'export CMAKE_TOOLCHAIN_FILE=/opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake && env' >> $GITHUB_ENV
 
     - name: Check CMAKE Version
       run: which cmake && cmake --version
