@@ -64,6 +64,14 @@ You will also need `clang-format-14` if you want to contribute.
 ### How to build  
 We have tried to make build proccess as easy as possible. After building all files can be found in `./build`.
 ```
+# Setup buildroot-nc4 (needed for hyperion-webos)
+cd /desired/path
+wget -O toolchain.tar.gz $TOOLCHAIN_URL_FROM_RELEASES
+tar -xvzf toolchain.tar.gz
+rm toolchain.tar.gz
+arm-webos-linux-gnueabi_sdk-buildroot/relocate-sdk.sh
+export CMAKE_TOOLCHAIN_FILE=/desired/path/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
+
 # Clone project and submodules
 git clone --recursive https://github.com/TBSniller/piccap.git
 cd ./piccap
