@@ -140,7 +140,7 @@ function getStatus() {
           document.getElementById('txtInfoReceiver').innerHTML = result.connected ? 'Connected' : 'Disconnected';
           document.getElementById('txtInfoVideo').innerHTML = result.videoRunning ? `Capturing with ${result.videoBackend}` : 'Not capturing';
           document.getElementById('txtInfoUI').innerHTML = result.uiRunning ? `Capturing with ${result.uiBackend}` : 'Not capturing';
-          document.getElementById('txtInfoFPS').innerHTML = result.framerate;
+          document.getElementById('txtInfoFPS').innerHTML = result.framerate.toFixed(2); /* Round to 2 decimal points */
 
           document.getElementById('txtInfoState').innerHTML = 'Status info refreshed';
         } else {
