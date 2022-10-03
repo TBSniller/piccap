@@ -171,7 +171,24 @@ function getSettings() {
           document.getElementById('selectSettingsVideoBackend').value = result.novideo === true ? 'disabled' : result.backend || 'auto';
           document.getElementById('selectSettingsGraphicalBackend').value = result.nogui === true ? 'disabled' : result.uibackend || 'auto';
 
-          document.getElementById('txtInputSettingsAddress').value = result.address || '127.0.0.1';
+          document.getElementById('checkSettingsLocalSocket').checked = result["unix-socket"]; 
+          socketCheckChanged(document.getElementById('checkSettingsLocalSocket'));
+
+          if (result.address.includes('/')){
+                switch (result.address){
+              case '/tmp/hyperhdr-domain':
+                document.getElementById('selectSettingsSocket').value = 'hyperhdr'; 
+                break;
+              default:
+                document.getElementById('selectSettingsSocket').value = 'manual';
+                document.getElementById('txtInputSettingsAddress').value = result.address;
+            }
+            document.getElementById('txtInputSettingsAddress').value = '127.0.0.1';
+            socketSelectChanged(document.getElementById('selectSettingsSocket'));
+          } else{
+            document.getElementById('txtInputSettingsAddress').value = result.address || '127.0.0.1';
+          }
+
           document.getElementById('txtInputSettingsPort').value = result.port;
           document.getElementById('txtInputSettingsPriority').value = result.priority;
 
@@ -330,6 +347,24 @@ window.serviceSaveSettings = () => {
       break;
   }
 
+  let address;
+  if (document.getElementById('checkSettingsLocalSocket').checked === true){
+    switch (document.getElementById('selectSettingsSocket').value){
+      case 'hyperhdr': 
+        address = '/tmp/hyperhdr-domain';
+        break;
+      case 'manual':
+        address = document.getElementById('txtInputSettingsSocketPath').value;
+        break;
+      default:
+        address = undefined;
+        logIt('Address wasnt found!');
+        break;
+    }
+  } else {
+    address = document.getElementById('txtInputSettingsAddress').value;
+  }
+
   const config = {
     backend: document.getElementById('selectSettingsVideoBackend').value === 'disabled' ? 'auto' : document.getElementById('selectSettingsVideoBackend').value,
     uibackend: document.getElementById('selectSettingsGraphicalBackend').value === 'disabled' ? 'auto' : document.getElementById('selectSettingsGraphicalBackend').value,
@@ -337,7 +372,8 @@ window.serviceSaveSettings = () => {
     novideo: document.getElementById('selectSettingsVideoBackend').value === 'disabled',
     nogui: document.getElementById('selectSettingsGraphicalBackend').value === 'disabled',
 
-    address: document.getElementById('txtInputSettingsAddress').value || undefined,
+    'unix-socket': document.getElementById('checkSettingsLocalSocket').checked,
+    address: address,
     port: parseInt(document.getElementById('txtInputSettingsPort').value, 10) || undefined,
     priority: parseInt(document.getElementById('txtInputSettingsPriority').value, 10) || undefined,
 
