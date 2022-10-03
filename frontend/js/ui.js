@@ -103,7 +103,7 @@ window.resolutionChanged = function (elem) {
 };
 
 window.socketCheckChanged = function (elem) {
-  if (elem.checked == true){
+  if (elem.checked === true) {
     document.getElementById('settingaddressport').style.display = 'none';
     document.getElementById('settingsocket').style.display = 'flex';
   } else {
