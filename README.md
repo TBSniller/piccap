@@ -9,7 +9,7 @@ So currently as a workaround you can play your media using your PC, FireTV-Stick
 
 ### Hyperion?  
 [hyperion.ng](https://github.com/hyperion-project/hyperion.ng) basicly is a server service, which transforms incomming image data to an LED output. The idea is to have an ambilight like it's known from Philipps TVs.
-It is used in DIY-environments, like builded up in [this tutorial](https://github.com/TBSniller/piccap/blob/main/DIY_Ambilight.md).  
+It is used in DIY-environments, like builded up in [this tutorial](https://github.com/TBSniller/piccap/blob/main/docs/DIY_Ambilight.md).  
 You can also run [Hyperion.ng webOS loader](https://github.com/webosbrew/hyperion.ng-webos-loader) or it's fork [HyperHDR webOS loader](https://github.com/webosbrew/hyperhdr-webos-loader) directly on your webOS TV, so you don't need any further hardware, expect of your LED driver. Both apps can be found in [Homebrew Channels app repository](https://repo.webosbrew.org/apps/).  
   
 https://user-images.githubusercontent.com/51515147/192116249-f5080f02-3566-4c94-b9e1-bdb11aba2698.mp4
