@@ -51,6 +51,15 @@ window.switchView = function (view) {
       about.style.display = 'none';
       btnabout.style.background = null;
       btnabout.style.color = null;
+
+      //Open non advanced page
+      const settingItemsAdv = document.getElementById('settingItemsAdv');
+      const settingItemsNormal = document.getElementById('settingItemsNormal');
+      const btnAdvanced = document.getElementById('btnSettingsAdvanced');
+      btnAdvanced.style.background = null;
+      btnAdvanced.style.color = null;
+      settingItemsNormal.style.display = 'block';
+      settingItemsAdv.style.display = 'none';
       break;
     case 'logs':
       service.style.display = 'none';
