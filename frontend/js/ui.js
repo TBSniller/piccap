@@ -17,6 +17,10 @@ window.switchView = function (view) {
   const btnsettings = document.getElementById('btnNavSettings');
   const btnlogs = document.getElementById('btnNavLogs');
   const btnabout = document.getElementById('btnNavAbout');
+
+  const settingItemsAdv = document.getElementById('settingItemsAdv');
+  const settingItemsNormal = document.getElementById('settingItemsNormal');
+  const btnAdvanced = document.getElementById('btnSettingsAdvanced');
   switch (view) {
     case 'service':
       service.style.display = 'block';
@@ -52,10 +56,7 @@ window.switchView = function (view) {
       btnabout.style.background = null;
       btnabout.style.color = null;
 
-      //Open non advanced page
-      const settingItemsAdv = document.getElementById('settingItemsAdv');
-      const settingItemsNormal = document.getElementById('settingItemsNormal');
-      const btnAdvanced = document.getElementById('btnSettingsAdvanced');
+      // Open non advanced page
       btnAdvanced.style.background = null;
       btnAdvanced.style.color = null;
       settingItemsNormal.style.display = 'block';
