@@ -57,7 +57,7 @@ jobs:
       run: find . && find ./build
 
     - name: Upload PicCap IPK
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: piccap_ipk
         path: ./build/*.ipk
