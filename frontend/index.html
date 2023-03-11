@@ -9,9 +9,6 @@
     <script type="text/javascript" src="./ui.bundled.js"></script>
     <script type="text/javascript" src="./servicecalls.bundled.js"></script>
     <script type="text/javascript" src="./spatialnavigation.bundled.js"></script>
-<!--    <script type="text/javascript" src="./js/ui.js"></script>
-    <script type="text/javascript" src="./js/servicecalls.js"></script>
-    <script type="text/javascript" src="./js/spatial-navigation.js"></script> -->
     <link rel="stylesheet" href="./css/basicui.css" media="screen">
     <link rel="stylesheet" href="./css/blueui.css" media="screen">
     <link rel="stylesheet" href="./css/darkui.css" media="screen">
@@ -145,43 +142,60 @@
             </ul><br/>
         </div>
         <div class="settingItems settingItemsAdv blueMode" id="settingItemsAdv">
-           <ul>
-            <li><p><b>Service advanced settings</b></p></li>
-          </ul><br/>
-          <div class="dileVTCheckbox checklabel blueMode">
-            <ul>
-              <li>
-                <label><b>DILE_VT quirks:</b></label>
-              </li>
-              <li>
-                <div class="checkboxes blueMode">
-                  <label for="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE ">QUIRK_DILE_VT_NO_FREEZE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE"/></label><br/>
-                  <label for="checkSettingsQUIRK_DILE_VT_CREATE_EX">QUIRK_DILE_VT_CREATE_EX<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_CREATE_EX"/></label>
-                </div>
-              </li>
-              <li>
-                <div class="checkboxes blueMode">
-                  <label for="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2">QUIRK_DILE_VT_DUMP_LOCATION_2<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2"/></label>
-                </div>
-              </li>
-            </ul>
-          </div>
           <ul>
-            <li><p>_______________________________________________</p></li>
-          </ul><br/>
-          <div class="vtCaptureCheckbox checklabel blueMode">
-            <ul>
-              <li>
-                <label><b>vtCapture quirks:</b></label>
-              </li>
-              <li>
-                <div class="checkboxes blueMode">
-                  <label for="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE">QUIRK_VTCAPTURE_FORCE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE"/></label>
-                </div>
-              </li>
-            </ul><br/>
-          </div>
-        </div>
+           <li><p><b>Service advanced settings</b></p></li>
+         </ul><br/><br/>
+         <div class="dileVTCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <label><b>DILE_VT quirks:</b></label>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE">QUIRK_DILE_VT_NO_FREEZE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE"/></label><br/>
+                 <label for="checkSettingsQUIRK_DILE_VT_CREATE_EX">QUIRK_DILE_VT_CREATE_EX<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_CREATE_EX"/></label>
+               </div>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2">QUIRK_DILE_VT_DUMP_LOCATION_2<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2"/></label>
+               </div>
+             </li>
+           </ul>
+         </div>
+         <ul>
+           <li><p>_______________________________________________</p></li>
+         </ul><br/><br/>
+         <div class="vtCaptureCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <label><b>vtCapture quirks:</b></label>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE">QUIRK_VTCAPTURE_FORCE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE"/></label>
+               </div>
+             </li>
+           </ul><br/>
+         </div>
+         <ul>
+           <li><p>_______________________________________________</p></li>
+         </ul><br/><br/>
+         <div class="GlobalCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsNoHDR">Disable HyperHDR SDR/HDR switch<input type="checkbox" id="checkSettingsNoHDR"/></label>
+               </div>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsNoPowerstate">Disable powerstate check<input type="checkbox" id="checkSettingsNoPowerstate"/></label>
+               </div>
+             </li>
+           </ul><br/>
+         </div>
+       </div>
         <div class="btns blueMode">
           <button onclick="serviceSaveSettings()" id="btnSettingsSave">Save</button>
           <button onclick="serviceResetSettings()" id="btnSettingsReset">Reset</button>
