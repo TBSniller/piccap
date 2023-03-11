@@ -246,6 +246,18 @@ nav{
   display: none;
 }
 
+.settingsocket {
+  display: none
+}
+
+.manualsocket {
+  display: none
+}
+
+.settingaddressport {
+  display: flex
+}
+
 .avatars img{
   width: 30px;
   height: 30px;

@@ -102,6 +102,20 @@ window.resolutionChanged = function (elem) {
   document.getElementById('manualres').style.display = elem.value === 'manual' ? 'inline' : 'none';
 };
 
+window.socketCheckChanged = function (elem) {
+  if (elem.checked === true) {
+    document.getElementById('settingaddressport').style.display = 'none';
+    document.getElementById('settingsocket').style.display = 'flex';
+  } else {
+    document.getElementById('settingaddressport').style.display = 'flex';
+    document.getElementById('settingsocket').style.display = 'none';
+  }
+};
+
+window.socketSelectChanged = function (elem) {
+  document.getElementById('manualsocket').style.display = elem.value === 'manual' ? 'inline' : 'none';
+};
+
 window.toggleAdvanced = function () {
   const settingItemsAdv = document.getElementById('settingItemsAdv');
   const settingItemsNormal = document.getElementById('settingItemsNormal');

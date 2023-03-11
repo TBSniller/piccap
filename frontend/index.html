@@ -53,13 +53,36 @@
           </ul><br/>
           <ul>
             <li>
-              <p>Address</p>
-              <input type="text" id="txtInputSettingsAddress"/>
+              <div class="checkboxes checklabel blueMode">
+                <br>
+               <label for="checkSettingsLocalSocket">Local socket<input type="checkbox" id="checkSettingsLocalSocket" onchange="socketCheckChanged(this)"/></label>
+              </div>
             </li>
-            <li>
-              <p>Port</p>
-              <input type="text" id="txtInputSettingsPort"/>
-            </li>
+            <div class="settingsocket blueMode" id="settingsocket">
+              <li>
+                <p>Socket</p>
+                <select name="selectSettingsSocket" id="selectSettingsSocket" onchange="socketSelectChanged(this)">
+                  <option value="hyperhdr">/tmp/hyperhdr-domain</option>
+                  <option value="manual">manual</option>
+                </select>
+              </li>
+              <div class="manualsocket blueMode" id="manualsocket">
+                <li>
+                  <p>Socket path</p>
+                  <input type="text" id="txtInputSettingsSocketPath"/>
+                </li>
+              </div>
+            </div>
+            <div class="settingaddressport blueMode" id="settingaddressport">
+              <li>
+                <p>Address</p>
+                <input type="text" id="txtInputSettingsAddress"/>
+              </li>
+              <li>
+                <p>Port</p>
+                <input type="text" id="txtInputSettingsPort"/>
+              </li>
+            </div>
             <li>
               <p>Hyperion priority</p>
               <input type="text" id="txtInputSettingsPriority"/>
