@@ -389,7 +389,7 @@ window.serviceSaveSettings = () => {
     autostart: document.getElementById('checkSettingsAutostart').checked,
     nohdr: document.getElementById('checkSettingsNoHDR').checked,
     nopowerstate: document.getElementById('checkSettingsNoPowerstate').checked,
-    nv12: document.getElementById('checkSettingsNV12').checked,
+    nv12: document.getElementById('checkSettingsnv12').checked,
 };
 
   logIt(`Config: ${JSON.stringify(config)}`);
