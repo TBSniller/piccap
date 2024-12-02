@@ -229,7 +229,6 @@ function getSettings() {
           document.getElementById('checkSettingsAutostart').checked = result.autostart;
           document.getElementById('checkSettingsNoHDR').checked = result.nohdr;
           document.getElementById('checkSettingsNoPowerstate').checked = result.nopowerstate;
-          document.getElementById('checkSettingsnv12').checked = result.nv12;
 
           logIt('Loading settings done!');
           document.getElementById('txtInfoState').innerHTML = 'Settings loaded';
@@ -299,7 +298,6 @@ window.serviceResetSettings = () => {
 
     vsync: true,
     autostart: false,
-    nv12: false,
   };
   logIt(config);
 
@@ -390,8 +388,8 @@ window.serviceSaveSettings = () => {
     autostart: document.getElementById('checkSettingsAutostart').checked,
     nohdr: document.getElementById('checkSettingsNoHDR').checked,
     nopowerstate: document.getElementById('checkSettingsNoPowerstate').checked,
-    nv12: document.getElementById('checkSettingsnv12').checked,
-};
+
+  };
 
   logIt(`Config: ${JSON.stringify(config)}`);
 
