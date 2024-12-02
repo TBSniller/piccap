@@ -297,9 +297,9 @@ window.serviceResetSettings = () => {
     height: 180,
     quirks: 0,
 
-    vsync: true,
+    vsync: false,
     autostart: false,
-    nv12: false,
+    nv12: true,
   };
   logIt(config);
 
