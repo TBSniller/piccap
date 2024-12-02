@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicCap - Hyperion Sender App</title>
+    <script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
+    <script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./ui.bundled.js"></script>
+    <script type="text/javascript" src="./servicecalls.bundled.js"></script>
+    <script type="text/javascript" src="./spatialnavigation.bundled.js"></script>
+    <link rel="stylesheet" href="./css/basicui.css" media="screen">
+    <link rel="stylesheet" href="./css/blueui.css" media="screen">
+    <link rel="stylesheet" href="./css/darkui.css" media="screen">
+    <link rel="stylesheet" href="./css/blackui.css" media="screen">
+   </head>
+  <body>
+    <nav>
+      <div class="menu blueMode" id="menu">
+        <div class="logo blueMode">
+          <p>PicCap - Hyperion Sender App</p><p id="txtPicCapVersion">loading...</p>
+        </div>
+        <ul>
+          <li><button onclick="switchView('service')" id="btnNavService">Service</button></li>
+          <li><button onclick="switchView('settings')" id="btnNavSettings">Settings</button></li>
+          <li><button onclick="switchView('logs')" id="btnNavLogs">Logs</button></li>
+          <li><button onclick="switchView('about')" id="btnNavAbout">About</button></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="background blueMode"></div>
+    <div class="main blueMode">
+      <div id="service" class="service blueMode">
+        <div class="title blueMode"><p>hyperion-webos</p><p id="txtServiceVersion">loading..</p>
+        </div>
+        <div class="sub_title blueMode" id="txtServiceStatus">Loading status..</div>
+        <div class="btns blueMode">
+          <button onclick="serviceStart()" id="btnServiceStart">Start</button>
+          <button onclick="serviceStop()" id="btnServiceStop">Stop</button>
+        </div>
+        <div class="btns blueMode">
+          <button onclick="serviceReload()" id="btnServiceReload">Reload</button>
+        </div>
+      </div>
+      
+      <div id="settings" class="settings blueMode">
+        <div class="settingItems settingItemsNormal blueMode" id="settingItemsNormal">
+          <ul>
+            <li><p><b>Service settings</b></p></li>
+          </ul><br/>
+          <ul>
+            <li>
+              <div class="checkboxes checklabel blueMode">
+                <br>
+               <label for="checkSettingsLocalSocket">Local socket<input type="checkbox" id="checkSettingsLocalSocket" onchange="socketCheckChanged(this)"/></label>
+              </div>
+            </li>
+            <div class="settingsocket blueMode" id="settingsocket">
+              <li>
+                <p>Socket</p>
+                <select name="selectSettingsSocket" id="selectSettingsSocket" onchange="socketSelectChanged(this)">
+                  <option value="hyperhdr">/tmp/hyperhdr-domain</option>
+                  <option value="manual">manual</option>
+                </select>
+              </li>
+              <div class="manualsocket blueMode" id="manualsocket">
+                <li>
+                  <p>Socket path</p>
+                  <input type="text" id="txtInputSettingsSocketPath"/>
+                </li>
+              </div>
+            </div>
+            <div class="settingaddressport blueMode" id="settingaddressport">
+              <li>
+                <p>Address</p>
+                <input type="text" id="txtInputSettingsAddress"/>
+              </li>
+              <li>
+                <p>Port</p>
+                <input type="text" id="txtInputSettingsPort"/>
+              </li>
+            </div>
+            <li>
+              <p>Hyperion priority</p>
+              <input type="text" id="txtInputSettingsPriority"/>
+            </li>
+          </ul><br/>
+          <ul>
+            <li>
+              <p>Resolution</p>
+                <select name="resolution" id="selectSettingsResolution" onchange="resolutionChanged(this)">
+                  <option value="320x180">320x180</option>
+                  <option value="256x144">256x144</option>
+                  <option value="192x108">192x108</option>
+                  <option value="128x78">128x78</option>
+                  <option value="manual">Manual</option>
+              </select>
+            </li>
+            <div class="manualres blueMode" id="manualres">
+              <li>
+                <p>Width</p>
+                <input type="text" id="txtInputSettingsWidth"/>
+              </li><br/>
+              <li>
+                <p>Height</p>
+                <input type="text" id="txtInputSettingsHeight"/>
+              </li>
+            </div>
+            <li>
+              <p>Maximal FPS</p>
+              <input type="text" id="txtInputSettingsFPS"/>
+            </li>
+          </ul><br/> 
+          <ul>
+            <li><p>_______________________________________________</p></li>
+          </ul><br/>
+          <ul>
+            <li>
+              <p>Video capture backend</p>
+              <select name="selectSettingsVideoBackend" id="selectSettingsVideoBackend">
+                <option value="auto">Automatic detection</option>
+                <option value="libdile_vt">libdile_vt (WebOS 3.x+)</option>
+                <option value="libvtcapture">libvtcapture (WebOS 5.x+)</option>
+                <option value="disabled">disabled</option>
+              </select>
+            </li>
+            <li>
+              <p>Graphical capture backend</p>
+              <select name="selectSettingsGraphicalBackend" id="selectSettingsGraphicalBackend">
+                <option value="auto">Automatic detection</option>
+                <option value="libgm">libgm (WebOS 3.x+)</option>
+                <option value="libhalgal">libhalgal (WebOS 5.x+)</option>
+                <option value="disabled">disabled</option>
+              </select>
+              </li>
+              <li>
+                <div class="checkboxes checklabel blueMode">
+                  <label for="checkSettingsAutostart">Autostart<input type="checkbox" id="checkSettingsAutostart"/></label><br/>
+                  <label for="checkSettingsVSync">VSync<input type="checkbox" id="checkSettingsVSync"/></label>
+                </div>
+              </li>
+            </ul><br/>
+        </div>
+        <div class="settingItems settingItemsAdv blueMode" id="settingItemsAdv">
+          <ul>
+           <li><p><b>Service advanced settings</b></p></li>
+         </ul><br/><br/>
+         <div class="dileVTCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <label><b>DILE_VT quirks:</b></label>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE">QUIRK_DILE_VT_NO_FREEZE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_NO_FREEZE_CAPTURE"/></label><br/>
+                 <label for="checkSettingsQUIRK_DILE_VT_CREATE_EX">QUIRK_DILE_VT_CREATE_EX<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_CREATE_EX"/></label>
+               </div>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2">QUIRK_DILE_VT_DUMP_LOCATION_2<input type="checkbox" id="checkSettingsQUIRK_DILE_VT_DUMP_LOCATION_2"/></label>
+               </div>
+             </li>
+           </ul>
+         </div>
+         <ul>
+           <li><p>_______________________________________________</p></li>
+         </ul><br/><br/>
+         <div class="vtCaptureCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <label><b>vtCapture quirks:</b></label>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE">QUIRK_VTCAPTURE_FORCE_CAPTURE<input type="checkbox" id="checkSettingsQUIRK_VTCAPTURE_FORCE_CAPTURE"/></label>
+               </div>
+             </li>
+           </ul><br/>
+         </div>
+         <ul>
+           <li><p>_______________________________________________</p></li>
+         </ul><br/><br/>
+         <div class="GlobalCheckbox checklabel blueMode">
+           <ul>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsNoHDR">Disable HyperHDR SDR/HDR switch<input type="checkbox" id="checkSettingsNoHDR"/></label>
+               </div>
+             </li>
+             <li>
+               <div class="checkboxes blueMode">
+                 <label for="checkSettingsNoPowerstate">Disable powerstate check<input type="checkbox" id="checkSettingsNoPowerstate"/></label>
+               </div>
+             </li>
+           </ul><br/>
+         </div>
+       </div>
+        <div class="btns blueMode">
+          <button onclick="serviceSaveSettings()" id="btnSettingsSave">Save</button>
+          <button onclick="serviceResetSettings()" id="btnSettingsReset">Reset</button>
+          <button onclick="toggleAdvanced()" id="btnSettingsAdvanced">Advanced</button>
+        </div>
+        <div class="btns blueMode">
+          <button onclick="tvReboot()" id="btnSettingsReboot">Reboot</button>
+        </div>
+      </div>
+      
+      <div id="logs" class="logs blueMode">
+        <div class="upperTab blueMode">
+          <p>Some very simple experimental feature to collect logs. Setup logging is needed after a reboot.<br/>Will be reworked in newer versions. Press the load button to get last 200 log entries.</p>
+          <div class="logsBtns btns blueMode" id="logsBtns">
+            <button id="btnLogSwitchPicCap" onclick="switchLog('piccap')">PicCap</button>
+            <button id="btnLogSwitchHyperion" onclick="switchLog('hyperion')">Hyperion-WebOS</button>
+            <button id="btnLogStartStop" onclick="startStopLogging()">Setup logging</button>
+            <button id="btnLogReload" onclick="reloadHyperionLog()">Load last 200</button>
+            <button id="btnKillHyperion" onclick="restartHyperion()">Full service restart</button>
+          </div>
+        </div>
+        <div class="consoleLog logBox blueMode" id="consoleLog">
+          <textarea id="textareaConsoleLog">Logs from PicCap
+          </textarea>
+        </div>
+        <div class="hyperionLog logBox blueMode" id="hyperionLog">
+          <textarea id="textareaHyperionLog">Logs from hyperion-webos - Log gathering must be started and reloaded manually.
+          </textarea>
+        </div>
+      </div>
+      
+      <div id="about" class="About blueMode">
+        <div class="sub_title blueMode">
+          <p>Some info about this project</p>
+        </div><br/>
+        <div class="aboutItems blueMode">
+          <ul>
+            <li>
+              <p>PicCap is the frontend app, which you have installed on your TV and you can see here, to make things as easy as possible. It ships and controls the seperated hyperion-webos background service, which controls the capture interfaces on your TV based on reverse engineering, proccesses the output and sends the resulting low quality image data to a receiver like Hyperion's flatbuffer server.<br/>On newer TVs there is no official way for capturing DRM-protected content like Netflix or Amazon. This restriction doesn't take place for content comming from an HDMI input.<br/>So currently as a workaround you can play your media using your PC, FireTV-Stick or Chromecast and still enjoy your LEDs.<br/><u>This app requires to be run as root and tries to do this at the first start using the Homebrew Channel.</u></p>
+            </li>
+          </ul>
+          <ul>
+            <li><p>_______________________________________________</p></li>
+          </ul><br/>
+          <ul>
+            <li>
+              <p><br/>Feel free to raise an issue or pull request, or come to the OpenLG-Discord, if you have some questions.</p>
+            </li> 
+          </ul><br/>
+          <ul>
+            <li><p>GitHub-Links: <a href="https://github.com/webosbrew/hyperion-webos">github.com/webosbrew/hyperion-webos</a> | <a href="https://github.com/TBSniller/piccap">github.com/TBSniller/piccap</a></p></li>
+          </ul><br/>
+           <ul>
+            <li><p>OpenLG-Discord: <a href="https://discord.gg/9sqAgHVRhP">discord.gg/9sqAgHVRhP</a></p></li>
+          </ul><br/>
+          <ul>
+            <li><p>_______________________________________________</p></li>
+          </ul><br/>
+          <ul>
+            <li><p><br/>Some love to everyone who was, or still is involved into this project and of course the OpenLG-/Hyperion-Community! ♥</p></li>
+          </ul><br/><br/>
+          <ul>
+            <li>
+              <p style="text-align: left">hyperion-webos</p>
+              <div class="hyperionwebosContributors avatars blueMode"></div>
+            </li>
+            <li>
+              <p style="text-align: left">PicCap</p>
+              <div class="piccapContributors avatars blueMode"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="status blueMode">
+      <div class="lightMode blueMode">
+        <button id="btnLightBlue" onclick="switchLightMode('blue')"><img src="assets/icon_lightModeBlue.png"></img></button>
+        <button id="btnLightDark" onclick="switchLightMode('dark')"><img src="assets/icon_lightModeDark.png"></img></button>
+        <button id="btnLightBlack" onclick="switchLightMode('black')"><img src="assets/icon_lightModeBlack.png"></img></button>
+      </div>
+      <div class="info blueMode">
+        <p>State: </p>
+        <p id="txtInfoState">Loading..</p>
+        
+        <p> | Receiver: </p>
+        <p id="txtInfoReceiver">n/a</p>
+        
+        <!--- UI --->
+        <p> | UI: </p>
+        <p id="txtInfoUI">n/a</p>
+        
+        <!--- Video --->
+        <p> | Video: </p>
+        <p id="txtInfoVideo">n/a</p>
+        
+        <p> | FPS: </p>
+        <p id="txtInfoFPS">n/a</p>
+      </div>
+    </div>
+  </body>
+</html>
