@@ -299,6 +299,7 @@ window.serviceResetSettings = () => {
 
     vsync: true,
     autostart: false,
+    nv12: false,
   };
   logIt(config);
 
