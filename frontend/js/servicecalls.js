@@ -229,7 +229,7 @@ function getSettings() {
           document.getElementById('checkSettingsAutostart').checked = result.autostart;
           document.getElementById('checkSettingsNoHDR').checked = result.nohdr;
           document.getElementById('checkSettingsNoPowerstate').checked = result.nopowerstate;
-          document.getElementById('checkSettingsNV12').checked = result.nv12;
+          document.getElementById('checkSettingsnv12').checked = result.nv12;
 
           logIt('Loading settings done!');
           document.getElementById('txtInfoState').innerHTML = 'Settings loaded';
