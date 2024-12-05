@@ -1,4 +1,6 @@
 # PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs  
+
+# NV12 control box added
   
 ## What's this?
 
