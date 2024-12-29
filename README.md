@@ -1,4 +1,5 @@
-# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs  
+# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs 
+
   
 ## What's this?
 
