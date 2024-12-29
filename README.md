@@ -1,8 +1,8 @@
-# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs  
+# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs 
+
+##Selection of NV12 settings added
   
 ## What's this?
-
-# Selection of NV12 settings added
 
 ### PicCap?    
 PicCap is an frontend app, which you can install on your TV, to make TV content capturing as easy as possible. It ships and controls the seperated [hyperion-webos](https://github.com/webosbrew/hyperion-webos) background native service, which uses capture interfaces on your TV based on reverse engineering, proccesses the output and sends as result a low quality image to a receiver like Hyperion's flatbuffer server.  
