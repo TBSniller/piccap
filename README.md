@@ -19,7 +19,7 @@ This footage is captured on a webOS5-TV using vtCapture as library.
 ## How to install  
 
 ### What do you need?  
-- [Root access](https://github.com/RootMyTV/RootMyTV.github.io) to your TV  
+- [Root access](https://cani.rootmy.tv) to your TV  
 - webOS 3.4 or above  
 - Latest version of [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel) installed, as we take use of its elevate-service script  
 - Brain with some basic knowledge - We haven't encountered any bricks, but standard no warranty clause applies
