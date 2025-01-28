@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 env:
-  TOOLCHAIN_URL: https://github.com/openlgtv/buildroot-nc4/releases/download/webos-c592d84/arm-webos-linux-gnueabi_sdk-buildroot.tar.gz
-  TOOLCHAIN_SHA256: be5b4249177fc31b3f0120106c761f42ade54fd609a3bd090852899bbdd680b9
+  TOOLCHAIN_URL: https://github.com/openlgtv/buildroot-nc4/releases/download/webos-d7ed7ee/arm-webos-linux-gnueabi_sdk-buildroot.tar.gz
+  TOOLCHAIN_SHA256: 32816626e99fb34922a49d0c639f7c8a30356fffb222372d4823027f1382f640
   TOOLCHAIN_DIR: /opt/arm-webos-linux-gnueabi_sdk-buildroot
-  CMAKE_TOOLCHAIN_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
+  TOOLCHAIN_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
 
 jobs:
   build-all:
@@ -57,7 +57,7 @@ jobs:
       run: find . && find ./build
 
     - name: Upload PicCap IPK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: piccap_ipk
         path: ./build/*.ipk

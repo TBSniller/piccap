@@ -1,4 +1,5 @@
-# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs  
+# PicCap - Hyperion Sender App | Ambilight for LG WebOS TVs 
+
   
 ## What's this?
 
@@ -70,7 +71,7 @@ wget -O toolchain.tar.gz $TOOLCHAIN_URL_FROM_RELEASES
 tar -xvzf toolchain.tar.gz
 rm toolchain.tar.gz
 arm-webos-linux-gnueabi_sdk-buildroot/relocate-sdk.sh
-export CMAKE_TOOLCHAIN_FILE=/desired/path/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
+export TOOLCHAIN_FILE=/desired/path/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
 
 # Clone project and submodules
 git clone --recursive https://github.com/TBSniller/piccap.git
