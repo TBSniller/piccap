@@ -83,7 +83,7 @@ body:
       required: false
 
   - type: textarea
-    id: expected
+    id: additional
     attributes:
       label: Additional information
       description: "Anything more to say?"
