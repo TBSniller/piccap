@@ -30,7 +30,6 @@ body:
     id: additional
     attributes:
       label: Additional information
-      description: "Anything more to say?"
       placeholder: "Drag and drop images here if needed"
       render: text
     validations:
