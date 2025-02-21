@@ -21,7 +21,7 @@ body:
     attributes:
       label: Description
       description: "What part of the documentation do you want to change or add? Formly describe it."
-      placeholder: "Please change the URL of x"
+      placeholder: "Please change the URL of this item"
       render: text
     validations:
       required: true
@@ -30,7 +30,6 @@ body:
     id: additional
     attributes:
       label: Additional information
-      description: "Anything more to say?"
       placeholder: "Drag and drop images here if needed"
       render: text
     validations:
