@@ -13,13 +13,13 @@ body:
           required: true
         - label: I have checked [open and closed issues](https://github.com/TBSniller/piccap/issues?q=is%3Aissue%20state%3Aopen%20) to avoid duplicated issues
           required: true
-        - label: Please check this box if we have a already existing backend option missing in PiCap UI
+        - label: Please check this box if we have a already existing backend option missing in PicCap UI
           required: false
 
   - type: textarea
     id: description
     attributes:
-      label: description
+      label: Description
       description: "What feature do you want to have? Formly describe it."
       placeholder: "Switch color design to red would be nice"
       render: text
