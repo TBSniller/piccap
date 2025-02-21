@@ -1,4 +1,5 @@
 name: "PicCap Issue"
+description: "Create an PicCap issue"
 labels: ["bug", "feature request", "documentation", "question"]
 body:
   - type: checkboxes
@@ -10,6 +11,7 @@ body:
       options:
         - label: I belive that my issue is related to the PicCap UI and not to the [video capture backend](https://github.com/webosbrew/hyperion-webos)
           required: true
+
   - type: dropdown
     id: issueType
     attributes:
