@@ -38,13 +38,12 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: input
     id: description
     attributes:
       label: Description
       description: "What bug do you encounter? Formly describe it."
       placeholder: "The color of the app is changing to red randomly"
-      render: text
     validations:
       required: true
 
@@ -62,13 +61,12 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: input
     id: expected
     attributes:
       label: Expected result
       description: "What should have happen instead?"
       placeholder: "The color of the app should stay at blue how it was set."
-      render: text
     validations:
       required: true
 
@@ -77,7 +75,7 @@ body:
     attributes:
       label: Logs / Screenshots
       description: "Please append screenshots or log output from PicCap's log tab."
-      placeholder: "Just drag and drop your screenshots here"
+      placeholder: "Drag and drop your screenshots here"
       render: text
     validations:
       required: false
