@@ -1,0 +1,53 @@
+name: "PicCap Issue"
+description: "Create an issue for PicCap"
+title: ""
+labels:
+  - bug
+  - feature request
+  - documentation
+  - question
+body:
+  - type: dropdown
+    id: issueType
+    attributes:
+      label: "Issue type"
+      description: "What issue type describes your problem the best?"
+      options:
+        - label: "PicCap: UI does not work as intendend"
+          value: "piccap_bug"
+        - label: "PicCap: This new UI feature does not exists"
+          value: "piccap_feature"
+        - label: "PicCap: This new UI feature does not exists"
+          value: "piccap_feature"
+        - label: "PicCap: There is something missing in the documentation"
+          value: "piccap_feature"
+        - label: "PicCap: I have a question"
+          value: "piccap_question"
+        - label: "hyperion-webos: Capture problems / Video problems / Ambilight related problems"
+          value: "hyperion-webos"
+
+  - type: conditional
+    if: ${{ issueType == 'piccap_bug' }}
+    then:
+      - type: input
+        id: field1
+        attributes:
+          label: "Bug"
+          description: "Fill in bug."
+          placeholder: "Example bug"
+      - type: textarea
+        id: field2
+        attributes:
+          label: "Textarea 1"
+          description: "Fill text area."
+          placeholder: "Example text"
+
+  - type: conditional
+    if: ${{ issueType == 'hyperion-webos' }}
+    then:
+      - type: markdown
+        attributes:
+          value: |
+            ⚠️ **ATTENTION:** This repository is only related to UI components.  
+            Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues).  
+            
