@@ -15,10 +15,10 @@ body:
   - type: textarea
     id: osinfo
     attributes:
-      label: TV information
+      label: WebOS Information
       description: | 
-        Please run `luna-send -f -n 1 'luna://com.webos.service.systemservice/osInfo/query' '{"parameters":["webos_manufacturing_version", "webos_release", "webos_build_datetime"]}'` and put the output in here
-      render: bash
+        Please run `luna-send -f -n 1 'luna://com.webos.service.systemservice/osInfo/query' '{"parameters":["webos_manufacturing_version", "webos_release", "webos_build_datetime"]}'` on your TV and put the output in here
+      render: json
       placeholder: |
         {
           "webos_release": "5.3.0",
@@ -38,9 +38,63 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What bug do you encounter? Formly describe it."
+      placeholder: "The color of the app is changing to red randomly"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: "How do you trigger this bug? Please walk us through it step by step."
+      value: |
+        1. Open PicCap using magic remote
+        2. Click x
+        3. Click y
+        ...
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: "What should have happen instead?"
+      placeholder: "The color of the app should stay at blue how it was set."
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: "Please append screenshots or log output from PicCap's log tab."
+      placeholder: "Just drag and drop your screenshots here"
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Additional information
+      description: "Anything more to say?"
+      placeholder: "A workaround is to just hit the bulb button"
+      render: text
+    validations:
+      required: false
+
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report.
+        Thanks for taking the time to fill out this bug report!
 
             
