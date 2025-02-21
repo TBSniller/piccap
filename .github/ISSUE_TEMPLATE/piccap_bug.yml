@@ -1,4 +1,4 @@
-name: "PicCap Bug report"
+name: "PicCap bug report"
 description: "PicCap UI does not work as intendend"
 labels: ["bug"]
 body:
@@ -84,7 +84,6 @@ body:
     id: additional
     attributes:
       label: Additional information
-      description: "Anything more to say?"
       placeholder: "A workaround is to just hit the bulb button"
       render: text
     validations:
