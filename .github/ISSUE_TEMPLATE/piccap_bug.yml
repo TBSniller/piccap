@@ -4,7 +4,7 @@ labels: ["bug"]
 body:
   - type: checkboxes
     attributes:
-      label: hyperion 
+      label: PicCap related issues only 
       description: |
         ⚠️ **ATTENTION:** This repository contains only components related to the UI.  
         Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues) if its related to capture/video/ambilight.  
