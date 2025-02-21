@@ -23,12 +23,12 @@ body:
         Please run `luna-send -f -n 1 'luna://com.webos.service.systemservice/osInfo/query' '{"parameters":["webos_manufacturing_version", "webos_release", "webos_build_datetime"]}'` and put the output in here
       render: bash
       placeholder: |
-      {
-        "webos_release": "5.3.0",
-        "webos_build_datetime": "20211202050112",
-        "returnValue": true,
-        "webos_manufacturing_version": "04.30.50"
-      }
+        {
+          "webos_release": "5.3.0",
+          "webos_build_datetime": "20211202050112",
+          "returnValue": true,
+          "webos_manufacturing_version": "04.30.50"
+        }
     validations:
       required: true
       
