@@ -1,0 +1,44 @@
+name: "PicCap documentation change"
+description: "We need to change or add some missing information in our documentation"
+labels: ["documentation"]
+body:
+  - type: checkboxes
+    attributes:
+      label: PicCap related issues only 
+      description: |
+        ⚠️ **ATTENTION:** This repository contains only components related to the UI.  
+        Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues) if its related to capture/video/ambilight.  
+      options:
+        - label: I belive that my issue is related to the PicCap UI and not to the [video capture backend](https://github.com/webosbrew/hyperion-webos)
+          required: true
+        - label: I have checked [open and closed issues](https://github.com/TBSniller/piccap/issues) to avoid duplicated issues
+          required: true
+        - label: I have checked [open and closed pull requests](https://github.com/TBSniller/piccap/pulls) to avoid duplicated issues
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What part of the documentation do you want to change or add? Formly describe it."
+      placeholder: "Please change the URL of x"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      description: "Anything more to say?"
+      placeholder: "Drag and drop images here if needed"
+      render: text
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this documentation change request!
+
+            
