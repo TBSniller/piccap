@@ -1,0 +1,37 @@
+name: "PicCap question"
+description: "I can't find an answer to my question"
+labels: ["question"]
+body:
+  - type: checkboxes
+    attributes:
+      label: PicCap related issues only 
+      description: |
+        ⚠️ **ATTENTION:** This repository contains only components related to the UI.  
+        Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues) if its related to capture/video/ambilight.  
+      options:
+        - label: I belive that my question is related to the PicCap UI and not to the [video capture backend](https://github.com/webosbrew/hyperion-webos)
+          required: true
+        - label: I have checked [open and closed issues](https://github.com/TBSniller/piccap/issues?q=is%3Aissue%20state%3Aopen%20) to avoid duplicated issues
+          required: true
+        - label: My question is not related to DRM protected content as it's already answered in [this issue](https://github.com/TBSniller/piccap/issues/38)
+          required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: "What question do you have?"
+      placeholder: "How can I change the color?"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      placeholder: "Drag and drop images here if needed"
+      render: text
+    validations:
+      required: false
+            
