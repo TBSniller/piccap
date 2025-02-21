@@ -17,15 +17,14 @@ body:
     attributes:
       label: WebOS Information
       description: | 
-        Please run `luna-send -f -n 1 'luna://com.webos.service.systemservice/osInfo/query' '{"parameters":["webos_manufacturing_version", "webos_release", "webos_build_datetime"]}'` on your TV and put the output in here
+        Please run `grep -h -E '"(hardware_id|core_os_release|product_id|webos_manufacturing_version|board_type)"' /var/run/nyx/*` on your TV and put the output in here
       render: json
       placeholder: |
-        {
-          "webos_release": "5.3.0",
-          "webos_build_datetime": "20211202050112",
-          "returnValue": true,
-          "webos_manufacturing_version": "04.30.50"
-        }
+        "board_type": "K6HP_DVB",
+        "hardware_id": "HE_DTV_W20H_AFADABAA",
+        "product_id": "65NANO867NA",
+        "core_os_release": "5.3.0-21",
+        "webos_manufacturing_version": "04.30.50",
     validations:
       required: true
       
