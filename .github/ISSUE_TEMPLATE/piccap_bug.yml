@@ -2,18 +2,12 @@ name: "PicCap Bug report"
 description: "PicCap UI does not work as intendend"
 labels: ["bug"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-         ⚠️ **ATTENTION:** This repository contains only components related to the UI.  
-            Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues) if its related to capture/video/ambilight.  
-
   - type: checkboxes
     attributes:
-      label: |
+      label: hyperion 
+      description: |
         ⚠️ **ATTENTION:** This repository contains only components related to the UI.  
         Please create your issue at [hyperion-webos](https://github.com/webosbrew/hyperion-webos/issues) if its related to capture/video/ambilight.  
-
       options:
         - label: I belive that my issue is related to the PicCap UI and not to the [video capture backend](https://github.com/webosbrew/hyperion-webos)
           required: true
