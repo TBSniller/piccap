@@ -63,7 +63,7 @@ To build PicCap and hyperion-webos you will need:
 You will also need `clang-format-14` if you want to contribute.  
 
 ### How to build  
-We have tried to make build proccess as easy as possible. After building all files can be found in `./build`.
+We have tried to make build process as easy as possible. After building all files can be found in `./build`.
 ```
 # Setup buildroot-nc4 (needed for hyperion-webos)
 cd /desired/path
@@ -99,9 +99,9 @@ Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-w
 Version tracker is available in [hyperion-webos#16](https://github.com/webosbrew/hyperion-webos/issues/16). 
 
 ### Credits
-This project would never ever exists without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
+This project would never ever exist without help from [@Mariotaku](https://github.com/mariotaku) and [@Informatic](https://github.com/Informatic).
 Both programmed important things at the beginning of this whole ambilight project. [@tuxuser](https://github.com/tuxuser) also made some important changes in the mid of this project.  
-Share them some love if you can, they teached and showed me alot!  
+Share them some love if you can, they taught and showed me alot!  
 
 You should also check out the other contributors. Some nice enhancements wouldn't be there without them :)  
   
