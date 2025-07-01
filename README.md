@@ -8,6 +8,13 @@ PicCap is an frontend app, which you can install on your TV, to make TV content 
 On newer TVs there is no official way for capturing DRM-protected content like from Netflix or Amazon. This restriction doesn't take place for content comming from an HDMI input.  
 So currently as a workaround you can play your media using your PC, FireTV-Stick or Chromecast and still enjoy your LEDs.
 
+# Attention new AI options have been added to the newer LG models.
+
+Since the 'AI Picture Pro', 'AI Brightness', 'AI Genre Selection', 'AI Image Game Optimizer' and 'AI Game Sound' options use the same recording process as Hyperion WebOS, dropouts may occur during recording. Consequently, a live preview in HyperHDR is temporarily unavailable, and the LEDs also switch off briefly.
+
+Workaround:
+Deactivate these options (can be found under “Settings” > ‘General’ > “AI service”). Depending on the model, this can also be done under “Settings” > ‘General’ > “AI service”.
+
 ### Hyperion?  
 [hyperion.ng](https://github.com/hyperion-project/hyperion.ng) basicly is a server service, which transforms incomming image data to an LED output. The idea is to have an ambilight like it's known from Philipps TVs.
 It is used in DIY-environments, like builded up in [this tutorial](https://github.com/TBSniller/piccap/blob/main/docs/DIY_Ambilight.md).  
