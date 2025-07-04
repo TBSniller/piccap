@@ -72,6 +72,17 @@
             </div>
             <div class="settingaddressport blueMode" id="settingaddressport">
               <li>
+                <p>Hyperion Instance</p>
+                <select name="selectHyperionInstance" id="selectHyperionInstance" onchange="hyperionInstanceChanged(this)">
+                  <option value="manual">Manual Entry</option>
+                </select>
+                <div class="instancebtns" style="display: inline-block; margin-left: 10px;">
+                  <button type="button" onclick="addHyperionInstance()" style="padding: 2px 8px; font-size: 12px;">Add</button>
+                  <button type="button" onclick="editHyperionInstance()" style="padding: 2px 8px; font-size: 12px;">Edit</button>
+                  <button type="button" onclick="deleteHyperionInstance()" style="padding: 2px 8px; font-size: 12px;">Delete</button>
+                </div>
+              </li>
+              <li>
                 <p>Address</p>
                 <input type="text" id="txtInputSettingsAddress"/>
               </li>
