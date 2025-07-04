@@ -308,4 +308,152 @@ window.addEventListener('load', () => {
 
   const piccapVersion = packageJSON.version;
   document.getElementById('txtPicCapVersion').innerHTML = `v${piccapVersion}`;
+
+  // Initialize Hyperion instances
+  /* eslint-disable no-use-before-define */
+  loadHyperionInstances();
+  /* eslint-enable no-use-before-define */
 });
+
+// Hyperion Instance Management Functions
+function getHyperionInstances() {
+  const instances = localStorage.getItem('hyperionInstances');
+  return instances ? JSON.parse(instances) : [];
+}
+
+function saveHyperionInstances(instances) {
+  localStorage.setItem('hyperionInstances', JSON.stringify(instances));
+}
+
+function loadHyperionInstances() {
+  const instances = getHyperionInstances();
+  const select = document.getElementById('selectHyperionInstance');
+
+  // Clear existing options except manual
+  const options = select.querySelectorAll('option');
+  options.forEach((option) => {
+    if (option.value !== 'manual') {
+      option.remove();
+    }
+  });
+
+  // Add saved instances
+  instances.forEach((instance) => {
+    const option = document.createElement('option');
+    option.value = instance.id;
+    option.textContent = instance.name;
+    select.appendChild(option);
+  });
+}
+
+/* eslint-disable func-names */
+window.hyperionInstanceChanged = function (select) {
+  const instances = getHyperionInstances();
+  const selectedInstance = instances.find((instance) => instance.id === select.value);
+
+  if (selectedInstance) {
+    document.getElementById('txtInputSettingsAddress').value = selectedInstance.address;
+    document.getElementById('txtInputSettingsPort').value = selectedInstance.port;
+  }
+};
+
+/* eslint-disable no-alert */
+window.addHyperionInstance = function () {
+  const name = prompt('Enter instance name (e.g., "HyperHDR", "Hyperion.ng"):');
+  if (!name) return;
+
+  const address = prompt('Enter IP address:');
+  if (!address) return;
+
+  const port = prompt('Enter port number:', '19400');
+  if (!port) return;
+
+  const instances = getHyperionInstances();
+  const newInstance = {
+    id: Date.now().toString(),
+    name: name.trim(),
+    address: address.trim(),
+    port: parseInt(port, 10),
+  };
+
+  instances.push(newInstance);
+  saveHyperionInstances(instances);
+  loadHyperionInstances();
+
+  // Select the new instance
+  document.getElementById('selectHyperionInstance').value = newInstance.id;
+  /* eslint-disable no-undef */
+  hyperionInstanceChanged(document.getElementById('selectHyperionInstance'));
+  /* eslint-enable no-undef */
+};
+
+window.editHyperionInstance = function () {
+  const select = document.getElementById('selectHyperionInstance');
+  const selectedId = select.value;
+
+  if (selectedId === 'manual') {
+    alert('Please select an instance to edit.');
+    return;
+  }
+
+  const instances = getHyperionInstances();
+  const selectedInstance = instances.find((instance) => instance.id === selectedId);
+
+  if (!selectedInstance) {
+    alert('Instance not found.');
+    return;
+  }
+
+  const name = prompt('Enter instance name:', selectedInstance.name);
+  if (!name) return;
+
+  const address = prompt('Enter IP address:', selectedInstance.address);
+  if (!address) return;
+
+  const port = prompt('Enter port number:', selectedInstance.port.toString());
+  if (!port) return;
+
+  selectedInstance.name = name.trim();
+  selectedInstance.address = address.trim();
+  selectedInstance.port = parseInt(port, 10);
+
+  saveHyperionInstances(instances);
+  loadHyperionInstances();
+
+  // Reselect the edited instance
+  document.getElementById('selectHyperionInstance').value = selectedId;
+  /* eslint-disable no-undef */
+  hyperionInstanceChanged(document.getElementById('selectHyperionInstance'));
+  /* eslint-enable no-undef */
+};
+
+/* eslint-disable no-restricted-globals */
+window.deleteHyperionInstance = function () {
+  const select = document.getElementById('selectHyperionInstance');
+  const selectedId = select.value;
+
+  if (selectedId === 'manual') {
+    alert('Cannot delete the manual entry option.');
+    return;
+  }
+
+  const instances = getHyperionInstances();
+  const selectedInstance = instances.find((instance) => instance.id === selectedId);
+
+  if (!selectedInstance) {
+    alert('Instance not found.');
+    return;
+  }
+
+  if (confirm(`Are you sure you want to delete "${selectedInstance.name}"?`)) {
+    const updatedInstances = instances.filter((instance) => instance.id !== selectedId);
+    saveHyperionInstances(updatedInstances);
+    loadHyperionInstances();
+
+    // Reset to manual
+    document.getElementById('selectHyperionInstance').value = 'manual';
+  }
+};
+/* eslint-enable no-restricted-globals */
+/* eslint-enable no-alert */
+/* eslint-enable func-names */
