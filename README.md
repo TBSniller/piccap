@@ -93,7 +93,11 @@ npm run-script package
 
 ### Known issues  
 **Expect bugs - This app is still in early development**  
-No issues are known so far, if you find one, feel free to raise an issue!  
+Attention! New AI options have been added to newer LG models.
+Since the 'AI Picture Pro', 'AI Brightness', 'AI Genre Selection', 'AI Image Game Optimizer' and 'AI Game Sound' options use the same recording process as Hyperion WebOS, dropouts may occur during recording. Consequently, a live preview in HyperHDR is temporarily unavailable, and the LEDs also switch off briefly.
+
+Workaround:
+Deactivate these options (can be found under “Settings” > ‘General’ > “AI service”). Depending on the model, this can also be done under “Settings” > ‘General’ > “AI service”.
 
 Please see [hyperion-webos#known-issues](https://github.com/webosbrew/hyperion-webos/tree/main#known-issues) for issues regarding the backend service. - This only is the frontend application and has nothing to do with capture related things!  
 Version tracker is available in [hyperion-webos#16](https://github.com/webosbrew/hyperion-webos/issues/16). 
