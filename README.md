@@ -92,7 +92,7 @@ npm run-script package
 ## Other
 
 ### Known issues  
-**Expect bugs - This app is still in early development** 
+**Expect bugs - This app is still in early development**  
 Attention! New AI options have been added to newer LG models.
 Since the 'AI Picture Pro', 'AI Brightness', 'AI Genre Selection', 'AI Image Game Optimizer' and 'AI Game Sound' options use the same recording process as Hyperion WebOS, dropouts may occur during recording. Consequently, a live preview in HyperHDR is temporarily unavailable, and the LEDs also switch off briefly.
 
