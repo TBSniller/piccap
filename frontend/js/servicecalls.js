@@ -391,7 +391,7 @@ window.serviceSaveSettings = () => {
     nohdr: document.getElementById('checkSettingsNoHDR').checked,
     nopowerstate: document.getElementById('checkSettingsNoPowerstate').checked,
     nv12: document.getElementById('checkSettingsNV12').checked,
-};
+  };
 
   logIt(`Config: ${JSON.stringify(config)}`);
 
