@@ -4,6 +4,7 @@
   "description": "PicCap - Hyperion Sender App",
   "main": "index.html",
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
     "lint-frontend": "eslint frontend/js/",
     "lint-frontend-fix": "eslint --fix frontend/js/",
     "lint-backend": "cd ./hyperion-webos && python lint/run-clang-format.py --extensions \"c,h,cpp\" --color auto --recursive ./src",

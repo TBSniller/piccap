@@ -173,14 +173,14 @@ function getSettings() {
           document.getElementById('checkSettingsLocalSocket').checked = result['unix-socket'];
           socketCheckChanged(document.getElementById('checkSettingsLocalSocket'));
 
-          if (result.address.includes('/')) {
+          if ((result.address || '').includes('/')) {
             switch (result.address) {
               case '/tmp/hyperhdr-domain':
                 document.getElementById('selectSettingsSocket').value = 'hyperhdr';
                 break;
               default:
                 document.getElementById('selectSettingsSocket').value = 'manual';
-                document.getElementById('txtInputSettingsAddress').value = result.address;
+                document.getElementById('txtInputSettingsSocketPath').value = result.address;
             }
             document.getElementById('txtInputSettingsAddress').value = '127.0.0.1';
             socketSelectChanged(document.getElementById('selectSettingsSocket'));
@@ -193,34 +193,25 @@ function getSettings() {
 
           document.getElementById('txtInputSettingsFPS').value = result.fps;
 
-          // Process Height/Width for easier selection
-          switch (result.width * result.height) {
-            case 57600:
-              document.getElementById('selectSettingsResolution').value = '320x180';
-              break;
-            case 36864:
-              document.getElementById('selectSettingsResolution').value = '256x144';
-              break;
-            case 20736:
-              document.getElementById('selectSettingsResolution').value = '192x108';
-              break;
-            case 9984:
-              document.getElementById('selectSettingsResolution').value = '128x78';
-              break;
-            default:
-              document.getElementById('selectSettingsResolution').value = 'manual';
-              document.getElementById('txtInputSettingsWidth').value = result.width;
-              document.getElementById('txtInputSettingsHeight').value = result.height;
-              break;
-          }
+          // Match both dimensions so equal-area images retain their aspect ratio.
+          const resolutionSelect = document.getElementById('selectSettingsResolution');
+          const resolution = `${result.width}x${result.height}`;
+          const isPreset = Array.prototype.some.call(
+            resolutionSelect.options,
+            (option) => option.value === resolution,
+          );
+          resolutionSelect.value = isPreset ? resolution : 'manual';
+          document.getElementById('txtInputSettingsWidth').value = result.width;
+          document.getElementById('txtInputSettingsHeight').value = result.height;
+          resolutionChanged(resolutionSelect);
 
           Object.keys(availableQuirks).forEach((quirk) => {
             logIt(`Processing: ${quirk}`);
             const quirkval = availableQuirks[quirk];
             /* eslint-disable eqeqeq */
+            document.getElementById(`checkSettings${quirk}`).checked = (result.quirks & quirkval) == quirkval;
             if ((result.quirks & quirkval) == quirkval) {
               logIt(`Quirk ${quirk} enabled!`);
-              document.getElementById(`checkSettings${quirk}`).checked = true;
             }
             /* eslint-enable eqeqeq */
           });
@@ -391,7 +382,7 @@ window.serviceSaveSettings = () => {
     nohdr: document.getElementById('checkSettingsNoHDR').checked,
     nopowerstate: document.getElementById('checkSettingsNoPowerstate').checked,
     nv12: document.getElementById('checkSettingsNV12').checked,
-};
+  };
 
   logIt(`Config: ${JSON.stringify(config)}`);
 

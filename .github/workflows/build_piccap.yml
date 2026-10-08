@@ -31,6 +31,9 @@ jobs:
       working-directory: ${{github.workspace}}
       run: npm install
 
+    - name: Test frontend settings
+      run: npm test
+
     - name: Download and unpack toolchain
       working-directory: /opt
       run: |

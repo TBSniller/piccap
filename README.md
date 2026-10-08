@@ -62,6 +62,16 @@ To build PicCap and hyperion-webos you will need:
 
 You will also need `clang-format-14` if you want to contribute.  
 
+Frontend settings regression tests run with Node.js 18 or newer:
+
+```sh
+npm test
+```
+
+They exercise the UI and service callbacks with a simulated Luna service,
+including custom capture dimensions, local HyperHDR socket paths, and capture
+quirks. Capture behavior on TV hardware still needs manual validation.
+
 ### How to build  
 We have tried to make build process as easy as possible. After building all files can be found in `./build`.
 ```
